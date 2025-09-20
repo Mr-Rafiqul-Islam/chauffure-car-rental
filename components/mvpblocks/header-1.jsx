@@ -65,9 +65,10 @@ export default function Header() {
     animate: { y: 0, opacity: 1 },
     scrolled: {
       backdropFilter: "blur(20px)",
-      backgroundColor:
-        theme === "dark" ? "rgba(0, 0, 0, 0.8)" : "rgba(255, 255, 255, 0.8)",
+      backgroundColor: "rgba(0, 0, 0, 0.3)",
       boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+      y: 0,
+      opacity: 1,
     },
   };
   const mobileMenuVariants = {
@@ -87,11 +88,7 @@ export default function Header() {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       style={{
         backdropFilter: isScrolled ? "blur(20px)" : "none",
-        backgroundColor: isScrolled
-          ? theme === "dark"
-            ? "rgba(0, 0, 0, 0.8)"
-            : "rgba(255, 255, 255, 0.8)"
-          : "transparent",
+        backgroundColor: isScrolled ? "rgba(0, 0, 0, 0.3)" : "transparent",
         boxShadow: isScrolled ? "0 8px 32px rgba(0, 0, 0, 0.1)" : "none",
       }}
     >
@@ -118,14 +115,14 @@ export default function Header() {
                 />
                 </div>
               ) : ( */}
-                <>
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-bsilver to-bsilver/70">
-                    <Sparkles className="h-5 w-5 text-white" />
-                  </div>
-                  <span className="text-ivory text-xl font-bold">
-                    Luxary Chauffure
-                  </span>
-                </>
+              <>
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-bsilver to-bsilver/70">
+                  <Sparkles className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-ivory text-xl font-bold">
+                  Luxary Chauffure
+                </span>
+              </>
               {/* )} */}
             </Link>
           </motion.div>
