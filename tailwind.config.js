@@ -40,6 +40,7 @@ module.exports = {
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
 			ivory:"#FFFFF0",
+			charcoal: "#1F1F1F",
 			bsilver:"#B0B0B0",
 			highlight:"#D4AF37",
 			copper:"#B87333",
