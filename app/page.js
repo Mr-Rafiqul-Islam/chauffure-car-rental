@@ -1,5 +1,6 @@
 import Banner from "@/components/home/Banner";
 import ServiceSection from "@/components/home/ServiceSection";
+import FeatureSteps from "@/components/mvpblocks/feature-2";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       
       <Banner />  
       <ServiceSection/>
+      <FeatureSteps />
     </>
   );
 }
