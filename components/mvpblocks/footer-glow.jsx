@@ -54,7 +54,7 @@ export default function FooterGlow() {
               Luxury Chauffeur
             </span>
           </Link>
-          <p className="text-foreground mb-6 max-w-xs text-center text-sm md:text-left">
+          <p className="text-foreground mb-6 max-w-sm text-center text-sm md:text-left">
             Ride in style with Luxury Chauffeur, Melbourne’s trusted choice for premium transport. Whether it’s an airport transfer, corporate trip, or special occasion, we provide reliable, elegant, and professional chauffeur services tailored to your needs.
           </p>
           <div className="mt-2 flex gap-3 text-rose-400">
@@ -86,26 +86,26 @@ export default function FooterGlow() {
         <nav className="flex w-full flex-col gap-9 text-center md:w-auto md:flex-row md:justify-end md:text-left">
           <div>
             <div className="mb-3 text-xs font-semibold tracking-widest text-rose-400 uppercase">
-              Product
+              Quick Links
             </div>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-foreground/70">
-                  Features
+                <Link href="/login" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Sign In
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground/70">
-                  Pricing
+                <Link href="/our-fleets" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Our Fleets
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground/70">
-                  Integrations
+                <Link href="/booking" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Booking
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground/70">
+                <Link href="/get-quote" className="text-foreground/70 hover:text-ivory transition-all duration-300">
                   Updates
                 </Link>
               </li>
@@ -113,62 +113,36 @@ export default function FooterGlow() {
           </div>
           <div>
             <div className="mb-3 text-xs font-semibold tracking-widest text-rose-400 uppercase">
-              Company
+              Pages
             </div>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-foreground/70">
-                  About
+                <Link href="/about-us" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  About Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground/70">
-                  Careers
+                <Link href="/contact-us" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground/70">
-                  Blog
+                <Link href="/services" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Services
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground/70">
-                  Contact
+                <Link href="#" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Blogs
                 </Link>
               </li>
             </ul>
           </div>
-          <div>
-            <div className="mb-3 text-xs font-semibold tracking-widest text-rose-400 uppercase">
-              Resources
-            </div>
-            <ul className="space-y-2">
-              <li>
-                <Link href="#" className="text-foreground/70">
-                  Docs
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/70">
-                  Community
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/70">
-                  Support
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-foreground/70">
-                  Security
-                </Link>
-              </li>
-            </ul>
-          </div>
+          
         </nav>
       </div>
       <div className="text-foreground relative z-10 mt-10 text-center text-xs">
-        <span>&copy; 2025 Luxury Chauffeur. All rights reserved.</span>
+        <span>&copy; {new Date().getFullYear()} Luxury Chauffeur. All rights reserved.</span>
       </div>
     </footer>
   );

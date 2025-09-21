@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import logo from "@/public/logo.png";
 import Image from "next/image";
+import AnimatedBtn1 from "./animatedbtn";
 const navItems = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about-us" },
@@ -187,19 +188,14 @@ export default function Header() {
           <div className="hidden items-center space-x-4 lg:flex">
             <Link
               prefetch={false}
-              href="/login"
-              className="text-foreground font-medium transition-colors duration-200 hover:text-copper"
+              href="/booking"
+              className="text-foreground font-medium transition-colors duration-200 px-[20px] py-[7px] border border-copper rounded-[20px] hover:bg-copper"
             >
-              Sign In
+              Book Now
             </Link>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                prefetch={false}
-                href="/booking"
-                className="inline-flex items-center space-x-2 rounded-full bg-gradient-to-r from-highlight to-highlight/70 px-6 py-2.5 font-medium text-[#1F1F1F] transition-all duration-200 hover:shadow-lg"
-              >
-                <span>Get A Quote</span>
-                <ArrowRight className="h-4 w-4" />
+              <Link prefetch={false} href="/get-quote">
+                <AnimatedBtn1>Get A Quote</AnimatedBtn1>
               </Link>
             </motion.div>
           </div>
@@ -242,19 +238,19 @@ export default function Header() {
                 <div className="space-y-2 px-4 py-2">
                   <Link
                     prefetch={false}
-                    href="/login"
-                    className="text-foreground hover:bg-muted block w-full rounded-lg py-2.5 text-center font-medium transition-colors duration-200"
+                    href="/booking"
+                    className="block mx-auto text-center text-foreground font-medium transition-colors duration-200 px-[20px] py-[7px] border border-copper rounded-[20px] hover:bg-copper"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Sign In
+                    Book Now
                   </Link>
                   <Link
                     prefetch={false}
-                    href="/booking"
-                    className="block w-full rounded-lg bg-gradient-to-r from-highlight to-highlight/70 py-2.5 text-center font-medium text-white transition-all duration-200 hover:shadow-lg"
+                    href="/get-quote"
+                    className="block w-full transition-all duration-200 hover:shadow-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Get A Quote
+                     <AnimatedBtn1>Get A Quote</AnimatedBtn1>
                   </Link>
                 </div>
               </div>

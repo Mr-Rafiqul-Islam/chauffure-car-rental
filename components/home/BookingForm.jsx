@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
-import { BookCheckIcon } from "lucide-react";
+import { FaCalendarAlt } from "react-icons/fa";
 
 
 // Define the steps of the form
@@ -110,7 +110,7 @@ export default function BookingForm() {
         <CardHeader>
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center h-8 w-8 bg-copper rounded-sm">
-            <BookCheckIcon/>
+            <FaCalendarAlt className="text-white"/>
             </div>
             <h5 className="text-xl font-semibold text-gray-800">
               Start Your Booking (Step {currentStep + 1} of {steps.length})

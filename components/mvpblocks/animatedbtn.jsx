@@ -81,7 +81,7 @@ export default function AnimatedBtn1({ children, ...rest }) {
           }
         `}</style>
 
-        <span className="text-sm font-medium">{children}</span>
+        <span className="font-medium">{children}</span>
       </button>
     </div>
   );
