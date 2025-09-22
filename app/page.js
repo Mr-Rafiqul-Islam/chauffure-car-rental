@@ -2,6 +2,7 @@ import GlowingCard from "@/components/GolwingCard";
 import Banner from "@/components/home/Banner";
 import FleetShowcase from "@/components/home/FleetShowcase";
 import ServiceSection from "@/components/home/ServiceSection";
+import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
 import FeatureSteps from "@/components/mvpblocks/feature-2";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <ServiceSection/>
       <FeatureSteps />
       <FleetShowcase/>
+      <TestimonialsCarousel/>
     </>
   );
 }
