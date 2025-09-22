@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Rocket, Code, Paintbrush } from "lucide-react";
+import { Rocket, Code, Paintbrush,ActivityIcon } from "lucide-react";
 import Image from "next/image";
 const features = [
   {
@@ -10,7 +10,7 @@ const features = [
     title: "Plan Your Journey",
     content:
       "Enter your pickup & destination locations or the number of hours you wish to book a luxury chauffeur service.",
-    icon: <Rocket className="text-primary h-6 w-6" />,
+    icon: <ActivityIcon className="text-primary h-6 w-6" />,
     image:
       "/assets/feature/feature1.png",
   },
