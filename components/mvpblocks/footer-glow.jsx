@@ -132,7 +132,7 @@ export default function FooterGlow() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                <Link href="/blogs" className="text-foreground/70 hover:text-ivory transition-all duration-300">
                   Blogs
                 </Link>
               </li>

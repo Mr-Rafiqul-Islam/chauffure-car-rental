@@ -47,7 +47,7 @@ export default function BlogSection() {
         </div>
         <div className=' mt-10'>
 
-          <Link href="/blog" className="">
+          <Link href="/blogs" className="">
             <AnimatedBtn1>Explore More</AnimatedBtn1>
           </Link>
         </div>
