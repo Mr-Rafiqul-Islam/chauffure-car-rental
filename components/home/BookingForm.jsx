@@ -15,13 +15,14 @@ import {
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { FaCalendarAlt } from "react-icons/fa";
-
+import { formatTime } from "@/lib/format";
 
 // Define the steps of the form
 const steps = [
   { id: "step-1", title: "Booking Details" },
-  { id: "step-2", title: "Personal Info" },
-  { id: "step-3", title: "Review & Submit" },
+  { id: "step-2", title: "Trip Details" },
+  { id: "step-3", title: "Personal Info" },
+  { id: "step-4", title: "Review & Submit" },
 ];
 
 export default function BookingForm() {
@@ -32,10 +33,16 @@ export default function BookingForm() {
     serviceType: "",
     vehiclePreference: "",
     dateOfService: "",
+    pickupTime: "",
     adults: "",
-    children: "0", // Step 2 fields
+    children: "0",
+    // Step 2 fields
+    pickupLocation: "",
+    dropoffLocation: "",
+    // Step 3 fields
     name: "",
     email: "",
+    phone: "",
   });
 
   // Clear errors as user types
@@ -68,9 +75,17 @@ export default function BookingForm() {
         newErrors.vehiclePreference = "Vehicle preference is required.";
       if (!formData.dateOfService)
         newErrors.dateOfService = "Date of service is required.";
+      if (!formData.pickupTime)
+        newErrors.pickupTime = "Pickup Time is required.";
       if (!formData.adults) newErrors.adults = "Number of adults is required.";
     } else if (currentStep === 1) {
+      if (!formData.pickupLocation)
+        newErrors.pickupLocation = "Pickup location is required.";
+      if (!formData.dropoffLocation)
+        newErrors.dropoffLocation = "Dropoff location is required.";
+    } else if (currentStep === 2) {
       if (!formData.name) newErrors.name = "Full name is required.";
+      if (!formData.phone) newErrors.phone = "Phone number is required.";
       if (!formData.email) {
         newErrors.email = "Email address is required.";
       } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -104,38 +119,32 @@ export default function BookingForm() {
 
   return (
     <div className="flex max-w-2xl items-center justify-center bg-highlight rounded-2xl font-sans p-2">
-      {" "}
       <Card className="w-full max-w-2xl shadow-lg bg-white">
-        {" "}
         <CardHeader>
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center h-8 w-8 bg-copper rounded-sm">
-            <FaCalendarAlt className="text-white"/>
+              <FaCalendarAlt className="text-white" />
             </div>
             <h5 className="text-xl font-semibold text-gray-800">
               Start Your Booking (Step {currentStep + 1} of {steps.length})
             </h5>
-          </div>{" "}
+          </div>
           <Progress
             value={progressPercentage}
             className="w-full h-2 mt-4 bg-bsilver"
-          />{" "}
-        </CardHeader>{" "}
+          />
+        </CardHeader>
         <CardContent className="pt-6">
-          {" "}
           <form id="multi-step-form" onSubmit={(e) => e.preventDefault()}>
-            {/* Step 1: Booking Details */}{" "}
+            {/* Step 1: Booking Details */}
             {currentStep === 0 && (
               <div className="space-y-6">
-                {" "}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {" "}
                   <div className="space-y-1">
-                    {" "}
                     <Label htmlFor="serviceType" className="text-black">
-                      Type of Limo Service{" "}
+                      Type of Limo Service
                       <span className="text-copper">*</span>
-                    </Label>{" "}
+                    </Label>
                     <Select
                       name="serviceType"
                       onValueChange={(value) =>
@@ -143,19 +152,17 @@ export default function BookingForm() {
                       }
                       value={formData.serviceType}
                     >
-                      {" "}
                       <SelectTrigger
                         className={`w-full text-black ${
                           errors.serviceType ? "border-red-500" : ""
                         }`}
                       >
                         <SelectValue placeholder="-- Select Service --" />
-                      </SelectTrigger>{" "}
+                      </SelectTrigger>
                       <SelectContent>
-                        {" "}
                         <SelectItem value="Airport Transfers">
                           Airport Transfers
-                        </SelectItem>{" "}
+                        </SelectItem>
                         <SelectItem value="Special Events & Conferences">
                           Special Events & Conferences
                         </SelectItem>
@@ -178,13 +185,12 @@ export default function BookingForm() {
                       <p className="text-sm text-red-500 mt-1">
                         {errors.serviceType}
                       </p>
-                    )}{" "}
-                  </div>{" "}
+                    )}
+                  </div>
                   <div className="space-y-1">
-                    {" "}
                     <Label htmlFor="vehiclePreference" className="text-black">
                       Vehicle Preference <span className="text-copper">*</span>
-                    </Label>{" "}
+                    </Label>
                     <Select
                       name="vehiclePreference"
                       onValueChange={(value) =>
@@ -192,16 +198,14 @@ export default function BookingForm() {
                       }
                       value={formData.vehiclePreference}
                     >
-                      {" "}
                       <SelectTrigger
                         className={`w-full text-black ${
                           errors.vehiclePreference ? "border-red-500" : ""
                         }`}
                       >
                         <SelectValue placeholder="-- Select Vehicle --" />
-                      </SelectTrigger>{" "}
+                      </SelectTrigger>
                       <SelectContent>
-                        {" "}
                         <SelectItem value="1-4 Luxury Sedan">
                           1-4 Luxury Sedan
                         </SelectItem>
@@ -220,30 +224,51 @@ export default function BookingForm() {
                       <p className="text-sm text-red-500 mt-1">
                         {errors.vehiclePreference}
                       </p>
-                    )}{" "}
-                  </div>{" "}
+                    )}
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  {" "}
-                  <Label htmlFor="dateOfService" className="text-black">
-                    Date of Service <span className="text-copper">*</span>
-                  </Label>{" "}
-                  <Input
-                    id="dateOfService"
-                    name="dateOfService"
-                    type="date"
-                    value={formData.dateOfService}
-                    onChange={handleInputChange}
-                    className={`w-full text-black ${
-                      errors.dateOfService ? "border-red-500" : ""
-                    }`}
-                    min={new Date().toISOString().split('T')[0]}
-                  />
-                  {errors.dateOfService && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.dateOfService}
-                    </p>
-                  )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-1">
+                    <Label htmlFor="dateOfService" className="text-black">
+                      Date of Service <span className="text-copper">*</span>
+                    </Label>
+                    <Input
+                      id="dateOfService"
+                      name="dateOfService"
+                      type="date"
+                      value={formData.dateOfService}
+                      onChange={handleInputChange}
+                      className={`w-full text-black ${
+                        errors.dateOfService ? "border-red-500" : ""
+                      }`}
+                      min={new Date().toISOString().split("T")[0]}
+                    />
+                    {errors.dateOfService && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.dateOfService}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="pickupTime" className="text-black">
+                      Pickup Time <span className="text-copper">*</span>
+                    </Label>
+                    <Input
+                      id="pickupTime"
+                      name="pickupTime"
+                      type="time"
+                      value={formData.pickupTime}
+                      onChange={handleInputChange}
+                      className={`w-full text-black  ${
+                        errors.pickupTime ? "border-red-500" : ""
+                      }`}
+                    />
+                    {errors.pickupTime && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.pickupTime}
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1">
@@ -306,8 +331,55 @@ export default function BookingForm() {
                 </div>
               </div>
             )}
-            {/* Step 2: Personal Info */}
+            {/* Step 2: Trip Details */}
             {currentStep === 1 && (
+              <div className="space-y-6">
+                <div className="space-y-1">
+                  <Label htmlFor="pickupLocation" className="text-black">
+                    Pickup Location <span className="text-copper">*</span>
+                  </Label>
+                  <Input
+                    id="pickupLocation"
+                    name="pickupLocation"
+                    type="text"
+                    placeholder="Enter Pickup Location"
+                    value={formData.pickupLocation}
+                    onChange={handleInputChange}
+                    className={`w-full text-black ${
+                      errors.pickupLocation ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.pickupLocation && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.pickupLocation}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="dropoffLocation" className="text-black">
+                    Dropoff Location <span className="text-copper">*</span>
+                  </Label>
+                  <Input
+                    id="dropoffLocation"
+                    name="dropoffLocation"
+                    type="text"
+                    placeholder="Enter Dropoff Location"
+                    value={formData.dropoffLocation}
+                    onChange={handleInputChange}
+                    className={`w-full text-black ${
+                      errors.dropoffLocation ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.dropoffLocation && (
+                    <p className="text-sm text-red-500 mt-1">
+                      {errors.dropoffLocation}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+            {/* Step 3: Personal Info */}
+            {currentStep === 2 && (
               <div className="space-y-6">
                 <div className="space-y-1">
                   <Label htmlFor="name" className="text-black">
@@ -326,10 +398,9 @@ export default function BookingForm() {
                   />
                   {errors.name && (
                     <p className="text-sm text-red-500 mt-1">{errors.name}</p>
-                  )}{" "}
+                  )}
                 </div>
                 <div className="space-y-1">
-                  {" "}
                   <Label htmlFor="email" className="text-black">
                     Email Address <span className="text-copper">*</span>
                   </Label>
@@ -348,30 +419,61 @@ export default function BookingForm() {
                     <p className="text-sm text-red-500 mt-1">{errors.email}</p>
                   )}
                 </div>
+                <div className="space-y-1">
+                  <Label htmlFor="phone" className="text-black">
+                    Phone Number <span className="text-copper">*</span>
+                  </Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="123-456-7890"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={`w-full text-black selection:bg-blue-500 ${
+                      errors.phone ? "border-red-500" : ""
+                    }`}
+                  />
+                  {errors.phone && (
+                    <p className="text-sm text-red-500 mt-1">{errors.phone}</p>
+                  )}
+                </div>
               </div>
             )}
-            {/* Step 3: Review & Submit */}
-            {currentStep === 2 && (
+            {/* Step 4: Review & Submit */}
+            {currentStep === 3 && (
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold mb-4 text-black">
                   Review Your Booking
                 </h2>
                 <ul className="list-disc pl-5 space-y-2 text-gray-800 bg-gray-50 p-4 rounded-md">
                   <li>
-                    <strong>Service Type:</strong>{" "}
+                    <strong>Service Type:</strong>
                     {formData.serviceType || "N/A"}
                   </li>
                   <li>
-                    <strong>Vehicle:</strong>{" "}
+                    <strong>Vehicle:</strong>
                     {formData.vehiclePreference || "N/A"}
                   </li>
                   <li>
-                    <strong>Date of Service:</strong>{" "}
+                    <strong>Date of Service:</strong>
                     {formData.dateOfService || "N/A"}
                   </li>
                   <li>
-                    <strong>Passengers:</strong> {formData.adults} Adults,{" "}
+                    <strong>Time:</strong> { formatTime(formData.pickupTime) || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Passengers:</strong> {formData.adults} Adults,
                     {formData.children} Children
+                  </li>
+                  <hr className="my-2" />
+                  <li>
+                    <strong>Pickup Location:</strong>
+                    {formData.pickupLocation || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Dropoff Location:</strong>
+                    {formData.dropoffLocation || "N/A"}
                   </li>
                   <hr className="my-2" />
                   <li>
@@ -379,6 +481,9 @@ export default function BookingForm() {
                   </li>
                   <li>
                     <strong>Email:</strong> {formData.email || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Phone:</strong> {formData.phone || "N/A"}
                   </li>
                 </ul>
               </div>
