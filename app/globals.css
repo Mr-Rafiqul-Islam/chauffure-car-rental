@@ -7,6 +7,15 @@
     text-wrap: balance;
   }
 }
+.spin {
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 @keyframes blob-animation {
   0% {
     transform: scale(1) translate(0px, 0px);
