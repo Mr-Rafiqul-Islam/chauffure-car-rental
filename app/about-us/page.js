@@ -1,10 +1,11 @@
-import MaintenancePage from "@/components/common/MaintenancePage";
+
+import PageHeader from "@/components/ui/lamp";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <MaintenancePage pageName="About Us" />
+      <PageHeader pageName="About Us" subheading="Melbourne’s Trusted Name in Chauffeur Services" />
     </div>
   );
 };

@@ -1,12 +1,15 @@
-import MaintenancePage from '@/components/common/MaintenancePage'
-import React from 'react'
+import PageHeader from "@/components/ui/lamp";
+import React from "react";
 
 const page = () => {
   return (
     <div>
-        <MaintenancePage pageName="Blogs" />
+      <PageHeader
+        pageName="Blogs"
+        subheading="Insights, Tips & Stories from the Road"
+      />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

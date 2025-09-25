@@ -1,10 +1,13 @@
-import MaintenancePage from "@/components/common/MaintenancePage";
+import PageHeader from "@/components/ui/lamp";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <MaintenancePage pageName="Our Fleet" />
+      <PageHeader
+        pageName="Our Fleets"
+        subheading="Explore Our Premium Chauffeur-Driven Fleet"
+      />
     </div>
   );
 };
