@@ -5,11 +5,7 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { CardHoverEffect } from "@/components/ui/pulse-card";
 import {
-  Globe,
-  Users,
   Heart,
-  Lightbulb,
-  Sparkles,
   Rocket,
   Target,
   CarIcon,
