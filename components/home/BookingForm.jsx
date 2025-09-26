@@ -133,7 +133,7 @@ export default function BookingForm() {
             <div className="flex items-center justify-center h-8 w-8 bg-copper rounded-sm">
               <FaCalendarAlt className="text-white" />
             </div>
-            <h5 className="text-xl font-semibold text-gray-800">
+            <h5 className="text-base sm:text-lg xl:text-xl font-semibold text-gray-800">
               Start Your Booking (Step {currentStep + 1} of {steps.length})
             </h5>
           </div>
@@ -433,20 +433,20 @@ export default function BookingForm() {
             {/* Step 4: Review & Submit */}
             {currentStep === 3 && (
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold mb-4 text-black">
+                <h2 className="text-base sm:text-lg xl:text-xl font-semibold mb-4 text-black">
                   Review Your Booking
                 </h2>
                 <ul className="list-disc pl-5 space-y-2 text-gray-800 bg-gray-50 p-4 rounded-md">
                   <li>
-                    <strong>Service Type:</strong>
+                    <strong>Service Type:</strong>{" "}
                     {formData.serviceType || "N/A"}
                   </li>
                   <li>
-                    <strong>Vehicle:</strong>
+                    <strong>Vehicle:</strong>{" "}
                     {formData.vehiclePreference || "N/A"}
                   </li>
                   <li>
-                    <strong>Date of Service:</strong>
+                    <strong>Date of Service:</strong>{" "}
                     {formData.dateOfService || "N/A"}
                   </li>
                   <li>
@@ -459,11 +459,11 @@ export default function BookingForm() {
                   </li>
                   <hr className="my-2" />
                   <li>
-                    <strong>Pickup Location:</strong>
+                    <strong>Pickup Location:</strong>{" "}
                     {formData.pickupLocation || "N/A"}
                   </li>
                   <li>
-                    <strong>Dropoff Location:</strong>
+                    <strong>Dropoff Location:</strong>{" "}
                     {formData.dropoffLocation || "N/A"}
                   </li>
                   <hr className="my-2" />

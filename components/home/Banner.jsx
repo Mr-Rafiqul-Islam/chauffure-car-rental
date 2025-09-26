@@ -55,7 +55,7 @@ export default function Banner() {
             </SwiperSlide>
           </Swiper>
         </section>
-        <div className="xl:hidden flex justify-center py-10">
+        <div className="xl:hidden flex justify-center py-10 px-4">
           <BookingForm />
         </div>
       </GoogleMapsLoader>
