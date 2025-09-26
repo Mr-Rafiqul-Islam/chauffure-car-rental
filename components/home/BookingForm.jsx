@@ -1,4 +1,3 @@
-// Add this line at the top of the file
 "use client";
 
 import { useState } from "react";
@@ -16,6 +15,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatTime } from "@/lib/format";
+import GooglePlacesInput from "../common/GooglePlacesInput";
 
 // Define the steps of the form
 const steps = [
@@ -38,7 +38,9 @@ export default function BookingForm() {
     children: "0",
     // Step 2 fields
     pickupLocation: "",
+    pickupCoordinates: null, // { lat: ..., lng: ... }
     dropoffLocation: "",
+    dropoffCoordinates: null, // { lat: ..., lng: ... }
     // Step 3 fields
     name: "",
     email: "",
@@ -61,9 +63,15 @@ export default function BookingForm() {
     clearError(name);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSelectChange = (name, value) => {
+  const handleSelectChange = (name, value, coords = null) => {
     clearError(name);
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(coords && {
+        [`${name}Coordinates`]: coords,
+      }),
+    }));
   };
 
   const validateStep = () => {
@@ -338,43 +346,25 @@ export default function BookingForm() {
                   <Label htmlFor="pickupLocation" className="text-black">
                     Pickup Location <span className="text-copper">*</span>
                   </Label>
-                  <Input
-                    id="pickupLocation"
+                  <GooglePlacesInput
                     name="pickupLocation"
-                    type="text"
-                    placeholder="Enter Pickup Location"
                     value={formData.pickupLocation}
-                    onChange={handleInputChange}
-                    className={`w-full text-black ${
-                      errors.pickupLocation ? "border-red-500" : ""
-                    }`}
+                    onChange={handleSelectChange}
+                    error={errors.pickupLocation}
+                    placeholder="Enter pickup address"
                   />
-                  {errors.pickupLocation && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.pickupLocation}
-                    </p>
-                  )}
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="dropoffLocation" className="text-black">
                     Dropoff Location <span className="text-copper">*</span>
                   </Label>
-                  <Input
-                    id="dropoffLocation"
+                  <GooglePlacesInput
                     name="dropoffLocation"
-                    type="text"
-                    placeholder="Enter Dropoff Location"
                     value={formData.dropoffLocation}
-                    onChange={handleInputChange}
-                    className={`w-full text-black ${
-                      errors.dropoffLocation ? "border-red-500" : ""
-                    }`}
+                    onChange={handleSelectChange}
+                    error={errors.dropoffLocation}
+                    placeholder="Enter dropoff address"
                   />
-                  {errors.dropoffLocation && (
-                    <p className="text-sm text-red-500 mt-1">
-                      {errors.dropoffLocation}
-                    </p>
-                  )}
                 </div>
               </div>
             )}
@@ -460,7 +450,8 @@ export default function BookingForm() {
                     {formData.dateOfService || "N/A"}
                   </li>
                   <li>
-                    <strong>Time:</strong> { formatTime(formData.pickupTime) || "N/A"}
+                    <strong>Time:</strong>{" "}
+                    {formatTime(formData.pickupTime) || "N/A"}
                   </li>
                   <li>
                     <strong>Passengers:</strong> {formData.adults} Adults,
