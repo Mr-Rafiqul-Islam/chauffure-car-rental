@@ -16,17 +16,19 @@ import { Progress } from "@/components/ui/progress";
 import { FaCalendarAlt } from "react-icons/fa";
 import { formatTime } from "@/lib/format";
 import GooglePlacesInput from "../common/GooglePlacesInput";
+import { calculateDistanceKm } from "@/lib/calculateDistanceKm";
+import { toast } from "sonner";
 
 // Define the steps of the form
 const steps = [
   { id: "step-1", title: "Booking Details" },
   { id: "step-2", title: "Trip Details" },
-  { id: "step-3", title: "Personal Info" },
-  { id: "step-4", title: "Review & Submit" },
+  { id: "step-3", title: "Review & Submit" },
+  { id: "step-4", title: "Personal Info" },
 ];
 
 export default function BookingForm() {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     // Step 1 fields
@@ -38,10 +40,13 @@ export default function BookingForm() {
     children: "0",
     // Step 2 fields
     pickupLocation: "",
-    pickupCoordinates: null, // { lat: ..., lng: ... }
+    pickupLocationCoordinates: null, // { lat: ..., lng: ... }
     dropoffLocation: "",
-    dropoffCoordinates: null, // { lat: ..., lng: ... }
-    // Step 3 fields
+    dropoffLocationCoordinates: null,
+    distance: null,
+    estimatedPrice: null,
+    baseFare: null,
+    // Step 4 fields
     name: "",
     email: "",
     phone: "",
@@ -76,7 +81,7 @@ export default function BookingForm() {
 
   const validateStep = () => {
     const newErrors = {};
-    if (currentStep === 0) {
+    if (currentStep === 1) {
       if (!formData.serviceType)
         newErrors.serviceType = "Service type is required.";
       if (!formData.vehiclePreference)
@@ -86,12 +91,12 @@ export default function BookingForm() {
       if (!formData.pickupTime)
         newErrors.pickupTime = "Pickup Time is required.";
       if (!formData.adults) newErrors.adults = "Number of adults is required.";
-    } else if (currentStep === 1) {
+    } else if (currentStep === 2) {
       if (!formData.pickupLocation)
         newErrors.pickupLocation = "Pickup location is required.";
       if (!formData.dropoffLocation)
         newErrors.dropoffLocation = "Dropoff location is required.";
-    } else if (currentStep === 2) {
+    } else if (currentStep === 4) {
       if (!formData.name) newErrors.name = "Full name is required.";
       if (!formData.phone) newErrors.phone = "Phone number is required.";
       if (!formData.email) {
@@ -103,27 +108,70 @@ export default function BookingForm() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  const resetForm = () => {
+    setFormData({
+      serviceType: "",
+      vehiclePreference: "",
+      dateOfService: "",
+      pickupTime: "",
+      adults: "",
+      children: "0",
+      pickupLocation: "",
+      pickupLocationCoordinates: null,
+      dropoffLocation: "",
+      dropoffLocationCoordinates: null,
+      name: "",
+      email: "",
+      phone: "",
+      distance: null,
+      estimatedPrice: null,
+      baseFare: null,
+    });
+    setErrors({});
+    setCurrentStep(1);
+  };
 
   const handleNext = () => {
     const isValid = validateStep();
     if (!isValid) return; // Stop if validation fails
 
-    if (currentStep < steps.length - 1) {
+    if (currentStep < steps.length) {
+      if (currentStep === 2) {
+        // Calculate distance between pickup and dropoff
+        const distance = calculateDistanceKm(
+          formData.pickupLocationCoordinates,
+          formData.dropoffLocationCoordinates
+        );
+        const baseFare = 50;
+        const perKmRate = 3;
+        const estimatedPrice = (baseFare + distance * perKmRate).toFixed(2);
+        setFormData((prev) => ({
+          ...prev,
+          distance,
+          estimatedPrice,
+          baseFare,
+        }));
+      }
       setCurrentStep((prev) => prev + 1);
     } else {
       // Handle form submission
-      alert("Form Submitted!\n" + JSON.stringify(formData, null, 2));
+
+      toast("Booking submitted successfully! ✅", {
+        position: "top-center",
+      });
+      resetForm();
+      // alert("Form Submitted!\n" + JSON.stringify(formData, null, 2));
     }
   };
 
   const handlePrev = () => {
-    if (currentStep > 0) {
+    if (currentStep > 1) {
       setErrors({}); // Clear errors when going back
       setCurrentStep((prev) => prev - 1);
     }
   };
 
-  const progressPercentage = ((currentStep + 1) / steps.length) * 100;
+  const progressPercentage = (currentStep / steps.length) * 100;
 
   return (
     <div className="flex max-w-2xl items-center justify-center bg-highlight rounded-2xl font-sans p-2">
@@ -134,7 +182,7 @@ export default function BookingForm() {
               <FaCalendarAlt className="text-white" />
             </div>
             <h5 className="text-base sm:text-lg xl:text-xl font-semibold text-gray-800">
-              Start Your Booking (Step {currentStep + 1} of {steps.length})
+              Start Your Booking (Step {currentStep} of {steps.length})
             </h5>
           </div>
           <Progress
@@ -145,7 +193,7 @@ export default function BookingForm() {
         <CardContent className="pt-6">
           <form id="multi-step-form" onSubmit={(e) => e.preventDefault()}>
             {/* Step 1: Booking Details */}
-            {currentStep === 0 && (
+            {currentStep === 1 && (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1">
@@ -340,7 +388,7 @@ export default function BookingForm() {
               </div>
             )}
             {/* Step 2: Trip Details */}
-            {currentStep === 1 && (
+            {currentStep === 2 && (
               <div className="space-y-6">
                 <div className="space-y-1">
                   <Label htmlFor="pickupLocation" className="text-black">
@@ -369,7 +417,58 @@ export default function BookingForm() {
               </div>
             )}
             {/* Step 3: Personal Info */}
-            {currentStep === 2 && (
+            {currentStep === 3 && (
+              <div className="space-y-4">
+                <h2 className="text-base sm:text-lg xl:text-xl font-semibold mb-4 text-black">
+                  Review Your Booking
+                </h2>
+                <ul className="list-disc pl-5 space-y-2 text-gray-800 bg-gray-50 p-4 rounded-md">
+                  <li>
+                    <strong>Service Type:</strong>{" "}
+                    {formData.serviceType || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Vehicle:</strong>{" "}
+                    {formData.vehiclePreference || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Date of Service:</strong>{" "}
+                    {formData.dateOfService || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Time:</strong>{" "}
+                    {formatTime(formData.pickupTime) || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Passengers:</strong> {formData.adults} Adults,
+                    {formData.children} Children
+                  </li>
+                  <hr className="my-2" />
+                  <li>
+                    <strong>Pickup Location:</strong>{" "}
+                    {formData.pickupLocation || "N/A"}
+                  </li>
+                  <li>
+                    <strong>Dropoff Location:</strong>{" "}
+                    {formData.dropoffLocation || "N/A"}
+                  </li>
+                  <hr className="my-2" />
+                  <li>
+                    <strong>Distance:</strong> {formData.distance || "N/A"} Km
+                  </li>
+                  <li>
+                    <strong>Fleet Price:</strong> {formData.baseFare || "N/A"}{" "}
+                    AUD
+                  </li>
+                  <li>
+                    <strong>Total Estimated Price:</strong>{" "}
+                    {formData.estimatedPrice || "N/A"} AUD
+                  </li>
+                </ul>
+              </div>
+            )}
+            {/* Step 4: Review & Submit */}
+            {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="space-y-1">
                   <Label htmlFor="name" className="text-black">
@@ -430,58 +529,9 @@ export default function BookingForm() {
                 </div>
               </div>
             )}
-            {/* Step 4: Review & Submit */}
-            {currentStep === 3 && (
-              <div className="space-y-4">
-                <h2 className="text-base sm:text-lg xl:text-xl font-semibold mb-4 text-black">
-                  Review Your Booking
-                </h2>
-                <ul className="list-disc pl-5 space-y-2 text-gray-800 bg-gray-50 p-4 rounded-md">
-                  <li>
-                    <strong>Service Type:</strong>{" "}
-                    {formData.serviceType || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Vehicle:</strong>{" "}
-                    {formData.vehiclePreference || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Date of Service:</strong>{" "}
-                    {formData.dateOfService || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Time:</strong>{" "}
-                    {formatTime(formData.pickupTime) || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Passengers:</strong> {formData.adults} Adults,
-                    {formData.children} Children
-                  </li>
-                  <hr className="my-2" />
-                  <li>
-                    <strong>Pickup Location:</strong>{" "}
-                    {formData.pickupLocation || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Dropoff Location:</strong>{" "}
-                    {formData.dropoffLocation || "N/A"}
-                  </li>
-                  <hr className="my-2" />
-                  <li>
-                    <strong>Name:</strong> {formData.name || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Email:</strong> {formData.email || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Phone:</strong> {formData.phone || "N/A"}
-                  </li>
-                </ul>
-              </div>
-            )}
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-8">
-              {currentStep > 0 ? (
+              {currentStep > 1 ? (
                 <Button variant="outline" onClick={handlePrev}>
                   Previous
                 </Button>
@@ -492,7 +542,7 @@ export default function BookingForm() {
                 onClick={handleNext}
                 className="bg-copper hover:bg-highlight hover:scale-105 text-white hover:text-black"
               >
-                {currentStep === steps.length - 1 ? "Submit" : "Next"}
+                {currentStep === steps.length ? "Submit" : "Next"}
               </Button>
             </div>
           </form>
