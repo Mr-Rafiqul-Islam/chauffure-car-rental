@@ -18,6 +18,7 @@ import { formatTime } from "@/lib/format";
 import GooglePlacesInput from "../common/GooglePlacesInput";
 import { calculateDistanceKm } from "@/lib/calculateDistanceKm";
 import { toast } from "sonner";
+import GoogleMapsLoader from "../common/GoogleMapsLoader";
 
 // Define the steps of the form
 const steps = [
@@ -174,380 +175,389 @@ export default function BookingForm() {
   const progressPercentage = (currentStep / steps.length) * 100;
 
   return (
-    <div className="flex max-w-2xl items-center justify-center bg-highlight rounded-2xl font-sans p-2">
-      <Card className="w-full max-w-2xl shadow-lg bg-white">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center h-8 w-8 bg-copper rounded-sm">
-              <FaCalendarAlt className="text-white" />
+    <GoogleMapsLoader>
+      <div className="flex max-w-2xl items-center justify-center bg-highlight rounded-2xl font-sans p-2">
+        <Card className="w-full max-w-2xl shadow-lg bg-white">
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center justify-center h-8 w-8 bg-copper rounded-sm">
+                <FaCalendarAlt className="text-white" />
+              </div>
+              <h5 className="text-base sm:text-lg xl:text-xl font-semibold text-gray-800">
+                Start Your Booking (Step {currentStep} of {steps.length})
+              </h5>
             </div>
-            <h5 className="text-base sm:text-lg xl:text-xl font-semibold text-gray-800">
-              Start Your Booking (Step {currentStep} of {steps.length})
-            </h5>
-          </div>
-          <Progress
-            value={progressPercentage}
-            className="w-full h-2 mt-4 bg-bsilver"
-          />
-        </CardHeader>
-        <CardContent className="pt-6">
-          <form id="multi-step-form" onSubmit={(e) => e.preventDefault()}>
-            {/* Step 1: Booking Details */}
-            {currentStep === 1 && (
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-1">
-                    <Label htmlFor="serviceType" className="text-black">
-                      Type of Limo Service
-                      <span className="text-copper">*</span>
-                    </Label>
-                    <Select
-                      name="serviceType"
-                      onValueChange={(value) =>
-                        handleSelectChange("serviceType", value)
-                      }
-                      value={formData.serviceType}
-                    >
-                      <SelectTrigger
-                        className={`w-full text-black ${
-                          errors.serviceType ? "border-red-500" : ""
-                        }`}
+            <Progress
+              value={progressPercentage}
+              className="w-full h-2 mt-4 bg-bsilver"
+            />
+          </CardHeader>
+          <CardContent className="pt-6">
+            <form id="multi-step-form" onSubmit={(e) => e.preventDefault()}>
+              {/* Step 1: Booking Details */}
+              {currentStep === 1 && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <Label htmlFor="serviceType" className="text-black">
+                        Type of Limo Service
+                        <span className="text-copper">*</span>
+                      </Label>
+                      <Select
+                        name="serviceType"
+                        onValueChange={(value) =>
+                          handleSelectChange("serviceType", value)
+                        }
+                        value={formData.serviceType}
                       >
-                        <SelectValue placeholder="-- Select Service --" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Airport Transfers">
-                          Airport Transfers
-                        </SelectItem>
-                        <SelectItem value="Special Events & Conferences">
-                          Special Events & Conferences
-                        </SelectItem>
-                        <SelectItem value="Wedding Chauffeurs">
-                          Wedding Chauffeurs
-                        </SelectItem>
-                        <SelectItem value="Corporate Transfers">
-                          Corporate Transfers
-                        </SelectItem>
-                        <SelectItem value="Tourist Attractions Hire">
-                          Tourist Attractions Hire
-                        </SelectItem>
-                        <SelectItem value="Chauffeured Winery Tours">
-                          Chauffeured Winery Tours
-                        </SelectItem>
-                        <SelectItem value="Others">Others</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.serviceType && (
-                      <p className="text-sm text-red-500 mt-1">
-                        {errors.serviceType}
-                      </p>
-                    )}
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="vehiclePreference" className="text-black">
-                      Vehicle Preference <span className="text-copper">*</span>
-                    </Label>
-                    <Select
-                      name="vehiclePreference"
-                      onValueChange={(value) =>
-                        handleSelectChange("vehiclePreference", value)
-                      }
-                      value={formData.vehiclePreference}
-                    >
-                      <SelectTrigger
-                        className={`w-full text-black ${
-                          errors.vehiclePreference ? "border-red-500" : ""
-                        }`}
-                      >
-                        <SelectValue placeholder="-- Select Vehicle --" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1-4 Luxury Sedan">
-                          1-4 Luxury Sedan
-                        </SelectItem>
-                        <SelectItem value="1-4 Luxury SUV">
-                          1-4 Luxury SUV
-                        </SelectItem>
-                        <SelectItem value="1-7 Luxury Van">
-                          1-7 Luxury Van
-                        </SelectItem>
-                        <SelectItem value="1-13 Luxury Van">
-                          1-13 Luxury Van
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {errors.vehiclePreference && (
-                      <p className="text-sm text-red-500 mt-1">
-                        {errors.vehiclePreference}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-1">
-                    <Label htmlFor="dateOfService" className="text-black">
-                      Date of Service <span className="text-copper">*</span>
-                    </Label>
-                    <Input
-                      id="dateOfService"
-                      name="dateOfService"
-                      type="date"
-                      value={formData.dateOfService}
-                      onChange={handleInputChange}
-                      className={`w-full text-black ${
-                        errors.dateOfService ? "border-red-500" : ""
-                      }`}
-                      min={new Date().toISOString().split("T")[0]}
-                    />
-                    {errors.dateOfService && (
-                      <p className="text-sm text-red-500 mt-1">
-                        {errors.dateOfService}
-                      </p>
-                    )}
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="pickupTime" className="text-black">
-                      Pickup Time <span className="text-copper">*</span>
-                    </Label>
-                    <Input
-                      id="pickupTime"
-                      name="pickupTime"
-                      type="time"
-                      value={formData.pickupTime}
-                      onChange={handleInputChange}
-                      className={`w-full text-black  ${
-                        errors.pickupTime ? "border-red-500" : ""
-                      }`}
-                    />
-                    {errors.pickupTime && (
-                      <p className="text-sm text-red-500 mt-1">
-                        {errors.pickupTime}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-1">
-                    <Label htmlFor="adults" className="text-black">
-                      Number of Adults <span className="text-copper">*</span>
-                    </Label>
-                    <Select
-                      name="adults"
-                      onValueChange={(value) =>
-                        handleSelectChange("adults", value)
-                      }
-                      value={formData.adults}
-                    >
-                      <SelectTrigger
-                        className={`w-full text-black ${
-                          errors.adults ? "border-red-500" : ""
-                        }`}
-                      >
-                        <SelectValue placeholder="-- Select Adults --" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Array.from({ length: 13 }, (_, i) => i + 1).map(
-                          (num) => (
-                            <SelectItem key={num} value={String(num)}>
-                              {num}
-                            </SelectItem>
-                          )
-                        )}
-                      </SelectContent>
-                    </Select>
-                    {errors.adults && (
-                      <p className="text-sm text-red-500 mt-1">
-                        {errors.adults}
-                      </p>
-                    )}
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="children" className="text-black">
-                      Number of Children
-                    </Label>
-                    <Select
-                      name="children"
-                      onValueChange={(value) =>
-                        handleSelectChange("children", value)
-                      }
-                      value={formData.children}
-                    >
-                      <SelectTrigger className="w-full text-black">
-                        <SelectValue placeholder="-- Select Children --" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Array.from({ length: 11 }, (_, i) => i).map((num) => (
-                          <SelectItem key={num} value={String(num)}>
-                            {num}
+                        <SelectTrigger
+                          className={`w-full text-black ${
+                            errors.serviceType ? "border-red-500" : ""
+                          }`}
+                        >
+                          <SelectValue placeholder="-- Select Service --" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Airport Transfers">
+                            Airport Transfers
                           </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                          <SelectItem value="Special Events & Conferences">
+                            Special Events & Conferences
+                          </SelectItem>
+                          <SelectItem value="Wedding Chauffeurs">
+                            Wedding Chauffeurs
+                          </SelectItem>
+                          <SelectItem value="Corporate Transfers">
+                            Corporate Transfers
+                          </SelectItem>
+                          <SelectItem value="Tourist Attractions Hire">
+                            Tourist Attractions Hire
+                          </SelectItem>
+                          <SelectItem value="Chauffeured Winery Tours">
+                            Chauffeured Winery Tours
+                          </SelectItem>
+                          <SelectItem value="Others">Others</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.serviceType && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.serviceType}
+                        </p>
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="vehiclePreference" className="text-black">
+                        Vehicle Preference{" "}
+                        <span className="text-copper">*</span>
+                      </Label>
+                      <Select
+                        name="vehiclePreference"
+                        onValueChange={(value) =>
+                          handleSelectChange("vehiclePreference", value)
+                        }
+                        value={formData.vehiclePreference}
+                      >
+                        <SelectTrigger
+                          className={`w-full text-black ${
+                            errors.vehiclePreference ? "border-red-500" : ""
+                          }`}
+                        >
+                          <SelectValue placeholder="-- Select Vehicle --" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1-4 Luxury Sedan">
+                            1-4 Luxury Sedan
+                          </SelectItem>
+                          <SelectItem value="1-4 Luxury SUV">
+                            1-4 Luxury SUV
+                          </SelectItem>
+                          <SelectItem value="1-7 Luxury Van">
+                            1-7 Luxury Van
+                          </SelectItem>
+                          <SelectItem value="1-13 Luxury Van">
+                            1-13 Luxury Van
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.vehiclePreference && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.vehiclePreference}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <Label htmlFor="dateOfService" className="text-black">
+                        Date of Service <span className="text-copper">*</span>
+                      </Label>
+                      <Input
+                        id="dateOfService"
+                        name="dateOfService"
+                        type="date"
+                        value={formData.dateOfService}
+                        onChange={handleInputChange}
+                        className={`w-full text-black ${
+                          errors.dateOfService ? "border-red-500" : ""
+                        }`}
+                        min={new Date().toISOString().split("T")[0]}
+                      />
+                      {errors.dateOfService && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.dateOfService}
+                        </p>
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="pickupTime" className="text-black">
+                        Pickup Time <span className="text-copper">*</span>
+                      </Label>
+                      <Input
+                        id="pickupTime"
+                        name="pickupTime"
+                        type="time"
+                        value={formData.pickupTime}
+                        onChange={handleInputChange}
+                        className={`w-full text-black  ${
+                          errors.pickupTime ? "border-red-500" : ""
+                        }`}
+                      />
+                      {errors.pickupTime && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.pickupTime}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <Label htmlFor="adults" className="text-black">
+                        Number of Adults <span className="text-copper">*</span>
+                      </Label>
+                      <Select
+                        name="adults"
+                        onValueChange={(value) =>
+                          handleSelectChange("adults", value)
+                        }
+                        value={formData.adults}
+                      >
+                        <SelectTrigger
+                          className={`w-full text-black ${
+                            errors.adults ? "border-red-500" : ""
+                          }`}
+                        >
+                          <SelectValue placeholder="-- Select Adults --" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Array.from({ length: 13 }, (_, i) => i + 1).map(
+                            (num) => (
+                              <SelectItem key={num} value={String(num)}>
+                                {num}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectContent>
+                      </Select>
+                      {errors.adults && (
+                        <p className="text-sm text-red-500 mt-1">
+                          {errors.adults}
+                        </p>
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="children" className="text-black">
+                        Number of Children
+                      </Label>
+                      <Select
+                        name="children"
+                        onValueChange={(value) =>
+                          handleSelectChange("children", value)
+                        }
+                        value={formData.children}
+                      >
+                        <SelectTrigger className="w-full text-black">
+                          <SelectValue placeholder="-- Select Children --" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Array.from({ length: 11 }, (_, i) => i).map(
+                            (num) => (
+                              <SelectItem key={num} value={String(num)}>
+                                {num}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-            {/* Step 2: Trip Details */}
-            {currentStep === 2 && (
-              <div className="space-y-6">
-                <div className="space-y-1">
-                  <Label htmlFor="pickupLocation" className="text-black">
-                    Pickup Location <span className="text-copper">*</span>
-                  </Label>
-                  <GooglePlacesInput
-                    name="pickupLocation"
-                    value={formData.pickupLocation}
-                    onChange={handleSelectChange}
-                    error={errors.pickupLocation}
-                    placeholder="Enter pickup address"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="dropoffLocation" className="text-black">
-                    Dropoff Location <span className="text-copper">*</span>
-                  </Label>
-                  <GooglePlacesInput
-                    name="dropoffLocation"
-                    value={formData.dropoffLocation}
-                    onChange={handleSelectChange}
-                    error={errors.dropoffLocation}
-                    placeholder="Enter dropoff address"
-                  />
-                </div>
-              </div>
-            )}
-            {/* Step 3: Personal Info */}
-            {currentStep === 3 && (
-              <div className="space-y-4">
-                <h2 className="text-base sm:text-lg xl:text-xl font-semibold mb-4 text-black">
-                  Review Your Booking
-                </h2>
-                <ul className="list-disc pl-5 space-y-2 text-gray-800 bg-gray-50 p-4 rounded-md">
-                  <li>
-                    <strong>Service Type:</strong>{" "}
-                    {formData.serviceType || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Vehicle:</strong>{" "}
-                    {formData.vehiclePreference || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Date of Service:</strong>{" "}
-                    {formData.dateOfService || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Time:</strong>{" "}
-                    {formatTime(formData.pickupTime) || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Passengers:</strong> {formData.adults} Adults,
-                    {formData.children} Children
-                  </li>
-                  <hr className="my-2" />
-                  <li>
-                    <strong>Pickup Location:</strong>{" "}
-                    {formData.pickupLocation || "N/A"}
-                  </li>
-                  <li>
-                    <strong>Dropoff Location:</strong>{" "}
-                    {formData.dropoffLocation || "N/A"}
-                  </li>
-                  <hr className="my-2" />
-                  <li>
-                    <strong>Distance:</strong> {formData.distance || "N/A"} Km
-                  </li>
-                  <li>
-                    <strong>Fleet Price:</strong> {formData.baseFare || "N/A"}{" "}
-                    AUD
-                  </li>
-                  <li>
-                    <strong>Total Estimated Price:</strong>{" "}
-                    {formData.estimatedPrice || "N/A"} AUD
-                  </li>
-                </ul>
-              </div>
-            )}
-            {/* Step 4: Review & Submit */}
-            {currentStep === 4 && (
-              <div className="space-y-6">
-                <div className="space-y-1">
-                  <Label htmlFor="name" className="text-black">
-                    Full Name <span className="text-copper">*</span>
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="John Doe"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className={`w-full text-black selection:bg-blue-500 ${
-                      errors.name ? "border-red-500" : ""
-                    }`}
-                  />
-                  {errors.name && (
-                    <p className="text-sm text-red-500 mt-1">{errors.name}</p>
-                  )}
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="email" className="text-black">
-                    Email Address <span className="text-copper">*</span>
-                  </Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="john.doe@example.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={`w-full text-black selection:bg-blue-500 ${
-                      errors.email ? "border-red-500" : ""
-                    }`}
-                  />
-                  {errors.email && (
-                    <p className="text-sm text-red-500 mt-1">{errors.email}</p>
-                  )}
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="phone" className="text-black">
-                    Phone Number <span className="text-copper">*</span>
-                  </Label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="123-456-7890"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className={`w-full text-black selection:bg-blue-500 ${
-                      errors.phone ? "border-red-500" : ""
-                    }`}
-                  />
-                  {errors.phone && (
-                    <p className="text-sm text-red-500 mt-1">{errors.phone}</p>
-                  )}
-                </div>
-              </div>
-            )}
-            {/* Navigation Buttons */}
-            <div className="flex justify-between mt-8">
-              {currentStep > 1 ? (
-                <Button variant="outline" onClick={handlePrev}>
-                  Previous
-                </Button>
-              ) : (
-                <div /> // Placeholder to keep "Next" button on the right
               )}
-              <Button
-                onClick={handleNext}
-                className="bg-copper hover:bg-highlight hover:scale-105 text-white hover:text-black"
-              >
-                {currentStep === steps.length ? "Submit" : "Next"}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+              {/* Step 2: Trip Details */}
+              {currentStep === 2 && (
+                <div className="space-y-6">
+                  <div className="space-y-1">
+                    <Label htmlFor="pickupLocation" className="text-black">
+                      Pickup Location <span className="text-copper">*</span>
+                    </Label>
+                    <GooglePlacesInput
+                      name="pickupLocation"
+                      value={formData.pickupLocation}
+                      onChange={handleSelectChange}
+                      error={errors.pickupLocation}
+                      placeholder="Enter pickup address"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="dropoffLocation" className="text-black">
+                      Dropoff Location <span className="text-copper">*</span>
+                    </Label>
+                    <GooglePlacesInput
+                      name="dropoffLocation"
+                      value={formData.dropoffLocation}
+                      onChange={handleSelectChange}
+                      error={errors.dropoffLocation}
+                      placeholder="Enter dropoff address"
+                    />
+                  </div>
+                </div>
+              )}
+              {/* Step 3: Personal Info */}
+              {currentStep === 3 && (
+                <div className="space-y-4">
+                  <h2 className="text-base sm:text-lg xl:text-xl font-semibold mb-4 text-black">
+                    Review Your Booking
+                  </h2>
+                  <ul className="list-disc pl-5 space-y-2 text-gray-800 bg-gray-50 p-4 rounded-md">
+                    <li>
+                      <strong>Service Type:</strong>{" "}
+                      {formData.serviceType || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Vehicle:</strong>{" "}
+                      {formData.vehiclePreference || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Date of Service:</strong>{" "}
+                      {formData.dateOfService || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Time:</strong>{" "}
+                      {formatTime(formData.pickupTime) || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Passengers:</strong> {formData.adults} Adults,
+                      {formData.children} Children
+                    </li>
+                    <hr className="my-2" />
+                    <li>
+                      <strong>Pickup Location:</strong>{" "}
+                      {formData.pickupLocation || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Dropoff Location:</strong>{" "}
+                      {formData.dropoffLocation || "N/A"}
+                    </li>
+                    <hr className="my-2" />
+                    <li>
+                      <strong>Distance:</strong> {formData.distance || "N/A"} Km
+                    </li>
+                    <li>
+                      <strong>Fleet Price:</strong> {formData.baseFare || "N/A"}{" "}
+                      AUD
+                    </li>
+                    <li>
+                      <strong>Total Estimated Price:</strong>{" "}
+                      {formData.estimatedPrice || "N/A"} AUD
+                    </li>
+                  </ul>
+                </div>
+              )}
+              {/* Step 4: Review & Submit */}
+              {currentStep === 4 && (
+                <div className="space-y-6">
+                  <div className="space-y-1">
+                    <Label htmlFor="name" className="text-black">
+                      Full Name <span className="text-copper">*</span>
+                    </Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="John Doe"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className={`w-full text-black selection:bg-blue-500 ${
+                        errors.name ? "border-red-500" : ""
+                      }`}
+                    />
+                    {errors.name && (
+                      <p className="text-sm text-red-500 mt-1">{errors.name}</p>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="email" className="text-black">
+                      Email Address <span className="text-copper">*</span>
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="john.doe@example.com"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={`w-full text-black selection:bg-blue-500 ${
+                        errors.email ? "border-red-500" : ""
+                      }`}
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="phone" className="text-black">
+                      Phone Number <span className="text-copper">*</span>
+                    </Label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="123-456-7890"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className={`w-full text-black selection:bg-blue-500 ${
+                        errors.phone ? "border-red-500" : ""
+                      }`}
+                    />
+                    {errors.phone && (
+                      <p className="text-sm text-red-500 mt-1">
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+              {/* Navigation Buttons */}
+              <div className="flex justify-between mt-8">
+                {currentStep > 1 ? (
+                  <Button variant="outline" onClick={handlePrev}>
+                    Previous
+                  </Button>
+                ) : (
+                  <div /> // Placeholder to keep "Next" button on the right
+                )}
+                <Button
+                  onClick={handleNext}
+                  className="bg-copper hover:bg-highlight hover:scale-105 text-white hover:text-black"
+                >
+                  {currentStep === steps.length ? "Submit" : "Next"}
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </GoogleMapsLoader>
   );
 }
