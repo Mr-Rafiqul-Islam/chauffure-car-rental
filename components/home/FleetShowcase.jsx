@@ -28,7 +28,7 @@ const fleetData = [
         icon: <Briefcase className="mr-1.5 h-3 w-3" />,
       },
     ],
-    link: "/fleet/luxury-sedan",
+    link: "/our-fleets/luxury-sedan",
   },
   {
     name: "Luxury SUV",
@@ -45,7 +45,7 @@ const fleetData = [
       { name: "Suburban Travel", icon: <MapPin className="mr-1.5 h-3 w-3" /> },
       { name: "Comfortable", icon: <Users className="mr-1.5 h-3 w-3" /> },
     ],
-    link: "/fleet/luxury-suv",
+    link: "/our-fleets/luxury-suv",
   },
   {
     name: "Luxury People Mover",
@@ -62,12 +62,12 @@ const fleetData = [
       { name: "Special Events", icon: <MapPin className="mr-1.5 h-3 w-3" /> },
       { name: "Family Friendly", icon: <Users className="mr-1.5 h-3 w-3" /> },
     ],
-    link: "/fleet/luxury-suv",
+    link: "/our-fleets/luxury-suv",
   },
   // Add more vehicles here...
 ];
 
-export default function FleetShowcase() {
+export default function FleetShowcase({ from }) {
   return (
     <section className="bg-charcoal py-16 sm:py-24">
       <div className="container mx-auto px-4">
@@ -76,12 +76,14 @@ export default function FleetShowcase() {
             words={"Luxury Chauffeur Fleets"}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-highlight to-bsilver bg-clip-text text-transparent"
           />
-          <Link
-            href="/our-fleets"
-            className="text-sm font-semibold text-copper hover:text-copper transition-colors flex items-center"
-          >
-            More Fleet <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
+          {!from && (
+            <Link
+              href="/our-fleets"
+              className="text-sm font-semibold text-copper hover:text-copper transition-colors flex items-center"
+            >
+              More Fleet <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
