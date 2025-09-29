@@ -10,7 +10,7 @@ import "swiper/css/effect-fade";
 import { EffectFade, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import TextRevealLetters from "../mvpblocks/text-reveal-1";
-import BookingForm from "./BookingForm";
+import BookingForm from "../booking-form/BookingForm";
 
 export default function Banner() {
   return (
