@@ -47,6 +47,7 @@ const navItems = [
     ],
   },
   { name: "Our Fleets", href: "/our-fleets" },
+  { name: "Blogs", href: "/blogs" },
   { name: "Contact Us", href: "/contact-us" },
 ];
 export default function Header() {
