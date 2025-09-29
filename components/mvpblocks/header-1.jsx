@@ -186,16 +186,10 @@ export default function Header() {
           </nav>
 
           <div className="hidden items-center space-x-4 lg:flex">
-            <Link
-              prefetch={false}
-              href="/booking"
-              className="text-foreground font-medium transition-colors duration-200 px-[20px] py-[7px] border border-copper rounded-[20px] hover:bg-copper"
-            >
-              Book Now
-            </Link>
+            
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link prefetch={false} href="/get-quote">
-                <AnimatedBtn1>Get A Quote</AnimatedBtn1>
+              <Link prefetch={false} href="/booking">
+                <AnimatedBtn1>Book Now</AnimatedBtn1>
               </Link>
             </motion.div>
           </div>
@@ -236,21 +230,14 @@ export default function Header() {
                   </Link>
                 ))}
                 <div className="space-y-2 px-4 py-2">
+                  
                   <Link
                     prefetch={false}
                     href="/booking"
-                    className="block mx-auto text-center text-foreground font-medium transition-colors duration-200 px-[20px] py-[7px] border border-copper rounded-[20px] hover:bg-copper"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Book Now
-                  </Link>
-                  <Link
-                    prefetch={false}
-                    href="/get-quote"
                     className="block w-full transition-all duration-200 hover:shadow-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                     <AnimatedBtn1>Get A Quote</AnimatedBtn1>
+                     <AnimatedBtn1>Book Now</AnimatedBtn1>
                   </Link>
                 </div>
               </div>

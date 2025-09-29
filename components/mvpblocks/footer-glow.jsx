@@ -105,8 +105,8 @@ export default function FooterGlow() {
                 </Link>
               </li>
               <li>
-                <Link href="/get-quote" className="text-foreground/70 hover:text-ivory transition-all duration-300">
-                  Updates
+                <Link href="/gallery" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Gallery
                 </Link>
               </li>
             </ul>
