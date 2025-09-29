@@ -7,20 +7,20 @@ import Link from 'next/link';
 const blogData = [
   {
     image: '/assets/services/Wedding Chauffeurs.png',
-    title: 'The Ultimate Guide to Chauffeured Vineyard Tours',
-    description: 'Discover the hidden gems of the Yarra Valley without worrying about the drive. Here’s how to plan your perfect day trip.',
+    title: "Your Complete Guide to Chauffeured Vineyard Tours",
+    description: "Explore the best-kept secrets of the Yarra Valley in comfort and style—no driving, no stress. Here's how to plan the ideal wine day out.",
     link: '/blog/vineyard-tours-guide',
   },
   {
     image: '/assets/services/Airport Transfers.png',
-    title: '5 Tips for a Stress-Free Airport Transfer',
-    description: 'Navigating Melbourne Airport can be hectic. Follow these simple tips to ensure your journey is smooth, comfortable, and always on time.',
+    title: '5 Essential Tips for a Smooth Airport Transfer',
+    description: 'Melbourne Airport doesn’t have to be overwhelming. Use these practical tips to enjoy a seamless, timely, and comfortable transfer experience.',
     link: '/blog/stress-free-airport-transfers',
   },
   {
     image: '/assets/services/Corporate Transfers.jpeg',
-    title: 'Why a Chauffeur Service Elevates Your Corporate Image',
-    description: 'First impressions matter. Learn how arriving in a chauffeured vehicle can significantly boost your professional presence.',
+    title: 'How Chauffeur Services Enhance Your Corporate Image',
+    description: 'In business, presentation is everything. Discover how professional chauffeur transport can elevate your brand and leave a lasting impression.',
     link: '/blog/elevate-corporate-image',
   },
 ];
