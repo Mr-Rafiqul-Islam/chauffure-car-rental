@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { FaCalendarAlt } from "react-icons/fa";
-import { formatTime } from "@/lib/format";
+import { formatTime, isPickupTimeValid } from "@/lib/format";
 import GooglePlacesInput from "../common/GooglePlacesInput";
 import { calculateDistanceKm } from "@/lib/calculateDistanceKm";
 import { toast } from "sonner";
@@ -91,7 +91,25 @@ export default function BookingForm() {
         newErrors.dateOfService = "Date of service is required.";
       if (!formData.pickupTime)
         newErrors.pickupTime = "Pickup Time is required.";
-      if (!formData.adults) newErrors.adults = "Number of adults is required.";
+      else if (
+        !isPickupTimeValid(formData.dateOfService, formData.pickupTime)
+      ) {
+        newErrors.pickupTime = "Pickup time must be at least 2 hours from now.";
+      }
+      if (!formData.adults) {
+        newErrors.adults = "Number of adults is required.";
+      } else {
+        const vehicleLimits = {
+          "1-4 Luxury Sedan": 4,
+          "1-4 Luxury SUV": 4,
+          "1-7 Luxury Van": 7,
+          "1-13 Luxury Van": 13,
+        };
+        const maxAdults = vehicleLimits[formData.vehiclePreference];
+        if (maxAdults && parseInt(formData.adults) > maxAdults) {
+          newErrors.adults = `Selected vehicle supports up to ${maxAdults} adults.`;
+        }
+      }
     } else if (currentStep === 2) {
       if (!formData.pickupLocation)
         newErrors.pickupLocation = "Pickup location is required.";
@@ -176,8 +194,8 @@ export default function BookingForm() {
 
   return (
     <GoogleMapsLoader>
-      <div className="flex max-w-2xl items-center justify-center bg-highlight rounded-2xl font-sans p-2">
-        <Card className="w-full max-w-2xl shadow-lg bg-white">
+      <div className="flex max-w-xl items-center justify-center bg-highlight rounded-2xl font-sans p-2">
+        <Card className="w-full max-w-xl shadow-lg bg-white">
           <CardHeader>
             <div className="flex items-center gap-2">
               <div className="flex items-center justify-center h-8 w-8 bg-copper rounded-sm">
