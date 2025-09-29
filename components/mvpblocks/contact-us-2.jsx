@@ -60,7 +60,7 @@ export default function ContactUs() {
   };
 
   return (
-    <section className="w-full max-w-screen-md px-2 mx-auto py-10">
+    <section className="w-full max-w-screen-md px-2 mx-auto py-5 xl:py-10">
       <h2 className="mt-4 mb-5 bg-gradient-to-br from-gray-300 via-blue-300 to-gray-700 bg-clip-text text-center text-4xl font-bold text-transparent md:text-6xl">
         Let&apos;s Get in Touch
       </h2>

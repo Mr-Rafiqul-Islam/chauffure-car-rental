@@ -67,11 +67,11 @@ const WhyWeBest = () => {
                 record, elite chauffeurs, and newest luxury fleet deliver an
                 unmatched experience. Choose excellence for your next journey.
               </p>
-              <div className="mt-4">
+              <div className="mt-4 w-full">
                 <Image
                   src="/assets/feature/car.png"
                   alt="Luxury Chauffeur Car"
-                  className="w-full max-w-lg h-auto object-contain filter drop-shadow-lg"
+                  className="w-full !max-w-lg h-auto object-contain filter drop-shadow-lg"
                   width={500}
                   height={300}
                 />

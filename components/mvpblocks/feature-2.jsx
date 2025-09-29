@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Rocket, Code, Paintbrush,ActivityIcon } from "lucide-react";
+import { ActivityIcon, MousePointerClick, Globe } from "lucide-react";
 import Image from "next/image";
 const features = [
   {
@@ -19,7 +19,7 @@ const features = [
     title: "Select Your Luxury Vehicle",
     content:
       "Choose from our premium fleet of luxury sedans, SUVs, and people movers tailored to your specific journey needs.",
-    icon: <Paintbrush className="text-primary h-6 w-6" />,
+    icon: <MousePointerClick className="text-primary h-6 w-6" />,
     image:
       "/assets/services/others service.png",
   },
@@ -28,7 +28,7 @@ const features = [
     title: "Experience Luxury Travel",
     content:
       "Relax as your professional chauffeur provides a seamless, luxurious journey throughout the city and surrounding areas.",
-    icon: <Code className="text-primary h-6 w-6" />,
+    icon: <Globe className="text-primary h-6 w-6" />,
     image:
       "/assets/feature/howitsworks.png",
   },
