@@ -1,10 +1,14 @@
 import { getSingleService } from "@/server-action";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import React from "react";
 
 const ServiceDetailsPage = async ({ params }) => {
   const details = await getSingleService(params.id);
   console.log(details);
+  if (!details) {
+      notFound(); // ❌ redirects to 404 page
+    }
 
   return (
     <main>

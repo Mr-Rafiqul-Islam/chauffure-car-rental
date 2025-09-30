@@ -3,9 +3,14 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import TextGenerateEffect from "../ui/typewriter";
+import { notFound } from "next/navigation";
 
 
 const ServiceSection = ({servicesData}) => {
+
+  if (!servicesData || servicesData.length === 0) {
+    notFound(); // ❌ redirects to 404 page
+  }
   return (
     <section className="lg:px-20 md:px-10 px-5 py-10">
       <div className="mx-auto flex justify-center object-center px-4 py-16 sm:py-24 lg:max-w-7xl">

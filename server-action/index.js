@@ -8,7 +8,7 @@ export const getServices = async () => {
 
     const data = await res.json();
 
-    return data;
+    return data.services;
   } catch (error) {
     console.error("Error fetching services:", error);
     return [];
@@ -30,9 +30,9 @@ export const getServices = async () => {
 
 export const getSingleService = async (id) => {
   try {
-    const { services } = await getServices();
+    const  services  = await getServices();
 
-    const singleData = services.find((service) => service.id === Number(id));
+    const singleData = services?.find((service) => service.id === Number(id));
 
     return singleData;
   } catch (error) {

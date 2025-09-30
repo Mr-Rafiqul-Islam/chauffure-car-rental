@@ -9,7 +9,7 @@ import FeatureSteps from "@/components/mvpblocks/feature-2";
 import { getServices } from "@/server-action";
 
 export default async function Home() {
-  const { services } = await getServices();
+  const services  = await getServices();
   console.log("services data ==> \n", services);
   return (
     <>
