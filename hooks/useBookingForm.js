@@ -134,6 +134,7 @@ export default function useBookingForm() {
     else {
       toast("Booking submitted successfully! ✅",{
         position: "top-center",
+        description: "We'll contact to you soon."
       });
       resetForm();
       console.log("Form submitted:", formData);
