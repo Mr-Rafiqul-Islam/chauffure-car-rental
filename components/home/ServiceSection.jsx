@@ -4,52 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import TextGenerateEffect from "../ui/typewriter";
 
-const servicesData = [
-  {
-    name: "Airport Transfers",
-    imageUrl: "/assets/services/Airport Transfers.png",
-    details:
-      "Reliable and punctual airport transfers to get you to your destination on time and in style.",
-    link: "/services",
-  },
-  {
-    name: "Special Events",
-    imageUrl: "/assets/services/Special Events and Conferences.png",
-    details:
-      "Arrive at your special event, conference, or gala with elegance and sophistication.",
-    link: "/services",
-  },
-  {
-    name: "Wedding Chauffeurs",
-    imageUrl: "/assets/services/Wedding Chauffeurs.png",
-    details:
-      "Make your special day unforgettable with our luxurious and professional wedding chauffeur services.",
-    link: "/services",
-  },
-  {
-    name: "Corporate Transfers",
-    imageUrl: "/assets/services/Corporate Transfers.jpeg",
-    details:
-      "Impress your clients and colleagues with our premium corporate transport solutions.",
-    link: "/services",
-  },
-  {
-    name: "Winery Tours",
-    imageUrl: "/assets/services/others service.png",
-    details:
-      "Explore the finest wineries in comfort and luxury with our chauffeured winery tours.",
-    link: "/services",
-  },
-  {
-    name: "Tourist Attraction Hire",
-    imageUrl: "/assets/services/Tourist Attraction Hire.png",
-    details:
-      "Discover the wonders of nature and culture with our chauffeured winery tours.",
-    link: "/services",
-  },
-];
 
-const ServiceSection = () => {
+const ServiceSection = ({servicesData}) => {
   return (
     <section className="lg:px-20 md:px-10 px-5 py-10">
       <div className="mx-auto flex justify-center object-center px-4 py-16 sm:py-24 lg:max-w-7xl">
@@ -62,7 +18,7 @@ const ServiceSection = () => {
           <div className="grid gap-5 pt-10 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
             {servicesData.map((service, index) => (
               <Link
-                href={service.link}
+                href={`services/${service.id}`}
                 key={index}
                 className="group flex justify-center [perspective:1000px]"
               >
@@ -70,7 +26,7 @@ const ServiceSection = () => {
                   {/* Front Face */}
                   <div className="absolute inset-0 h-full w-full rounded-xl [backface-visibility:hidden]">
                     <Image
-                      src={service.imageUrl}
+                      src={service.image}
                       alt={service.name}
                       className="object-cover cursor-pointer object-left h-full w-full rounded-xl"
                       width="350"
