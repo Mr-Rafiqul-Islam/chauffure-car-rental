@@ -7,7 +7,7 @@ import Link from "next/link";
 const FleetCard = ({ vehicle }) => {
   return (
     <Card className="group relative w-full overflow-hidden rounded-xl bg-white border-gray-200/80 shadow-sm transition-all duration-300 hover:shadow-[0_0_20px_2px_#D4AF37] hover:-translate-y-1">
-      <Link href={vehicle.link} className="block cursor-pointer">
+      <div  className="block cursor-pointer">
         {vehicle.isPopular && (
           <Badge className="absolute top-4 right-4 z-10 bg-gray-900 text-white hover:bg-gray-700">
             <Star className="mr-1.5 h-3 w-3" />
@@ -17,7 +17,7 @@ const FleetCard = ({ vehicle }) => {
 
         <div className="overflow-hidden bg-white p-6">
           <Image
-            src={vehicle.imageUrl}
+            src={vehicle.image}
             alt={vehicle.name}
             width="400"
             height="225"
@@ -31,29 +31,32 @@ const FleetCard = ({ vehicle }) => {
           <div className="mt-2 flex items-center space-x-4 text-sm font-semibold text-orange-600">
             <div className="flex items-center">
               <Users className="mr-1.5 h-4 w-4" />
-              UP TO {vehicle.passengers} PASSENGERS
+              UP TO {vehicle.total_seats} PASSENGERS
             </div>
             <div className="flex items-center">
               <Briefcase className="mr-1.5 h-4 w-4" />
-              {vehicle.luggage} LUGGAGES
+              {vehicle.total_bag} LUGGAGES
             </div>
           </div>
 
-          <p className="mt-3 text-sm text-gray-600 h-10">
-            {vehicle.description}
-          </p>
-
+          {/* <p className="mt-3 text-sm text-gray-600 h-10">
+            {vehicle.details}
+          </p> */}
+          <div
+            className="prose prose-sm max-w-none text-gray-800"
+            dangerouslySetInnerHTML={{ __html: vehicle.details }}
+          />
           <div className="mt-4 text-left">
             <p className="text-sm text-gray-500">
               Starts From{" "}
               <span className="text-2xl font-bold text-orange-500">
-                AUD {vehicle.price}
+                AUD {vehicle.per_kilometer_fare_duration_wise}
               </span>{" "}
-              / day
+              / hour
             </p>
           </div>
 
-          <div className="mt-5 flex flex-wrap gap-2">
+          {/* <div className="mt-5 flex flex-wrap gap-2">
             {vehicle.tags.map((tag) => (
               <Badge
                 key={tag.name}
@@ -64,10 +67,10 @@ const FleetCard = ({ vehicle }) => {
                 {tag.name}
               </Badge>
             ))}
-          </div>
+          </div> */}
           <div className="subcategory-list mt-5">
             <span className="text-charcoal text-sm inline-block bg-[#f8f9fa] rounded-sm border border-[#e9ecef] py-[3px] px-2 mb-1 mr-2 subcategory-item">
-              {vehicle.type}
+              {vehicle.model}
             </span>
           </div>
         </CardContent>
@@ -75,7 +78,7 @@ const FleetCard = ({ vehicle }) => {
         <div className="absolute bottom-6 right-6 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110">
           <ArrowRight className="h-5 w-5 text-orange-600" />
         </div>
-      </Link>
+      </div>
     </Card>
   );
 };
