@@ -15,26 +15,20 @@ export const getServices = async () => {
   }
 };
 
-//   const res = await fetch(`${process.env.NEXT_SERVER_API_URL}/services/${id}`, {
-//     next: { revalidate: 60 }, // ISR caching (optional)
-//   });
-
-//   const res = await fetch(`${process.env.NEXT_SERVER_API_URL}/services/${id}`, {
-//     next: { revalidate: 60 }, // ISR caching (optional)
-//   });
-//   if (!res.ok) throw new Error("Failed to fetch services");
-
-//   const data = await res.json();
-
-//   return data;
 
 export const getSingleService = async (id) => {
   try {
-    const  services  = await getServices();
+    const res = await fetch(
+      `${process.env.NEXT_SERVER_API_URL}/specific-services/${id}`,
+      {
+        next: { revalidate: 60 }, // ISR caching (optional)
+      }
+    );
+    if (!res.ok) throw new Error("Failed to fetch services");
 
-    const singleData = services?.find((service) => service.id === Number(id));
+    const data = await res.json();
 
-    return singleData;
+    return data.service;
   } catch (error) {
     console.error("Error fetching services:", error);
     return [];
