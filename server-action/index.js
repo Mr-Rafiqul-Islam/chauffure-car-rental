@@ -60,7 +60,7 @@ export const getBlogs = async () => {
     if (!res.ok) throw new Error("Failed to fetch blogs");
 
     const data = await res.json();
-    return data;
+    return data.blogs;
   } catch (error) {
     console.error("Error fetching blogs:", error);
     return [];

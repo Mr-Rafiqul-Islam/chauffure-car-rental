@@ -6,12 +6,13 @@ import ServiceSection from "@/components/home/ServiceSection";
 import TestimonialsCarousel from "@/components/home/TestimonialsCarousel";
 import WhyWeBest from "@/components/home/WhyWeBest";
 import FeatureSteps from "@/components/mvpblocks/feature-2";
-import { getFleets, getServices } from "@/server-action";
+import { getBlogs, getFleets, getServices } from "@/server-action";
 
 export default async function Home() {
   const services  = await getServices();
   const fleets = await getFleets();
-  console.log("fleet data ==> \n", fleets);
+  const blogs = await getBlogs();
+  console.log("BlogData==> \n", blogs);
   return (
     <>
       <Banner />
@@ -20,7 +21,7 @@ export default async function Home() {
       <FleetShowcase fleetData={fleets.fleets}/>
       <TestimonialsCarousel />
       <PopularRoutesSection />
-      <BlogSection />
+      <BlogSection blogData={blogs}/>
       <WhyWeBest />
     </>
   );

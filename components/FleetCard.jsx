@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Users, Briefcase, Star, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 const FleetCard = ({ vehicle }) => {
   return (
     <Card className="group relative w-full overflow-hidden rounded-xl bg-white border-gray-200/80 shadow-sm transition-all duration-300 hover:shadow-[0_0_20px_2px_#D4AF37] hover:-translate-y-1">
@@ -43,7 +42,7 @@ const FleetCard = ({ vehicle }) => {
             {vehicle.details}
           </p> */}
           <div
-            className="prose prose-sm max-w-none text-gray-800"
+            className="mt-3 prose prose-sm max-w-none text-gray-800"
             dangerouslySetInnerHTML={{ __html: vehicle.details }}
           />
           <div className="mt-4 text-left">
