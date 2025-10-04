@@ -16,7 +16,7 @@ const WhyWeBest = () => {
       icon: <Award className="h-8 w-8 text-[#D4AF37]" />,
       title: "Award-Winning Service",
       description:
-        "5-star rated with 2000+ reviews. Melbourne’s best for 3 years running.",
+        "5-star rated with 2000+ reviews. Melbourne’s best for 5 years running.",
     },
     {
       icon: <Clock className="h-8 w-8 text-[#D4AF37]" />,
@@ -37,7 +37,7 @@ const WhyWeBest = () => {
       icon: <Car className="h-8 w-8 text-[#D4AF37]" />,
       title: "Newest Fleet",
       description:
-        "100% luxury vehicles under 2 years old. Mercedes, BMW, Audi.",
+        "100% luxury vehicles and world class brands. Mercedes, BMW, Audi, Lexus.",
     },
     {
       icon: <Headphones className="h-8 w-8 text-[#D4AF37]" />,
@@ -58,7 +58,7 @@ const WhyWeBest = () => {
             {/* Left Column: Text & Car Image */}
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
               <TextGenerateEffect
-                words={"Why We Best ?"}
+                words={"Why We Are The Best ?"}
                 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-highlight to-bsilver bg-clip-text text-transparent"
               />
               <p className="text-[#B0B0B0] text-lg max-w-xl mb-8 mt-5">
