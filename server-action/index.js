@@ -66,3 +66,22 @@ export const getBlogs = async () => {
     return [];
   }
 };
+
+export const getBlogDetails = async (id) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_SERVER_API_URL}/specific-blog/${id}`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch blog");
+
+    const data = await res.json();
+    return data.blog;
+  } catch (error) {
+    console.error("Error fetching blog:", error);
+    return [];
+  }
+};
