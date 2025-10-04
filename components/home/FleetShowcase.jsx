@@ -87,7 +87,7 @@ export default function FleetShowcase({ from , fleetData}) {
         </div>
 
         <div className={`grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 ${!from ? "xl:grid-cols-3" : "xl:grid-cols-4"}`}>
-          {!from ? fleetData.slice(-3).map((vehicle) => (
+          {!from ? fleetData.slice(0, 3).map((vehicle) => (
             <FleetCard key={vehicle.name} vehicle={vehicle} />
           )): fleetData.map((vehicle) => (
             <FleetCard key={vehicle.name} vehicle={vehicle} />
