@@ -1,11 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ArrowRight, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-import logo from "@/public/logo.png";
-import Image from "next/image";
 import AnimatedBtn1 from "./animatedbtn";
 const navItems = [
   { name: "Home", href: "/" },
@@ -17,32 +15,31 @@ const navItems = [
     dropdownItems: [
       {
         name: "Airport Transfers",
-        href: "/airport-transfer",
-        description: "Track your metrics",
+        href: "/services/1",
       },
       {
         name: "Special Events & Conferences",
-        href: "/chauffeur-service",
-        description: "Manage your data",
+        href: "/services/2",
       },
       {
         name: "Wedding Chauffeurs",
-        href: "/wedding-car-hire",
-        description: "Generate insights",
+        href: "/services/3",
       },
       {
         name: "Corporate Transfers",
-        href: "/custom-tailored-tours",
-        description: "Generate insights",
+        href: "/services/4",
       },
       {
         name: "Tourist Attractions Hire",
-        href: "/custom-tailored-tours",
+        href: "/services/5",
       },
       {
         name: "Chauffeured Winery Tours",
-        href: "/custom-tailored-tours",
-        description: "Generate insights",
+        href: "/services/6",
+      },
+      {
+        name: "Hourly Hire",
+        href: "/services/8",
       },
     ],
   },
@@ -187,7 +184,6 @@ export default function Header() {
           </nav>
 
           <div className="hidden items-center space-x-4 lg:flex">
-            
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link prefetch={false} href="/booking">
                 <AnimatedBtn1>Book Now</AnimatedBtn1>
@@ -231,14 +227,13 @@ export default function Header() {
                   </Link>
                 ))}
                 <div className="space-y-2 px-4 py-2">
-                  
                   <Link
                     prefetch={false}
                     href="/booking"
                     className="block w-full transition-all duration-200 hover:shadow-lg"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                     <AnimatedBtn1>Book Now</AnimatedBtn1>
+                    <AnimatedBtn1>Book Now</AnimatedBtn1>
                   </Link>
                 </div>
               </div>
