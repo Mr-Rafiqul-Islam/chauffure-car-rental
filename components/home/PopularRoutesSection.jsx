@@ -6,32 +6,32 @@ const routesData = [
   {
     routeName: "Melbourne CBD to Melbourne Airport",
     price: 93,
-    link: "/blogs/melbourne-cbd-to-airport",
+    link: "/booking",
   },
   {
     routeName: "Southbank to Melbourne Airport",
     price: 95,
-    link: "/blogs/southbank-to-airport",
+    link: "/booking",
   },
   {
     routeName: "Cruise Terminal to Melbourne Airport",
     price: 95,
-    link: "/blogs/cruise-terminal-to-airport",
+    link: "/booking",
   },
   {
     routeName: "East Melbourne to Melbourne Airport",
     price: 94,
-    link: "/blogs/east-melbourne-to-airport",
+    link: "/booking",
   },
   {
     routeName: "Geelong to Melbourne Airport",
     price: 179,
-    link: "/blogs/geelong-to-airport",
+    link: "/booking",
   },
   {
     routeName: "Mornington to Melbourne Airport",
     price: 208,
-    link: "/blogs/mornington-to-airport",
+    link: "/booking"
   },
 ];
 

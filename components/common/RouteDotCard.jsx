@@ -28,13 +28,13 @@ const RouteDotCard = ({ route }) => {
               <h3 className="mb-1 text-lg font-bold text-gray-100 group-hover:text-orange-400 transition-colors">
                 {route.routeName}
               </h3>
-              <div className="mt-4 flex justify-between items-baseline">
+              {/* <div className="mt-4 flex justify-between items-baseline">
                 <p className="text-xs text-zinc-400">Price Starts From:</p>
                 <p className="text-2xl font-bold text-white">
                   <span className="text-sm font-medium mr-1">AUD</span>
                   {route.price}
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
