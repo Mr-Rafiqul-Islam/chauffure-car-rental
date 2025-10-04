@@ -1,89 +1,83 @@
-"use client"
-import React, { useEffect } from "react"
-import useEmblaCarousel from "embla-carousel-react"
-import { cn } from "@/lib/utils"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { motion } from "framer-motion"
-import { Quote } from "lucide-react"
+"use client";
+import React, { useEffect } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
+import { Quote } from "lucide-react";
 
 const defaultTestimonials = [
   {
-    text:
-      "Luxury Chauffeur Car Service made my Cup Day experience truly exceptional. Their knowledge of the Flemington access points saved us so much time.",
-    imageSrc: "/assets/profiles/avatar-01.jpg",
+    text: "Luxury Chauffeur Car Service made my Cup Day experience truly exceptional. Their knowledge of the Flemington access points saved us so much time.",
+    imageSrc: "/assets/profiles/male-user.jpg",
     name: "Arjun Mehta",
-    organization: "Sports Company",
-    role: "Business Man"
+
+    route: "Melbourne CBD to Melbourne Airport",
   },
   {
-    text:
-      "My chauffeur ensured a smooth ride from the airport to my CBD hotel, navigating morning traffic expertly. Their local knowledge was impressive!",
-    imageSrc: "/assets/profiles/avatar-03.jpg",
+    text: "My chauffeur ensured a smooth ride from the airport to my CBD hotel, navigating morning traffic expertly. Their local knowledge was impressive!",
+    imageSrc: "/assets/profiles/female-user.jpg",
     name: "Sara Lin",
-    organization: "Sony Inc.",
-    role: "UX Designer"
+
+    route: "Southbank to Melbourne Airport",
   },
   {
-    text:
-      "I was impressed by their prompt service for my urgent trip from South Yarra to the Convention Centre. The driver knew all the shortcuts!",
-    imageSrc: "/assets/profiles/avatar-02.jpg",
+    text: "I was impressed by their prompt service for my urgent trip from South Yarra to the Convention Centre. The driver knew all the shortcuts!",
+    imageSrc: "/assets/profiles/male-user.jpg",
     name: "Devon Carter",
-    organization: "BBC Tv",
-    role: "Product Manager"
+
+    route: "Cruise Terminal to Melbourne Airport",
   },
   {
-    text:
-      "Our Yarra Valley winery tour was effortless thanks to our chauffeur who knew all the best local spots. A truly luxurious experience!",
-    imageSrc: "/assets/profiles/avatar-04.jpg",
+    text: "Our Yarra Valley winery tour was effortless thanks to our chauffeur who knew all the best local spots. A truly luxurious experience!",
+    imageSrc: "/assets/profiles/female-user.jpg",
     name: "Priya Shah",
-    organization: "IT Firm",
-    role: "Full Stack Developer"
+
+    route: "East Melbourne to Melbourne Airport",
   },
   {
-    text:
-      "Luxury Chauffeur consistently delivers top-notch airport transfers. Their flight tracking ensured they were waiting despite our delayed arrival.",
-    imageSrc: "/assets/profiles/avatar-05.jpg",
+    text: "Luxury Chauffeur consistently delivers top-notch airport transfers. Their flight tracking ensured they were waiting despite our delayed arrival.",
+    imageSrc: "/assets/profiles/male-user.jpg",
     name: "Leo Martin",
-    organization: "AB Company",
-    role: "Startup Founder"
+
+    route: "Geelong to Melbourne Airport",
   },
   {
-    text:
-      "Our Yarra Valley winery tour was effortless thanks to our chauffeur who knew all the best local spots. A truly luxurious experience!",
-    imageSrc: "/assets/profiles/avatar-06.jpg",
+    text: "Our Yarra Valley winery tour was effortless thanks to our chauffeur who knew all the best local spots. A truly luxurious experience!",
+    imageSrc: "/assets/profiles/male-user.jpg",
     name: "Chloe Winters",
-    organization: "X Sports",
-    role: "UI Designer"
-  }
-]
+
+    route: "Mornington to Melbourne Airport",
+  },
+];
 
 export default function TestimonialsCarousel({
   testimonials = defaultTestimonials,
   title = "What Our Clients Say",
   subtitle = "Discover what our clients say about our premium chauffeur services throughout the city and surrounding areas.",
   autoplaySpeed = 3000,
-  className
+  className,
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
     containScroll: "trimSnaps",
-    dragFree: true
-  })
+    dragFree: true,
+  });
 
   useEffect(() => {
-    if (!emblaApi) return
+    if (!emblaApi) return;
 
     const autoplay = setInterval(() => {
-      emblaApi.scrollNext()
-    }, autoplaySpeed)
+      emblaApi.scrollNext();
+    }, autoplaySpeed);
 
     return () => {
-      clearInterval(autoplay)
-    }
-  }, [emblaApi, autoplaySpeed])
+      clearInterval(autoplay);
+    };
+  }, [emblaApi, autoplaySpeed]);
 
-  const allTestimonials = [...testimonials, ...testimonials]
+  const allTestimonials = [...testimonials, ...testimonials];
 
   return (
     <section
@@ -131,7 +125,7 @@ export default function TestimonialsCarousel({
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="border-border from-secondary/20 to-card relative h-full w-fit rounded-2xl border bg-gradient-to-b p-6 shadow-md backdrop-blur-sm"
+                  className="border-border from-secondary/20 to-card relative h-full w-[350px] rounded-2xl border bg-gradient-to-b p-6 shadow-md backdrop-blur-sm"
                 >
                   {/* Enhanced decorative gradients */}
                   <div className="from-primary/15 to-card absolute -top-5 -left-5 -z-10 h-40 w-40 rounded-full bg-gradient-to-b blur-md" />
@@ -182,9 +176,9 @@ export default function TestimonialsCarousel({
                       </h4>
                       <div className="flex items-center gap-2">
                         <p className="text-primary/80 text-sm whitespace-nowrap">
-                          {testimonial.role}
+                          {testimonial.route}
                         </p>
-                        {testimonial.organization && (
+                        {/* {testimonial.organization && (
                           <>
                             <span className="text-muted-foreground flex-shrink-0">
                               •
@@ -193,7 +187,7 @@ export default function TestimonialsCarousel({
                               {testimonial.organization}
                             </p>
                           </>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </motion.div>
@@ -204,5 +198,5 @@ export default function TestimonialsCarousel({
         </div>
       </div>
     </section>
-  )
+  );
 }
