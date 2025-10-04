@@ -9,6 +9,7 @@ const SERVICE_TYPES = [
   "Airport Transfers",
   "Special Events & Conferences",
   "Wedding Chauffeurs",
+  "Hourly Rate",
   "Corporate Transfers",
   "Tourist Attractions Hire",
   "Chauffeured Winery Tours",
