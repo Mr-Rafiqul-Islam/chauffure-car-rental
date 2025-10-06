@@ -18,7 +18,7 @@ export default async function Home() {
       <Banner />
       <ServiceSection servicesData={services}/>
       <FeatureSteps />
-      <FleetShowcase fleetData={fleets.fleets}/>
+      <FleetShowcase fleetData={fleets}/>
       <TestimonialsCarousel />
       <PopularRoutesSection />
       <BlogSection blogData={blogs}/>

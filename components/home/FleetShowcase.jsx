@@ -1,15 +1,10 @@
 import FleetCard from "../FleetCard";
 import Link from "next/link";
 import {
-  Users,
-  Briefcase,
   ArrowRight,
-  MapPin,
-  Plane,
-  Wine,
 } from "lucide-react";
 import TextGenerateEffect from "../ui/typewriter";
-// const fleetData = [
+
 //   {
 //     name: "Luxury Sedan",
 //     model: "Mercedes-Benz V-Class",

@@ -12,7 +12,7 @@ const page = async() => {
         pageName="Our Fleets"
         subheading="Explore Our Premium Chauffeur-Driven Fleet"
       />
-      <FleetShowcase from="fleets" fleetData={fleets.fleets}/>
+      <FleetShowcase from="fleets" fleetData={fleets}/>
       <PopularRoutesSection/>
     </div>
   );

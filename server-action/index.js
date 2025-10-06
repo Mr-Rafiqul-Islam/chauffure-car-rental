@@ -44,7 +44,7 @@ export const getFleets = async () => {
     if (!res.ok) throw new Error("Failed to fetch fleets");
 
     const data = await res.json();
-    return data;
+    return data.fleets;
   } catch (error) {
     console.error("Error fetching fleets:", error);
     return [];

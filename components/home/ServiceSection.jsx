@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 
 const ServiceSection = ({ servicesData }) => {
   if (!servicesData || servicesData.length === 0) {
-    notFound(); // ❌ redirects to 404 page
+    notFound(); 
   }
   return (
     <section className="lg:px-20 md:px-10 px-5 py-10">
