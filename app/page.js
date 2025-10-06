@@ -12,7 +12,6 @@ export default async function Home() {
   const services  = await getServices();
   const fleets = await getFleets();
   const blogs = await getBlogs();
-  console.log("BlogData==> \n", blogs);
   return (
     <>
       <Banner />

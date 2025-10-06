@@ -4,6 +4,10 @@ import PageHeader from "@/components/ui/lamp";
 import { getFleets } from "@/server-action";
 import React from "react";
 
+export const metadata = {
+  title: "Our Fleets | Luxury Chaffure",
+  description: "A Premium Chaffure Car Service in Melbourne",
+};
 const page = async() => {
   const fleets= await getFleets();
   return (

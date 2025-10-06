@@ -3,6 +3,7 @@ import "./globals.css";
 import FooterGlow from "@/components/mvpblocks/footer-glow";
 import Header from "@/components/mvpblocks/header-1";
 import { Toaster } from "@/components/ui/sonner";
+import { getServices } from "@/server-action";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,14 +21,24 @@ export const metadata = {
   description: "A Premium Chaffure Car Service in Melbourne",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const services = await getServices();
+
+  // Format the data into the structure your Header component needs
+  const formattedServicesList = services.map(service => {
+    const slug = service.name.replace(/\s+/g, "-").toLowerCase();
+    return {
+      name: service.name,
+      href: `/services/${service.id}/${slug}`,
+    };
+  });
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#1F1F1F] text-[#FFFFF0]`}
       >
         <Toaster  />
-        <Header />
+        <Header servicesDropdownItems={formattedServicesList}/>
         {children}
         <FooterGlow/>
       </body>

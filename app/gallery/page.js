@@ -1,7 +1,10 @@
 import MasonryGallery from "@/components/mvpblocks/masonry-grid-1";
 import TextGenerateEffect from "@/components/ui/typewriter";
 import React from "react";
-
+export const metadata = {
+  title: "Gallery | Luxury Chaffure",
+  description: "A Premium Chaffure Car Service in Melbourne",
+};
 const page = () => {
   return (
     <div className="py-10 lg:pt-20 mt-16 mx-auto text-center">

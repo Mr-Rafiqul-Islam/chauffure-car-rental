@@ -2,7 +2,10 @@ import { Spotlight } from "@/components/ui/spotlight";
 import React from "react";
 import Heading from "./Heading";
 import BookingForm from "@/components/booking-form/BookingForm";
-
+export const metadata = {
+  title: "Booking | Luxury Chaffure",
+  description: "A Premium Chaffure Car Service in Melbourne",
+};
 const page = () => {
   return (
     <section className="relative w-full overflow-hidden pt-28">

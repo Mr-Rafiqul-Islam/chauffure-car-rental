@@ -138,7 +138,23 @@ export default function FooterGlow() {
               </li>
             </ul>
           </div>
-          
+          <div>
+            <div className="mb-3 text-xs font-semibold tracking-widest text-rose-400 uppercase">
+              Others
+            </div>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/privacy-policy" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms-and-conditions" className="text-foreground/70 hover:text-ivory transition-all duration-300">
+                  Terms & Conditions
+                </Link>
+              </li>
+            </ul>
+          </div>
         </nav>
       </div>
       <div className="text-foreground relative z-10 mt-10 text-center text-xs">

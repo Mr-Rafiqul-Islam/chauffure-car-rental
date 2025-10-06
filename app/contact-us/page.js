@@ -1,7 +1,10 @@
 import ContactUs from "@/components/mvpblocks/contact-us-2";
 import PageHeader from "@/components/ui/lamp";
 import React from "react";
-
+export const metadata = {
+  title: "Contact Us | Luxury Chaffure",
+  description: "A Premium Chaffure Car Service in Melbourne",
+};
 const page = () => {
   return (
     <div className="bg-slate-950">

@@ -3,55 +3,25 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import AnimatedBtn1 from "./animatedbtn";
-const navItems = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about-us" },
-  {
-    name: "Services",
-    href: "/services",
-    hasDropdown: true,
-    dropdownItems: [
-      {
-        name: "Airport Transfers",
-        href: "/services/1",
-      },
-      {
-        name: "Special Events & Conferences",
-        href: "/services/2",
-      },
-      {
-        name: "Wedding Chauffeurs",
-        href: "/services/3",
-      },
-      {
-        name: "Corporate Transfers",
-        href: "/services/4",
-      },
-      {
-        name: "Tourist Attractions Hire",
-        href: "/services/5",
-      },
-      {
-        name: "Chauffeured Winery Tours",
-        href: "/services/6",
-      },
-      {
-        name: "Hourly Hire",
-        href: "/services/8",
-      },
-    ],
-  },
-  { name: "Our Fleets", href: "/our-fleets" },
-  { name: "Blogs", href: "/blogs" },
-  { name: "Contact Us", href: "/contact-us" },
-];
-export default function Header() {
+
+export default function Header({ servicesDropdownItems }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const { theme } = useTheme();
+  const navItems = [
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about-us" },
+    {
+      name: "Services",
+      href: "/services",
+      hasDropdown: true,
+      dropdownItems: servicesDropdownItems || [],
+    },
+    { name: "Our Fleets", href: "/our-fleets" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Contact Us", href: "/contact-us" },
+  ];
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);

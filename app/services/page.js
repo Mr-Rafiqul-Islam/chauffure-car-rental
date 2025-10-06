@@ -4,7 +4,10 @@ import FeatureSteps from "@/components/mvpblocks/feature-2";
 import PageHeader from "@/components/ui/lamp";
 import { getServices } from "@/server-action";
 import React from "react";
-
+export const metadata = {
+  title: "Services | Luxury Chaffure",
+  description: "A Premium Chaffure Car Service in Melbourne",
+};
 const page = async() => {
   const services  = await getServices();
   return (
