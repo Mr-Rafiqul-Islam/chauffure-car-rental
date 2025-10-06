@@ -55,7 +55,7 @@ const ServiceSection = ({servicesData}) => {
                     <div className="flex min-h-full flex-col items-center justify-center">
                       <h2 className="text-xl font-bold mb-4">{service.name}</h2>
                       <p className="text-lg text-pretty text-center mb-4">
-                        {service.details}
+                        {service.short_details}
                       </p>
                       <div className="inline-flex">
                         <button className="bg-yellow-800 hover:bg-yellow-700 text-white font-bold py-1 px-4 w-auto rounded-full inline-flex items-center">

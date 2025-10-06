@@ -15,9 +15,8 @@ const ServiceDetailsPage = async ({ params }) => {
         <section className="pt-28 justify-center flex flex-col items-center">
             <h2 className="text-4xl lg:text-6xl text-center mb-10">{details.name}</h2>
             <Image src={details.image} alt={details.name} width={800} height={500}/>
-            <p className="mt-5 text-lg md:text-xl lg:text-2xl text-center text-ivory/60">
-                {details.details}
-            </p>
+            
+            <div className="mt-5 prose prose-sm max-w-none text-center" dangerouslySetInnerHTML={{ __html: details.details }}/>
         </section>
     </main>
   );
