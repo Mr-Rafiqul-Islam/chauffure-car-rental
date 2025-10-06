@@ -21,9 +21,7 @@ const BlogDetailsPage = async ({ params }) => {
           width={800}
           height={500}
         />
-        {/* <p className="mt-5 text-lg md:text-xl lg:text-2xl text-center text-ivory/60">
-          {blogDetails.details}
-        </p> */}
+        
 
         <div
           className="mt-5 prose prose-sm max-w-none text-center"

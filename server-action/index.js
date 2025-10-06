@@ -51,6 +51,25 @@ export const getFleets = async () => {
   }
 };
 
+export const getFleetDetails = async (id) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_SERVER_API_URL}/specific-fleet/${id}`,
+      {
+        next: { revalidate: 60 },
+      }
+    );
+
+    if (!res.ok) throw new Error("Failed to fetch fleet");
+
+    const data = await res.json();
+    return data.fleet;
+  } catch (error) {
+    console.error("Error fetching fleet:", error);
+    return [];
+  };
+}
+
 export const getBlogs = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_SERVER_API_URL}/blog`, {

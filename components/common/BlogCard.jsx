@@ -23,10 +23,10 @@ const BlogCard = ({ post }) => {
               <h3 className="text-xl font-bold text-gray-100 transition-colors duration-300 group-hover:text-[#D4AF37]">
                 {post.title}
               </h3>
-              {/* <p className="mt-2 text-zinc-400 text-sm flex-grow">
-                {post.details}
-              </p> */}
-              <div className="mt-2 text-zinc-400 text-sm flex-grow" dangerouslySetInnerHTML={{ __html: post.details }}/>
+              <p className="mt-2 text-zinc-400 text-sm flex-grow">
+                {post.short_details}
+              </p>
+
               <div className="mt-6 flex items-center text-sm font-bold text-[#D4AF37] transition-colors duration-300 group-hover:text-white">
                 <span>Read More</span>
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

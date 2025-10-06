@@ -3,10 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Users, Briefcase, Star, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 const FleetCard = ({ vehicle }) => {
+  const slug = vehicle?.name.replace(/\s+/g, "-").toLowerCase();
   return (
-    <Card className="group relative w-full overflow-hidden rounded-xl bg-white border-gray-200/80 shadow-sm transition-all duration-300 hover:shadow-[0_0_20px_2px_#D4AF37] hover:-translate-y-1">
-      <div  className="block cursor-pointer">
+    <Card className="group relative w-full h-full overflow-hidden rounded-xl bg-white border-gray-200/80 shadow-sm transition-all duration-300 hover:shadow-[0_0_20px_2px_#D4AF37] hover:-translate-y-1">
+      <Link href={`/our-fleets/${vehicle.id}/${slug}`}  className="block cursor-pointer">
         {vehicle.isPopular && (
           <Badge className="absolute top-4 right-4 z-10 bg-gray-900 text-white hover:bg-gray-700">
             <Star className="mr-1.5 h-3 w-3" />
@@ -38,13 +40,10 @@ const FleetCard = ({ vehicle }) => {
             </div>
           </div>
 
-          {/* <p className="mt-3 text-sm text-gray-600 h-10">
-            {vehicle.details}
-          </p> */}
-          <div
-            className="mt-3 prose prose-sm max-w-none text-gray-800"
-            dangerouslySetInnerHTML={{ __html: vehicle.details }}
-          />
+          <p className="mt-3 text-sm text-gray-600">
+            {vehicle.short_details}
+          </p>
+          
           <div className="mt-4 text-left">
             <p className="text-sm text-gray-500">
               Starts From{" "}
@@ -77,7 +76,7 @@ const FleetCard = ({ vehicle }) => {
         <div className="absolute bottom-6 right-6 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-110">
           <ArrowRight className="h-5 w-5 text-orange-600" />
         </div>
-      </div>
+      </Link>
     </Card>
   );
 };
