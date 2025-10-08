@@ -26,6 +26,7 @@ const ServiceDetailsPage = async ({ params }) => {
     notFound();
   }
 
+  const serviceDescriptionMarkup = { __html: details.details };
   return (
     <main>
       <section className="pt-28 justify-center flex flex-col items-center">
@@ -41,7 +42,7 @@ const ServiceDetailsPage = async ({ params }) => {
 
         <div
           className="mt-5 prose prose-sm max-w-none text-center"
-          dangerouslySetInnerHTML={{ __html: details.details }}
+          dangerouslySetInnerHTML={serviceDescriptionMarkup}
         />
       </section>
     </main>

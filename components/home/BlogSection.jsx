@@ -3,11 +3,12 @@ import BlogCard from "../common/BlogCard";
 import SectionTitle from "../common/SectionTitle";
 import AnimatedBtn1 from "../mvpblocks/animatedbtn";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 // --- The Main Blog Section Component ---
 export default function BlogSection({ from, blogData }) {
   if (!blogData || blogData.length === 0) {
-    notFound(); // ❌ redirects to 404 page
+    notFound(); 
   }
   return (
     <section className="bg-black text-zinc-300 py-16 sm:py-24">
