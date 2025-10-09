@@ -58,37 +58,37 @@ export default function Step1BookingDetails({
       {/* Date & Time */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-1">
-          <Label htmlFor="dateOfService" className="text-black">
+          <Label htmlFor="date" className="text-black">
             Date of Service <span className="text-copper">*</span>
           </Label>
           <Input
-            id="dateOfService"
-            name="dateOfService"
+            id="date"
+            name="date"
             type="date"
-            value={formData.dateOfService}
+            value={formData.date}
             onChange={handleInputChange}
-            className={`w-full text-black ${errors.dateOfService ? "border-red-500" : ""}`}
+            className={`w-full text-black ${errors.date ? "border-red-500" : ""}`}
             min={new Date().toISOString().split("T")[0]}
           />
-          {errors.dateOfService && (
-            <p className="text-sm text-red-500 mt-1">{errors.dateOfService}</p>
+          {errors.date && (
+            <p className="text-sm text-red-500 mt-1">{errors.date}</p>
           )}
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="pickupTime" className="text-black">
+          <Label htmlFor="time" className="text-black">
             Pickup Time <span className="text-copper">*</span>
           </Label>
           <Input
-            id="pickupTime"
-            name="pickupTime"
+            id="time"
+            name="time"
             type="time"
-            value={formData.pickupTime}
+            value={formData.time}
             onChange={handleInputChange}
-            className={`w-full text-black ${errors.pickupTime ? "border-red-500" : ""}`}
+            className={`w-full text-black ${errors.time ? "border-red-500" : ""}`}
           />
-          {errors.pickupTime && (
-            <p className="text-sm text-red-500 mt-1">{errors.pickupTime}</p>
+          {errors.time && (
+            <p className="text-sm text-red-500 mt-1">{errors.time}</p>
           )}
         </div>
       </div>
@@ -97,11 +97,11 @@ export default function Step1BookingDetails({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <SelectField
           label="Number of Adults"
-          name="adults"
+          name="no_of_adults"
           options={Array.from({ length: 13 }, (_, i) => String(i + 1))}
-          value={formData.adults}
+          value={formData.no_of_adults}
           onChange={handleSelectChange}
-          error={errors.adults}
+          error={errors.no_of_adults}
           placeholder="-- Select Adults --"
         />
         <SelectField

@@ -70,6 +70,26 @@ export default function Step4PersonalInfo({ formData, errors, handleInputChange 
           <p className="text-sm text-red-500 mt-1">{errors.phone}</p>
         )}
       </div>
+      {/* notes */}
+      <div className="space-y-1">
+        <Label htmlFor="notes" className="text-black">
+          Additional Notes <span className="text-muted">(optional)</span>
+        </Label>
+        <Input
+          id="notes"
+          name="notes"
+          type="text"
+          placeholder="Any Instructions ?"
+          value={formData.notes}
+          onChange={handleInputChange}
+          className={`w-full text-black selection:bg-blue-500 ${
+            errors.notes ? "border-red-500" : ""
+          }`}
+        />
+        {errors.notes && (
+          <p className="text-sm text-red-500 mt-1">{errors.notes}</p>
+        )}
+      </div>
     </div>
   );
 }

@@ -10,20 +10,27 @@ export default function useBookingForm() {
   const [formData, setFormData] = useState({
     serviceType: "",
     vehiclePreference: "",
-    dateOfService: "",
-    pickupTime: "",
-    adults: "",
-    children: "0",
-    pickupLocation: "",
-    pickupLocationCoordinates: null,
-    dropoffLocation: "",
-    dropoffLocationCoordinates: null,
+    date: "",
+    time: "",
+    no_of_adults: "",
+    children: false,
+    pickup_location: "",
+    pickup_locationCoordinates: null,
+    drop_location: "",
+    drop_locationCoordinates: null,
     distance: null,
     estimatedPrice: null,
     baseFare: null,
     name: "",
     email: "",
     phone: "",
+    is_round_trip: false,
+    is_duration_trip: false,
+    booster_seat: "",
+    baby_seat: "",
+    notes: "",
+    fleet_id: "",
+    service_id: "",
   });
 
   const clearError = useCallback((field) => {
@@ -34,7 +41,7 @@ export default function useBookingForm() {
         return newErr;
       });
     }
-  },[]);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -58,15 +65,15 @@ export default function useBookingForm() {
         newErrors.serviceType = "Service type is required.";
       if (!formData.vehiclePreference)
         newErrors.vehiclePreference = "Vehicle preference is required.";
-      if (!formData.dateOfService)
-        newErrors.dateOfService = "Date of service is required.";
-      if (!formData.pickupTime)
-        newErrors.pickupTime = "Pickup Time is required.";
-      else if (!isPickupTimeValid(formData.dateOfService, formData.pickupTime))
-        newErrors.pickupTime = "Pickup time must be at least 2 hours from now.";
+      if (!formData.date)
+        newErrors.date = "Date of service is required.";
+      if (!formData.time)
+        newErrors.time = "Pickup Time is required.";
+      else if (!isPickupTimeValid(formData.date, formData.time))
+        newErrors.time = "Pickup time must be at least 2 hours from now.";
 
-      if (!formData.adults) {
-        newErrors.adults = "Number of adults is required.";
+      if (!formData.no_of_adults) {
+        newErrors.no_of_adults = "Number of adults is required.";
       } else {
         const limits = {
           "1-4 Luxury Sedan": 4,
@@ -75,15 +82,15 @@ export default function useBookingForm() {
           "1-13 Luxury Van": 13,
         };
         const max = limits[formData.vehiclePreference];
-        if (max && parseInt(formData.adults) > max) {
-          newErrors.adults = `Max ${max} adults allowed for selected vehicle.`;
+        if (max && parseInt(formData.no_of_adults) > max) {
+          newErrors.no_of_adults = `Max ${max} adults allowed for selected vehicle.`;
         }
       }
     } else if (currentStep === 2) {
-      if (!formData.pickupLocation)
-        newErrors.pickupLocation = "Pickup location is required.";
-      if (!formData.dropoffLocation)
-        newErrors.dropoffLocation = "Dropoff location is required.";
+      if (!formData.pickup_location)
+        newErrors.pickup_location = "Pickup location is required.";
+      if (!formData.drop_location)
+        newErrors.drop_location = "Dropoff location is required.";
     } else if (currentStep === 4) {
       if (!formData.name) newErrors.name = "Full name is required.";
       if (!formData.phone) newErrors.phone = "Phone number is required.";
@@ -99,25 +106,25 @@ export default function useBookingForm() {
   };
 
   useEffect(() => {
-    if (formData.dateOfService && formData.pickupTime && currentStep === 1) {
-      if (!isPickupTimeValid(formData.dateOfService, formData.pickupTime)) {
+    if (formData.date && formData.time && currentStep === 1) {
+      if (!isPickupTimeValid(formData.date, formData.time)) {
         setErrors((prev) => ({
           ...prev,
-          pickupTime: "Pickup must be 2+ hours from now.",
+          time: "Pickup must be 2+ hours from now.",
         }));
       } else {
-        clearError("pickupTime");
+        clearError("time");
       }
     }
-  }, [formData.dateOfService, formData.pickupTime, currentStep, clearError]);
+  }, [formData.date, formData.time, currentStep, clearError]);
 
   const handleNext = () => {
     if (!validateStep()) return;
 
     if (currentStep === 2) {
       const distance = calculateDistanceKm(
-        formData.pickupLocationCoordinates,
-        formData.dropoffLocationCoordinates
+        formData.pickup_locationCoordinates,
+        formData.drop_locationCoordinates
       );
       const baseFare = 50;
       const perKm = 3;
@@ -132,13 +139,12 @@ export default function useBookingForm() {
 
     if (currentStep < 4) setCurrentStep((prev) => prev + 1);
     else {
-      toast("Booking submitted successfully! ✅",{
+      toast("Booking submitted successfully! ✅", {
         position: "top-center",
-        description: "We'll contact to you soon."
+        description: "We'll contact to you soon.",
       });
       resetForm();
       console.log("Form submitted:", formData);
-      
     }
   };
 
@@ -151,20 +157,25 @@ export default function useBookingForm() {
     setFormData({
       serviceType: "",
       vehiclePreference: "",
-      dateOfService: "",
-      pickupTime: "",
-      adults: "",
+      date: "",
+      time: "",
+      no_of_adults: "",
       children: "0",
-      pickupLocation: "",
-      pickupLocationCoordinates: null,
-      dropoffLocation: "",
-      dropoffLocationCoordinates: null,
+      pickup_location: "",
+      pickup_locationCoordinates: null,
+      drop_location: "",
+      drop_locationCoordinates: null,
       distance: null,
       estimatedPrice: null,
       baseFare: null,
       name: "",
       email: "",
       phone: "",
+      is_round_trip: false,
+      is_duration_trip: false,
+      booster_seat: "",
+      baby_seat: "",
+      notes: "",
     });
     setErrors({});
     setCurrentStep(1);

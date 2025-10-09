@@ -14,28 +14,28 @@ export default function Step2TripDetails({
     <div className="space-y-6">
       {/* Pickup Location */}
       <div className="space-y-1">
-        <Label htmlFor="pickupLocation" className="text-black">
+        <Label htmlFor="pickup_location" className="text-black">
           Pickup Location <span className="text-copper">*</span>
         </Label>
         <GooglePlacesInput
-          name="pickupLocation"
-          value={formData.pickupLocation}
+          name="pickup_location"
+          value={formData.pickup_location}
           onChange={handleSelectChange}
-          error={errors.pickupLocation}
+          error={errors.pickup_location}
           placeholder="Enter pickup address"
         />
       </div>
 
       {/* Dropoff Location */}
       <div className="space-y-1">
-        <Label htmlFor="dropoffLocation" className="text-black">
+        <Label htmlFor="drop_location" className="text-black">
           Dropoff Location <span className="text-copper">*</span>
         </Label>
         <GooglePlacesInput
-          name="dropoffLocation"
-          value={formData.dropoffLocation}
+          name="drop_location"
+          value={formData.drop_location}
           onChange={handleSelectChange}
-          error={errors.dropoffLocation}
+          error={errors.drop_location}
           placeholder="Enter dropoff address"
         />
       </div>

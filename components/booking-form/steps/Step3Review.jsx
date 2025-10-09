@@ -18,22 +18,22 @@ export default function Step3Review({ formData }) {
           <strong>Vehicle:</strong> {formData.vehiclePreference || "N/A"}
         </li>
         <li>
-          <strong>Date of Service:</strong> {formData.dateOfService || "N/A"}
+          <strong>Date of Service:</strong> {formData.date || "N/A"}
         </li>
         <li>
           <strong>Time:</strong>{" "}
-          {formData.pickupTime ? formatTime(formData.pickupTime) : "N/A"}
+          {formData.time ? formatTime(formData.time) : "N/A"}
         </li>
         <li>
-          <strong>Passengers:</strong> {formData.adults} Adults,{" "}
+          <strong>Passengers:</strong> {formData.no_of_adults} Adults,{" "}
           {formData.children} Children
         </li>
         <hr className="my-2" />
         <li>
-          <strong>Pickup Location:</strong> {formData.pickupLocation || "N/A"}
+          <strong>Pickup Location:</strong> {formData.pickup_location || "N/A"}
         </li>
         <li>
-          <strong>Dropoff Location:</strong> {formData.dropoffLocation || "N/A"}
+          <strong>Dropoff Location:</strong> {formData.drop_location || "N/A"}
         </li>
         <hr className="my-2" />
         <li>
