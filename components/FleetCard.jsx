@@ -1,14 +1,17 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, Briefcase, Star, ArrowRight } from "lucide-react";
+import { Users, Briefcase, Star, ArrowRight, Luggage } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 const FleetCard = ({ vehicle }) => {
   const slug = vehicle?.name.replace(/\s+/g, "-").toLowerCase();
   return (
     <Card className="group relative w-full h-full overflow-hidden rounded-xl bg-white border-gray-200/80 shadow-sm transition-all duration-300 hover:shadow-[0_0_20px_2px_#D4AF37] hover:-translate-y-1">
-      <Link href={`/our-fleets/${vehicle.id}/${slug}`}  className="block cursor-pointer">
+      <Link
+        href={`/our-fleets/${vehicle.id}/${slug}`}
+        className="block cursor-pointer"
+      >
         {vehicle.isPopular && (
           <Badge className="absolute top-4 right-4 z-10 bg-gray-900 text-white hover:bg-gray-700">
             <Star className="mr-1.5 h-3 w-3" />
@@ -29,21 +32,25 @@ const FleetCard = ({ vehicle }) => {
         <CardContent className="p-6 pt-0 bg-white">
           <h3 className="text-xl font-bold text-gray-900">{vehicle.name}</h3>
 
-          <div className="mt-2 flex items-center space-x-4 text-sm font-semibold text-orange-600">
+          <div className="mt-2 flex items-center space-x-2 text-sm font-semibold text-orange-600">
             <div className="flex items-center">
               <Users className="mr-1.5 h-4 w-4" />
               UP TO {vehicle.total_seats} PASSENGERS
             </div>
             <div className="flex items-center">
-              <Briefcase className="mr-1.5 h-4 w-4" />
-              {vehicle.total_bag} LUGGAGES
+              <Luggage className="mr-1.5 h-5 w-5" />
+              {vehicle.checking_bag} CHECKED LUGGAGES
             </div>
+            {vehicle.carry_bag && (
+              <div className="flex items-center">
+                <Briefcase className="mr-1.5 h-4 w-4" />
+                {vehicle.carry_bag} CARRY LUGGAGES
+              </div>
+            )}
           </div>
 
-          <p className="mt-3 text-sm text-gray-600">
-            {vehicle.short_details}
-          </p>
-          
+          <p className="mt-3 text-sm text-gray-600">{vehicle.short_details}</p>
+
           <div className="mt-4 text-left">
             <p className="text-sm text-gray-500">
               Starts From{" "}
