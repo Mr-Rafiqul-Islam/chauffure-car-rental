@@ -51,6 +51,7 @@ export default function BookingForm() {
             formData={formData}
             errors={errors}
             handleSelectChange={handleSelectChange}
+            handleInputChange={handleInputChange}
           />
         );
       case 3:
