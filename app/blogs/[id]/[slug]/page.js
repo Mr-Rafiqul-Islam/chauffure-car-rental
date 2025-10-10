@@ -28,7 +28,7 @@ const BlogDetailsPage = async ({ params }) => {
 
   return (
     <main>
-      <section className="pt-28 justify-center flex flex-col items-center">
+      <section className="pt-28 justify-center flex flex-col items-center lg:px-20 md:px-10 px-5">
         <h2 className="text-4xl lg:text-6xl text-center mb-10">
           {blogDetails.title}
         </h2>
@@ -40,7 +40,7 @@ const BlogDetailsPage = async ({ params }) => {
         />
 
         <div
-          className="mt-5 prose prose-sm max-w-none text-center"
+          className="mt-5 prose prose-sm max-w-none"
           dangerouslySetInnerHTML={{ __html: blogDetails.details }}
         />
       </section>

@@ -28,7 +28,7 @@ const FleetDetails = async ({ params }) => {
   }
   return (
     <main className="pt-28">
-      <section className="justify-center flex flex-col items-center">
+      <section className="justify-center flex flex-col items-center lg:px-20 md:px-10 px-5">
         <h1 className="text-4xl lg:text-6xl text-center mb-10">
           {details.name}
         </h1>
@@ -39,7 +39,7 @@ const FleetDetails = async ({ params }) => {
           height={500}
         />
         <div
-          className="mt-5 prose prose-sm max-w-none text-center"
+          className="mt-5 prose prose-sm max-w-none"
           dangerouslySetInnerHTML={{ __html: details.details }}
         />
       </section>
