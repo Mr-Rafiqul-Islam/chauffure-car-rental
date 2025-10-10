@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { isPickupTimeValid, calculateDistanceKm } from "@/lib/booking-utils";
 import { toast } from "sonner";
+import { submitBooking } from "@/lib/submitBooking";
 
 export default function useBookingForm() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -156,12 +157,21 @@ export default function useBookingForm() {
 
     if (currentStep < 4) setCurrentStep((prev) => prev + 1);
     else {
-      toast("Booking submitted successfully! ✅", {
-        position: "top-center",
-        description: "We'll contact to you soon.",
-      });
-      resetForm();
-      console.log("Form submitted:", formData);
+      // Instead of console.log, post the formData
+      submitBooking(formData)
+        .then(() => {
+          toast("Booking submitted successfully! ✅", {
+            position: "top-center",
+            description: "We'll contact you soon.",
+          });
+          resetForm();
+        })
+        .catch(() => {
+          toast("Failed to submit booking ❌", {
+            position: "top-center",
+            description: "Please try again later.",
+          });
+        });
     }
   };
 

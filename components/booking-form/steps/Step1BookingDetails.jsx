@@ -130,7 +130,7 @@ export default function Step1BookingDetails({
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <SelectField2
-          label="Number of Adults"
+          label={`Number of Adults (max ${maxAdults})`}
           name="no_of_adults"
           options={adultOptions}
           value={formData.no_of_adults}
