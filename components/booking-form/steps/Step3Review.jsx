@@ -29,7 +29,7 @@ export default function Step3Review({ formData }) {
           {formData.children && (
             <>
               {formData.baby_seat} Baby Seats, {formData.booster_seat}{" "}
-              {formData.booster_seat && "Booster Seats"} 
+              {formData.booster_seat && "Booster Seats"}
             </>
           )}
         </li>
@@ -41,15 +41,43 @@ export default function Step3Review({ formData }) {
           <strong>Dropoff Location:</strong> {formData.drop_location || "N/A"}
         </li>
         <hr className="my-2" />
-        <li>
-          <strong>Distance:</strong> {formData.distance || "N/A"} Km
+
+        <li className="flex justify-between">
+          <span className="font-medium text-brushedSilver">Distance:</span>
+          <span className="text-copper font-semibold">
+            {formData.is_duration_trip === "1"
+              ? "N/A (Hourly Hire)"
+              : `${formData.distance || "N/A"} Km${
+                  formData.is_round_trip === "1" ? " (Distance Doubled for Return)" : ""
+                }`}
+          </span>
         </li>
-        <li>
-          <strong>Fleet Price:</strong> {formData.baseFare || "N/A"} AUD
+
+        <li className="flex justify-between">
+          <span className="font-medium text-brushedSilver">Fleet Price:</span>
+          <span className="text-highlight font-semibold">
+            {formData.is_duration_trip === "1"
+              ? `${
+                  formData.fleetInfo?.per_kilometer_fare_duration_wise || "N/A"
+                } AUD (Per Hour)`
+              : `${formData.baseFare || "N/A"} AUD`}
+          </span>
         </li>
-        <li>
-          <strong>Total Estimated Price:</strong>{" "}
-          {formData.estimatedPrice || "N/A"} AUD
+
+        <li className="flex justify-between border-t border-copper/20 pt-2 mt-2">
+          <span className="font-medium text-brushedSilver">
+            Total Estimated Price:
+          </span>
+          <span className="text-royalGold font-bold tracking-wide">
+            {formData.estimatedPrice
+              ? `${formData.estimatedPrice} AUD${
+                  formData.is_round_trip === "1" &&
+                  formData.is_duration_trip !== "1"
+                    ? " (Round Trip)"
+                    : ""
+                }`
+              : "N/A"}
+          </span>
         </li>
       </ul>
     </div>

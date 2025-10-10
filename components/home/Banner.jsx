@@ -13,7 +13,7 @@ import TextRevealLetters from "../mvpblocks/text-reveal-1";
 import BookingForm from "../booking-form/BookingForm";
 import TextType from "../TextType";
 
-export default function Banner() {
+export default function Banner({ servicesData, fleetData }) {
   return (
     <>
       <section className="w-full relative">
@@ -30,7 +30,7 @@ export default function Banner() {
           />
         </div>
         <div className="absolute hidden xl:block top-1/2 right-[12.5%] transform -translate-y-1/2 z-40">
-          <BookingForm />
+          <BookingForm servicesData={servicesData} fleetData={fleetData} />
         </div>
         <Swiper
           modules={[Autoplay, EffectFade]}
@@ -63,7 +63,7 @@ export default function Banner() {
         </Swiper>
       </section>
       <div className="xl:hidden flex justify-center py-10 px-4">
-        <BookingForm />
+        <BookingForm servicesData={servicesData} fleetData={fleetData} />
       </div>
     </>
   );

@@ -20,7 +20,7 @@ const steps = [
   { id: "step-4", title: "Personal Info" },
 ];
 
-export default function BookingForm() {
+export default function BookingForm({ servicesData, fleetData }) {
     const {
     currentStep,
     formData,
@@ -39,6 +39,8 @@ export default function BookingForm() {
       case 1:
         return (
           <Step1BookingDetails
+            servicesData={servicesData}
+            fleetData={fleetData}
             formData={formData}
             errors={errors}
             handleInputChange={handleInputChange}

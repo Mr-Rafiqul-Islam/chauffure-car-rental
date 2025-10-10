@@ -5,31 +5,19 @@ import { Input } from "@/components/ui/input";
 import { SelectField } from "@/components/common/SelectField";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { SelectField2 } from "@/components/common/SelectField2";
 
-const SERVICE_TYPES = [
-  "Airport Transfers",
-  "Special Events & Conferences",
-  "Wedding Chauffeurs",
-  "Hourly Rate",
-  "Corporate Transfers",
-  "Tourist Attractions Hire",
-  "Chauffeured Winery Tours",
-  "Others",
-];
 
-const VEHICLES = [
-  "1-4 Luxury Sedan",
-  "1-4 Luxury SUV",
-  "1-7 Luxury Van",
-  "1-13 Luxury Van",
-];
 
 export default function Step1BookingDetails({
+  servicesData,
+  fleetData,
   formData,
   errors,
   handleInputChange,
   handleSelectChange,
 }) {
+  
   return (
     <div className="space-y-6">
       {/* Service & Vehicle */}
@@ -38,7 +26,7 @@ export default function Step1BookingDetails({
           <SelectField
             label="Type of Limo Service"
             name="serviceType"
-            options={SERVICE_TYPES}
+            options={servicesData}
             value={formData.serviceType}
             onChange={handleSelectChange}
             error={errors.serviceType}
@@ -70,7 +58,7 @@ export default function Step1BookingDetails({
         <SelectField
           label="Vehicle Preference"
           name="vehiclePreference"
-          options={VEHICLES}
+          options={fleetData}
           value={formData.vehiclePreference}
           onChange={handleSelectChange}
           error={errors.vehiclePreference}
@@ -121,8 +109,10 @@ export default function Step1BookingDetails({
       </div>
 
       {/* Adults & Children */}
+      
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <SelectField
+        <SelectField2
           label="Number of Adults"
           name="no_of_adults"
           options={Array.from({ length: 13 }, (_, i) => String(i + 1))}
@@ -175,29 +165,12 @@ export default function Step1BookingDetails({
             </div>
           </RadioGroup>
         </div>
-
-        {/*         
-        <div className="flex items-center gap-3">
-          <Checkbox
-            id="children"
-            name="children"
-            checked={formData.children === true}
-            onCheckedChange={(checked) =>
-              handleInputChange({
-                target: {
-                  name: "children",
-                  value: checked,
-                },
-              })
-            }
-            className="border-copper data-[state=checked]:bg-highlight data-[state=checked]:border-copper]"
-          />
-          <Label htmlFor="children" className="text-black">Need Children Seat?</Label>
-        </div> */}
       </div>
+
+
       {formData.children && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SelectField
+          <SelectField2
             label="Number of Baby Seats [Age 0-4]"
             name="baby_seat"
             options={Array.from({ length: 3 }, (_, i) => String(i + 1))}
@@ -205,7 +178,7 @@ export default function Step1BookingDetails({
             onChange={handleSelectChange}
             placeholder="-- Select Baby Seats --"
           />
-          <SelectField
+          <SelectField2
             label="Number of Booster Seats [Age 5-7]"
             name="booster_seat"
             options={Array.from({ length: 3 }, (_, i) => String(i))}

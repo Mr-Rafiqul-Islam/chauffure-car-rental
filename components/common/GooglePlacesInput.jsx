@@ -36,7 +36,7 @@ export default function GooglePlacesInput({
           lng: place.geometry.location.lng(),
         };
         console.log("Coordinates:", coords);
-        onChange(name, place.formatted_address, coords);
+        onChange(name, place.formatted_address, { coords });
       } else {
         console.warn("Place object incomplete:", place);
       }

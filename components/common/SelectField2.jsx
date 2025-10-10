@@ -6,38 +6,19 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-
-export const SelectField = ({
-  label,
-  name,
-  options=[],
-  value,
-  onChange,
-  error,
-  placeholder,
-  optional,
-}) => (
+export const SelectField2 = ({ label, name, options, value, onChange, error, placeholder,optional }) => (
   <div className="space-y-1">
     <Label htmlFor={name} className="text-black">
       {label} {!optional && <span className="text-copper">*</span>}
     </Label>
-    <Select
-      name={name}
-      value={value}
-      onValueChange={(val) => {
-        // Find selected option object (contains id + name)
-        const selectedInfo = options.find((opt) => opt.name === val);
-        // Pass both name and id to the parent
-        onChange(name, val, { info: selectedInfo });
-      }}
-    >
+    <Select name={name} onValueChange={(val) => onChange(name, val)} value={value}>
       <SelectTrigger className={`w-full text-black ${error ? "border-red-500" : ""}`}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
-        {(options || []).map((option) => (
-          <SelectItem key={option.id} value={option.name}>
-            {option.name}
+        {options.map((option) => (
+          <SelectItem key={option} value={option}>
+            {option}
           </SelectItem>
         ))}
       </SelectContent>

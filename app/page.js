@@ -14,7 +14,7 @@ export default async function Home() {
   const blogs = await getBlogs();
   return (
     <>
-      <Banner />
+      <Banner servicesData={services} fleetData={fleets}/>
       <ServiceSection servicesData={services}/>
       <FeatureSteps />
       <FleetShowcase fleetData={fleets}/>

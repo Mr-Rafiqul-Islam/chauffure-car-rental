@@ -2,11 +2,14 @@ import { Spotlight } from "@/components/ui/spotlight";
 import React from "react";
 import Heading from "./Heading";
 import BookingForm from "@/components/booking-form/BookingForm";
+import { getFleets, getServices } from "@/server-action";
 export const metadata = {
   title: "Booking | Luxury Chaffure",
   description: "A Premium Chaffure Car Service in Melbourne",
 };
-const page = () => {
+const page = async () => {
+  const servicesData  = await getServices();
+    const fleetData = await getFleets();
   return (
     <section className="relative w-full overflow-hidden pt-28">
       <Spotlight
@@ -18,7 +21,7 @@ const page = () => {
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <Heading />
         <div className="flex justify-center pt-4 pb-10">
-          <BookingForm />
+          <BookingForm servicesData={servicesData} fleetData={fleetData} />
         </div>
       </div>
     </section>

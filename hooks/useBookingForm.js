@@ -49,13 +49,21 @@ export default function useBookingForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSelectChange = (name, value, coords = null) => {
+  const handleSelectChange = (name, value, options = {}) => {
+    const { info = null, coords = null } = options;
+
     clearError(name);
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+      ...(name === "serviceType" && { service_id: info.id }),
+      ...(name === "vehiclePreference" && {
+        fleet_id: info.id,
+        fleetInfo: info,
+      }),
       ...(coords && { [`${name}Coordinates`]: coords }),
     }));
+    console.log(formData);
   };
 
   const validateStep = () => {
@@ -65,10 +73,8 @@ export default function useBookingForm() {
         newErrors.serviceType = "Service type is required.";
       if (!formData.vehiclePreference)
         newErrors.vehiclePreference = "Vehicle preference is required.";
-      if (!formData.date)
-        newErrors.date = "Date of service is required.";
-      if (!formData.time)
-        newErrors.time = "Pickup Time is required.";
+      if (!formData.date) newErrors.date = "Date of service is required.";
+      if (!formData.time) newErrors.time = "Pickup Time is required.";
       else if (!isPickupTimeValid(formData.date, formData.time))
         newErrors.time = "Pickup time must be at least 2 hours from now.";
 
@@ -122,20 +128,41 @@ export default function useBookingForm() {
     if (!validateStep()) return;
 
     if (currentStep === 2) {
-      const distance = calculateDistanceKm(
-        formData.pickup_locationCoordinates,
-        formData.drop_locationCoordinates
-      );
-      const baseFare = 50;
-      const perKm = 3;
-      const estimated = (baseFare + distance * perKm).toFixed(2);
-      setFormData((prev) => ({
-        ...prev,
-        distance,
-        estimatedPrice: estimated,
-        baseFare,
-      }));
+  const distance = calculateDistanceKm(
+    formData.pickup_locationCoordinates,
+    formData.drop_locationCoordinates
+  );
+
+  let estimated = 0;
+  let baseFare = 0;
+  let totalDistance = distance;
+
+  // HOURLY HIRE — fixed rate (no distance logic)
+  if (formData.is_duration_trip === "1") {
+    estimated = Number(formData.fleetInfo?.per_kilometer_fare_duration_wise || 0);
+    baseFare = estimated;
+  } 
+  // NORMAL TRIP — base fare + per km rate
+  else {
+    baseFare = Number(formData.fleetInfo?.base_fare || 0);
+    const perKm = Number(formData.fleetInfo?.per_kilometer_fare || 0);
+
+    // For round trip: double only the distance
+    if (formData.is_round_trip === "1") {
+      totalDistance = distance * 2;
     }
+
+    estimated = baseFare + totalDistance * perKm;
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    distance: totalDistance, // we’ll store the full (possibly doubled) distance
+    estimatedPrice: estimated.toFixed(2),
+    baseFare,
+  }));
+}
+
 
     if (currentStep < 4) setCurrentStep((prev) => prev + 1);
     else {
