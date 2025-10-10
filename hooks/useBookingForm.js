@@ -80,17 +80,6 @@ export default function useBookingForm() {
 
       if (!formData.no_of_adults) {
         newErrors.no_of_adults = "Number of adults is required.";
-      } else {
-        const limits = {
-          "1-4 Luxury Sedan": 4,
-          "1-4 Luxury SUV": 4,
-          "1-7 Luxury Van": 7,
-          "1-13 Luxury Van": 13,
-        };
-        const max = limits[formData.vehiclePreference];
-        if (max && parseInt(formData.no_of_adults) > max) {
-          newErrors.no_of_adults = `Max ${max} adults allowed for selected vehicle.`;
-        }
       }
     } else if (currentStep === 2) {
       if (!formData.pickup_location)
@@ -128,41 +117,42 @@ export default function useBookingForm() {
     if (!validateStep()) return;
 
     if (currentStep === 2) {
-  const distance = calculateDistanceKm(
-    formData.pickup_locationCoordinates,
-    formData.drop_locationCoordinates
-  );
+      const distance = calculateDistanceKm(
+        formData.pickup_locationCoordinates,
+        formData.drop_locationCoordinates
+      );
 
-  let estimated = 0;
-  let baseFare = 0;
-  let totalDistance = distance;
+      let estimated = 0;
+      let baseFare = 0;
+      let totalDistance = distance;
 
-  // HOURLY HIRE — fixed rate (no distance logic)
-  if (formData.is_duration_trip === "1") {
-    estimated = Number(formData.fleetInfo?.per_kilometer_fare_duration_wise || 0);
-    baseFare = estimated;
-  } 
-  // NORMAL TRIP — base fare + per km rate
-  else {
-    baseFare = Number(formData.fleetInfo?.base_fare || 0);
-    const perKm = Number(formData.fleetInfo?.per_kilometer_fare || 0);
+      // HOURLY HIRE — fixed rate (no distance logic)
+      if (formData.is_duration_trip === "1") {
+        estimated = Number(
+          formData.fleetInfo?.per_kilometer_fare_duration_wise || 0
+        );
+        baseFare = estimated;
+      }
+      // NORMAL TRIP — base fare + per km rate
+      else {
+        baseFare = Number(formData.fleetInfo?.base_fare || 0);
+        const perKm = Number(formData.fleetInfo?.per_kilometer_fare || 0);
 
-    // For round trip: double only the distance
-    if (formData.is_round_trip === "1") {
-      totalDistance = distance * 2;
+        // For round trip: double only the distance
+        if (formData.is_round_trip === "1") {
+          totalDistance = distance * 2;
+        }
+
+        estimated = baseFare + totalDistance * perKm;
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        distance: totalDistance,
+        estimatedPrice: estimated.toFixed(2),
+        baseFare,
+      }));
     }
-
-    estimated = baseFare + totalDistance * perKm;
-  }
-
-  setFormData((prev) => ({
-    ...prev,
-    distance: totalDistance, // we’ll store the full (possibly doubled) distance
-    estimatedPrice: estimated.toFixed(2),
-    baseFare,
-  }));
-}
-
 
     if (currentStep < 4) setCurrentStep((prev) => prev + 1);
     else {

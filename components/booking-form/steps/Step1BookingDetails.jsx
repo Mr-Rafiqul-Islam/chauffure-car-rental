@@ -6,6 +6,7 @@ import { SelectField } from "@/components/common/SelectField";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SelectField2 } from "@/components/common/SelectField2";
+import { useEffect, useState } from "react";
 
 
 
@@ -17,6 +18,22 @@ export default function Step1BookingDetails({
   handleInputChange,
   handleSelectChange,
 }) {
+
+  const [limits, setLimits] = useState({});
+
+  // 🧠 Dynamically build seat limits when fleetData is available
+  useEffect(() => {
+    if (fleetData?.length) {
+      const limitsMap = Object.fromEntries(
+        fleetData.map((fleet) => [fleet.name, fleet.total_seats])
+      );
+      setLimits(limitsMap);
+    }
+  }, [fleetData]);
+
+  // 🧮 Dynamically determine max adults based on selected vehicle
+  const maxAdults = limits[formData.vehiclePreference] || 13; // fallback default 13
+  const adultOptions = Array.from({ length: maxAdults }, (_, i) => String(i + 1));
   
   return (
     <div className="space-y-6">
@@ -115,7 +132,7 @@ export default function Step1BookingDetails({
         <SelectField2
           label="Number of Adults"
           name="no_of_adults"
-          options={Array.from({ length: 13 }, (_, i) => String(i + 1))}
+          options={adultOptions}
           value={formData.no_of_adults}
           onChange={handleSelectChange}
           error={errors.no_of_adults}
@@ -173,7 +190,7 @@ export default function Step1BookingDetails({
           <SelectField2
             label="Number of Baby Seats [Age 0-4]"
             name="baby_seat"
-            options={Array.from({ length: 3 }, (_, i) => String(i + 1))}
+            options={Array.from({ length: 4 }, (_, i) => String(i))}
             value={formData.baby_seat}
             onChange={handleSelectChange}
             placeholder="-- Select Baby Seats --"
@@ -181,7 +198,7 @@ export default function Step1BookingDetails({
           <SelectField2
             label="Number of Booster Seats [Age 5-7]"
             name="booster_seat"
-            options={Array.from({ length: 3 }, (_, i) => String(i))}
+            options={Array.from({ length: 4 }, (_, i) => String(i))}
             value={formData.booster_seat}
             onChange={handleSelectChange}
             placeholder="-- Select Booster Seats --"
