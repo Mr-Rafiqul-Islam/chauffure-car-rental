@@ -26,7 +26,12 @@ export default function Step3Review({ formData }) {
         </li>
         <li>
           <strong>Passengers:</strong> {formData.no_of_adults} Adults,{" "}
-          {formData.baby_seat} Baby Seats,{" "}{formData.booster_seat} {formData.booster_seat && "Booster Seats"} 
+          {formData.children && (
+            <>
+              {formData.baby_seat} Baby Seats, {formData.booster_seat}{" "}
+              {formData.booster_seat && "Booster Seats"} 
+            </>
+          )}
         </li>
         <hr className="my-2" />
         <li>
