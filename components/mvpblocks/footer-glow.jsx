@@ -52,7 +52,7 @@ export default function FooterGlow() {
             or special occasion, we provide reliable, elegant, and professional
             chauffeur services tailored to your needs.
           </p>
-          <div className="mt-2 flex gap-3 text-rose-400">
+          <div className="mt-2 flex gap-3 text-copper">
             <Link
               href="#"
               aria-label="Twitter"
@@ -80,7 +80,7 @@ export default function FooterGlow() {
         </div>
         <nav className="flex w-full flex-col gap-9 text-center md:w-auto md:flex-row md:justify-end md:text-left">
           <div>
-            <div className="mb-3 text-xs font-semibold tracking-widest text-rose-400 uppercase">
+            <div className="mb-3 text-xs font-semibold tracking-widest text-highlight uppercase">
               Quick Links
             </div>
             <ul className="space-y-2">
@@ -135,7 +135,7 @@ export default function FooterGlow() {
             </ul>
           </div>
           <div>
-            <div className="mb-3 text-xs font-semibold tracking-widest text-rose-400 uppercase">
+            <div className="mb-3 text-xs font-semibold tracking-widest text-highlight uppercase">
               Pages
             </div>
             <ul className="space-y-2">
@@ -174,7 +174,7 @@ export default function FooterGlow() {
             </ul>
           </div>
           <div>
-            <div className="mb-3 text-xs font-semibold tracking-widest text-rose-400 uppercase">
+            <div className="mb-3 text-xs font-semibold tracking-widest text-highlight uppercase">
               Others
             </div>
             <ul className="space-y-2">

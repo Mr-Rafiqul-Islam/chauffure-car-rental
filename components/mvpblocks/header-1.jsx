@@ -6,6 +6,7 @@ import Link from "next/link";
 import AnimatedBtn1 from "./animatedbtn";
 import logo from "../../public/logo_transparent.png";
 import Image from "next/image";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Header({ servicesDropdownItems }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,6 +25,10 @@ export default function Header({ servicesDropdownItems }) {
     { name: "Blogs", href: "/blogs" },
     { name: "Contact Us", href: "/contact-us" },
   ];
+  const { isAuthenticated } = useAuth();
+  if (isAuthenticated) {
+    navItems.push({ name: "My Booking", href: "/booking-history" });
+  }
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);

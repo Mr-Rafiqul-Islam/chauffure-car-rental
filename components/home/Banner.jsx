@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -14,10 +12,23 @@ import BookingForm from "../booking-form/BookingForm";
 import TextType from "../TextType";
 
 export default function Banner({ servicesData, fleetData }) {
+  // ✅ Array of banner images
+  const bannerImages = [
+    "/assets/banner/parking-valet-his-job-with-vehicle-woman.jpg",
+    "/assets/banner/taxi-driver-female-client-interacting-formal-way.jpg",
+    "/assets/banner/full-shot-man-valet-holding-key.jpg",
+    "/assets/banner/young-male-being-uber-driver-female-client (1).jpg",
+    "/assets/banner/parking-valet-welcoming-woman-with-car.jpg",
+    "/assets/banner/taxi-driver-getting-ready-customer.jpg",
+  ];
+
   return (
     <>
       <section className="w-full relative">
+        {/* Dark overlay */}
         <div className="bg-[rgba(0,0,0,0.51)] z-10 absolute top-0 left-0 w-full h-full" />
+
+        {/* Text content */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 xl:translate-x-0 xl:left-[12.5%] transform -translate-y-1/2 z-40 w-full xl:max-w-[500px] 2xl:max-w-[700px] text-center xl:text-start">
           <TextRevealLetters />
           <TextType
@@ -29,9 +40,13 @@ export default function Banner({ servicesData, fleetData }) {
             className="text-[14px] sm:text-[18px] md:text-3xl xl:text-2xl 2xl:text-4xl font-bold text-white mt-2 sm:mt-4 md:mt-6 lg:mt-8 xl:mt-10 2xl:mt-12"
           />
         </div>
+
+        {/* Booking form (Desktop only) */}
         <div className="absolute hidden xl:block top-1/2 right-[12.5%] transform -translate-y-1/2 z-40">
           <BookingForm servicesData={servicesData} fleetData={fleetData} />
         </div>
+
+        {/* ✅ Dynamic Swiper */}
         <Swiper
           modules={[Autoplay, EffectFade]}
           autoplay={{ delay: 5000 }}
@@ -40,28 +55,22 @@ export default function Banner({ servicesData, fleetData }) {
           effect="fade"
           className="custom-swiper"
         >
-          <SwiperSlide>
-            <Image
-              src="/assets/banner/banner1.jpg"
-              alt=""
-              className="w-full h-auto object-contain"
-              width={10000}
-              height={500}
-              priority
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image
-              src="/assets/banner/main-banner.png"
-              className="w-full h-auto object-contain"
-              alt=""
-              width={10000}
-              height={500}
-              priority
-            />
-          </SwiperSlide>
+          {bannerImages.map((src, index) => (
+            <SwiperSlide key={index}>
+              <Image
+                src={src}
+                alt={`Banner Image ${index + 1}`}
+                className="w-full h-auto object-contain"
+                width={10000}
+                height={500}
+                priority
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </section>
+
+      {/* Booking form (Mobile) */}
       <div className="xl:hidden flex justify-center py-10 px-4">
         <BookingForm servicesData={servicesData} fleetData={fleetData} />
       </div>
