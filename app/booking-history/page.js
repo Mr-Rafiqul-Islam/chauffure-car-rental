@@ -1,10 +1,10 @@
-import MaintenancePage from "@/components/common/MaintenancePage";
+import BookingHistoryPage from "@/components/booking-history/BookingHistoryPage";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <MaintenancePage pageName="Login" />
+      <BookingHistoryPage/>
     </div>
   );
 };

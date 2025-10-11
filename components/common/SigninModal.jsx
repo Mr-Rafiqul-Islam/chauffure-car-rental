@@ -1,5 +1,6 @@
-import { useId, useState } from "react";
+'use client';
 
+import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,11 +13,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import Link from "next/link";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function SigninModal({ open, onOpenChange }) {
   const id = useId();
+  const { login } = useAuth();
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await login(email, password);
+      onOpenChange(false); // Close modal on successful login
+      setTimeout(() => router.push("/booking-history"), 1000);
+    } catch (err) {
+      setError(err.message || "An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -41,7 +67,7 @@ export default function SigninModal({ open, onOpenChange }) {
           </DialogHeader>
         </div>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div className="*:not-first:mt-2">
               <Label htmlFor={`${id}-email`}>Email</Label>
@@ -49,6 +75,9 @@ export default function SigninModal({ open, onOpenChange }) {
                 id={`${id}-email`}
                 placeholder="mr.rafiqulthedev@gmail.com"
                 type="email"
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
                 required
               />
             </div>
@@ -60,6 +89,9 @@ export default function SigninModal({ open, onOpenChange }) {
                 type={showPassword ? "text" : "password"}
                 required
                 className="pr-10"
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                disabled={isLoading}
               />
               <button
                 type="button"
@@ -74,13 +106,21 @@ export default function SigninModal({ open, onOpenChange }) {
               </button>
             </div>
           </div>
+          {error && <p className="text-sm text-red-500 text-center">{error}</p>}
           <div className="flex justify-end gap-2">
             <Link className="text-sm underline hover:no-underline" href="#">
               Forgot password?
             </Link>
           </div>
-          <Button type="button" className="w-full bg-copper hover:bg-highlight text-white hover:text-black transition-all duration-300">
-            Sign In
+          <Button type="submit" disabled={isLoading} className="w-full bg-copper hover:bg-highlight text-white hover:text-black transition-all duration-300">
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Signing In...
+              </>
+            ) : (
+              "Sign In"
+            )}
           </Button>
         </form>
       </DialogContent>

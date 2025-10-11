@@ -5,9 +5,11 @@ import Link from "next/link";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useState } from "react";
 import SigninModal from "../common/SigninModal";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function FooterGlow() {
   const [isSigninOpen, setIsSigninOpen] = useState(false);
+  const { logout, isAuthenticated } = useAuth();
   return (
     <footer className="relative z-10 mt-8 w-full overflow-hidden pt-16 pb-8">
       <style jsx global>{`
@@ -83,16 +85,28 @@ export default function FooterGlow() {
             </div>
             <ul className="space-y-2">
               <li>
-                <button
-                  onClick={() => setIsSigninOpen(true)}
-                  className="text-foreground/70 hover:text-ivory transition-all duration-300"
-                >
-                  Login
-                </button>
-                <SigninModal
-                  open={isSigninOpen}
-                  onOpenChange={setIsSigninOpen}
-                />
+                {isAuthenticated ? (
+                  <button
+                    onClick={logout}
+                    className="text-foreground/70 hover:text-ivory transition-all duration-300"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  // If not logged in, show Login button and include the modal
+                  <>
+                    <button
+                      onClick={() => setIsSigninOpen(true)}
+                      className="text-foreground/70 hover:text-ivory transition-all duration-300"
+                    >
+                      Login
+                    </button>
+                    <SigninModal
+                      open={isSigninOpen}
+                      onOpenChange={setIsSigninOpen}
+                    />
+                  </>
+                )}
               </li>
               <li>
                 <Link

@@ -2,6 +2,7 @@ import "./globals.css";
 import FooterGlow from "@/components/mvpblocks/footer-glow";
 import Header from "@/components/mvpblocks/header-1";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { getServices } from "@/server-action";
 import { Playfair_Display, Inter } from "next/font/google";
 
@@ -40,10 +41,12 @@ export default async function RootLayout({ children }) {
       <body
         className={`${playfair.variable} ${inter.variable} antialiased bg-[#1F1F1F] text-[#FFFFF0]`}
       >
-        <Toaster />
-        <Header servicesDropdownItems={formattedServicesList} />
-        {children}
-        <FooterGlow />
+        <AuthProvider>
+          <Toaster />
+          <Header servicesDropdownItems={formattedServicesList} />
+          {children}
+          <FooterGlow />
+        </AuthProvider>
       </body>
     </html>
   );
