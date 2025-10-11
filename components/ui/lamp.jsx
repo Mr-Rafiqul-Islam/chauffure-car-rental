@@ -24,7 +24,7 @@ export default function PageHeader({ pageName ,subheading}) {
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="mt-4 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">{subheading}</motion.h2>
+        className="mt-4 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-3xl font-medium tracking-tight text-transparent md:text-6xl">{subheading}</motion.h2>
     </LampContainer>
   );
 }

@@ -14,7 +14,7 @@ const routesData = [
     link: "/booking",
   },
   {
-    routeName: "Cruise Terminal to Melbourne Airport",
+    routeName: "Ballarat to Melbourne Airport",
     price: 95,
     link: "/booking",
   },

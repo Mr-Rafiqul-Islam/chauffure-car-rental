@@ -26,7 +26,7 @@ export default function Banner({ servicesData, fleetData }) {
             pauseDuration={1500}
             showCursor={true}
             cursorCharacter="_"
-            className="text-base sm:text-xl md:text-4xl xl:text-3xl 2xl:text-5xl font-bold text-white mt-2 sm:mt-4 md:mt-6 lg:mt-8 xl:mt-10 2xl:mt-12"
+            className="text-[14px] sm:text-[18px] md:text-3xl xl:text-2xl 2xl:text-4xl font-bold text-white mt-2 sm:mt-4 md:mt-6 lg:mt-8 xl:mt-10 2xl:mt-12"
           />
         </div>
         <div className="absolute hidden xl:block top-1/2 right-[12.5%] transform -translate-y-1/2 z-40">
