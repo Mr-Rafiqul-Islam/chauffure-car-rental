@@ -32,7 +32,7 @@ const FleetCard = ({ vehicle }) => {
         <CardContent className="p-6 pt-0 bg-white">
           <h3 className="text-xl font-bold text-gray-900">{vehicle.name}</h3>
 
-          <div className="mt-2 flex items-center space-x-2 text-sm font-semibold text-orange-600">
+          <div className="mt-2 flex items-center space-x-2 text-[10px] md:text-smfont-semibold text-orange-600">
             <div className="flex items-center">
               <Users className="mr-1.5 h-4 w-4" />
               UP TO {vehicle.total_seats} PASSENGERS

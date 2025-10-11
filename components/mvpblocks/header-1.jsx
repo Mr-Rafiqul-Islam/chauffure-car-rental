@@ -80,7 +80,7 @@ export default function Header({ servicesDropdownItems }) {
               href="/"
               className="flex items-center space-x-2"
             >
-              <div className="w-[150px]">
+              <div className="w-[75px] lg:w-[150px]">
                 <Image
                   src={logo}
                   alt="Luxury Chauffeur Logo"
