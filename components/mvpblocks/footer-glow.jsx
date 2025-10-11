@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import SigninModal from "../common/SignInModal";
 import { useState } from "react";
+import SigninModal from "../common/SigninModal";
 
 export default function FooterGlow() {
   const [isSigninOpen, setIsSigninOpen] = useState(false);

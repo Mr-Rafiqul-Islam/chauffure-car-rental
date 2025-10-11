@@ -7,7 +7,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,7 +34,7 @@ export default function SigninModal({ open, onOpenChange }) {
             />
           </div>
           <DialogHeader>
-            <DialogTitle className="sm:text-center">Welcome back</DialogTitle>
+            <DialogTitle className="sm:text-center text-highlight">Welcome back</DialogTitle>
             <DialogDescription className="sm:text-center">
               Enter your credentials to login to your account.
             </DialogDescription>
@@ -64,7 +63,7 @@ export default function SigninModal({ open, onOpenChange }) {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 h-full w-10 bg-transparent hover:text-primary-foreground"
+                className="absolute top-[12px] right-0 h-full w-10 bg-transparent hover:text-primary-foreground"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? (
@@ -80,7 +79,7 @@ export default function SigninModal({ open, onOpenChange }) {
               Forgot password?
             </Link>
           </div>
-          <Button type="button" className="w-full">
+          <Button type="button" className="w-full bg-copper hover:bg-highlight text-white hover:text-black transition-all duration-300">
             Sign In
           </Button>
         </form>
