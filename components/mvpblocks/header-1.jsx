@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import Link from "next/link";
 import AnimatedBtn1 from "./animatedbtn";
+import logo from "../../public/logo_transparent.png";
+import Image from "next/image";
 
 export default function Header({ servicesDropdownItems }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,26 +75,15 @@ export default function Header({ servicesDropdownItems }) {
               href="/"
               className="flex items-center space-x-2"
             >
-              {/* {logo ? (
-                <div className="w-[200px]">
-                  <Image
+              <div className="w-[150px]">
+                <Image
                   src={logo}
-                  alt="Logo"
+                  alt="Luxury Chauffeur Logo"
                   width={150}
                   height={40}
-                  className="h-24 w-full object-contain"
+                  className="h-16 w-full object-contain"
                 />
-                </div>
-              ) : ( */}
-              <>
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-bsilver to-bsilver/70">
-                  <Sparkles className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-ivory text-xl font-bold">
-                  luxury Chauffeur
-                </span>
-              </>
-              {/* )} */}
+              </div>
             </Link>
           </motion.div>
 

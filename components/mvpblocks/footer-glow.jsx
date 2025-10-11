@@ -1,6 +1,7 @@
 "use client";
 
 
+import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 
@@ -34,25 +35,8 @@ export default function FooterGlow() {
       <div className="glass relative mx-auto flex max-w-6xl flex-col items-center gap-8 rounded-2xl px-6 py-10 md:flex-row md:items-start md:justify-between md:gap-12">
         <div className="flex flex-col items-center md:items-start">
           <Link href="#" className="mb-4 flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-rose-400 to-rose-700 text-2xl font-extrabold text-white shadow-md">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-            </span>
-            <span className="bg-gradient-to-br from-rose-200 to-rose-500 bg-clip-text text-xl font-semibold tracking-tight text-transparent">
-              Luxury Chauffeur
-            </span>
+           
+            <Image src="/logo_transparent.png" alt="logo" width={100} height={100}/>
           </Link>
           <p className="text-foreground mb-6 max-w-sm text-center text-sm md:text-left">
             Ride in style with Luxury Chauffeur, Melbourne’s trusted choice for premium transport. Whether it’s an airport transfer, corporate trip, or special occasion, we provide reliable, elegant, and professional chauffeur services tailored to your needs.
