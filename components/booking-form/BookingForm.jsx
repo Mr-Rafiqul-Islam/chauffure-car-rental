@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { FaCalendarAlt } from "react-icons/fa";
+import { Loader2 } from "lucide-react";
 
 import GoogleMapsLoader from "../common/GoogleMapsLoader";
 
@@ -21,18 +22,17 @@ const steps = [
 ];
 
 export default function BookingForm({ servicesData, fleetData }) {
-    const {
+  const {
     currentStep,
     formData,
     errors,
+    isSubmitting,
     handleInputChange,
     handleSelectChange,
     handleNext,
     handlePrev,
   } = useBookingForm();
-    const progressPercentage = (currentStep / steps.length) * 100;
-    
-
+  const progressPercentage = (currentStep / steps.length) * 100;
 
   const renderStep = () => {
     switch (currentStep) {
@@ -94,7 +94,11 @@ export default function BookingForm({ servicesData, fleetData }) {
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-8">
               {currentStep > 1 ? (
-                <Button variant="outline" onClick={handlePrev}>
+                <Button
+                  variant="outline"
+                  onClick={handlePrev}
+                  disabled={isSubmitting}
+                >
                   Previous
                 </Button>
               ) : (
@@ -102,9 +106,20 @@ export default function BookingForm({ servicesData, fleetData }) {
               )}
               <Button
                 onClick={handleNext}
+                disabled={isSubmitting}
                 className="bg-copper hover:bg-highlight hover:scale-105 text-white hover:text-black"
               >
-                {currentStep === steps.length ? "Submit" : "Next"}
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    {/* Optional spinner */}
+                    Submitting...
+                  </>
+                ) : currentStep === steps.length ? (
+                  "Submit"
+                ) : (
+                  "Next"
+                )}
               </Button>
             </div>
           </CardContent>

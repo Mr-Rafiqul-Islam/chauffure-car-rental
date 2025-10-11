@@ -8,6 +8,7 @@ import { submitBooking } from "@/lib/submitBooking";
 export default function useBookingForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     serviceType: "",
     vehiclePreference: "",
@@ -157,20 +158,32 @@ export default function useBookingForm() {
 
     if (currentStep < 4) setCurrentStep((prev) => prev + 1);
     else {
-      // Instead of console.log, post the formData
+      setIsSubmitting(true); 
       submitBooking(formData)
-        .then(() => {
-          toast("Booking submitted successfully! ✅", {
+        .then((response) => {
+          const bookingId = response?.booking?.id;
+          setIsSubmitting(false);
+          toast("Booking submitted successfully! ✅ \nYou will be redirected to the payment page right now.", {
             position: "top-center",
-            description: "We'll contact you soon.",
+            description: "You will get a confirmation email.",
           });
           resetForm();
+          if (bookingId) {
+            setTimeout(() => {
+              window.open(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/payment/${bookingId}`,
+                "_blank"
+              );
+            }, 1000);
+          }
         })
-        .catch(() => {
+        .catch((err) => {
+          setErrors(err?.response?.data?.errors || {});
           toast("Failed to submit booking ❌", {
             position: "top-center",
             description: "Please try again later.",
           });
+          setIsSubmitting(false);
         });
     }
   };
@@ -212,6 +225,7 @@ export default function useBookingForm() {
     currentStep,
     formData,
     errors,
+    isSubmitting,
     handleInputChange,
     handleSelectChange,
     handleNext,
