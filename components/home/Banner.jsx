@@ -14,12 +14,10 @@ import TextType from "../TextType";
 export default function Banner({ servicesData, fleetData }) {
   // ✅ Array of banner images
   const bannerImages = [
-    "/assets/banner/parking-valet-his-job-with-vehicle-woman.jpg",
-    "/assets/banner/taxi-driver-female-client-interacting-formal-way.jpg",
-    "/assets/banner/full-shot-man-valet-holding-key.jpg",
-    "/assets/banner/young-male-being-uber-driver-female-client (1).jpg",
-    "/assets/banner/parking-valet-welcoming-woman-with-car.jpg",
-    "/assets/banner/taxi-driver-getting-ready-customer.jpg",
+    "/assets/banner/0.jpg",
+    "/assets/banner/1.jpg",
+    "/assets/banner/2.jpg",
+    "/assets/banner/3.jpg",
   ];
 
   return (
