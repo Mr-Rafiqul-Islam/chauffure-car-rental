@@ -41,7 +41,7 @@ const ServiceDetailsPage = async ({ params }) => {
         />
 
         <div
-          className="mt-5 prose prose-sm max-w-none"
+          className="mt-5 prose prose-sm max-w-none article-content"
           dangerouslySetInnerHTML={serviceDescriptionMarkup}
         />
       </section>

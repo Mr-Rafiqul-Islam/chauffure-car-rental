@@ -6,6 +6,14 @@ import React from "react";
 const BlogCard = ({ post }) => {
   const slug = post?.title.replace(/\s+/g, "-").toLowerCase();
   const id = post?.id;
+
+  // ✅ Format date (e.g. "October 12, 2025")
+  const formattedDate = new Date(post?.updated_at).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <Link href={`/blogs/${id}/${slug}`} className="group block h-full">
       {/* Gradient border and glow container */}
@@ -19,17 +27,25 @@ const BlogCard = ({ post }) => {
               height={192}
               className="w-full h-48 object-cover"
             />
+
             <div className="p-6 flex flex-col flex-grow">
               <h3 className="text-xl font-bold text-gray-100 transition-colors duration-300 group-hover:text-[#D4AF37]">
                 {post.title}
               </h3>
+
               <p className="mt-2 text-zinc-400 text-sm flex-grow">
                 {post.short_details}
               </p>
 
-              <div className="mt-6 flex items-center text-sm font-bold text-[#D4AF37] transition-colors duration-300 group-hover:text-white">
-                <span>Read More</span>
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              {/* ✅ Bottom row: Read More + Published Date */}
+              <div className="mt-6 flex items-center justify-between">
+                <div className="flex items-center text-sm font-bold text-[#D4AF37] transition-colors duration-300 group-hover:text-white">
+                  <span>Read More</span>
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </div>
+                <p className="text-xs text-zinc-500 italic">
+                  {formattedDate}
+                </p>
               </div>
             </div>
           </div>

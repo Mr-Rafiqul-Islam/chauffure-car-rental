@@ -7,7 +7,7 @@ export const metadata = {
   description: "A Premium Chaffure Car Service in Melbourne",
 };
 const page = async () => {
-  const blogs = await getBlogs();
+  const blogs = (await getBlogs()).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   return (
     <div>
       <PageHeader
