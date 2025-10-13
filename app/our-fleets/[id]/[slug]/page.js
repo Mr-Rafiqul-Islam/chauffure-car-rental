@@ -1,5 +1,6 @@
 import { getFleetDetails, getFleets } from "@/server-action";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -24,7 +25,7 @@ const FleetDetails = async ({ params }) => {
   const { id } = params;
   const details = await getFleetDetails(id);
   if (!details) {
-    notFound(); 
+    notFound();
   }
   return (
     <main className="pt-28">
@@ -42,6 +43,14 @@ const FleetDetails = async ({ params }) => {
           className="mt-5 prose prose-sm max-w-none"
           dangerouslySetInnerHTML={{ __html: details.details }}
         />
+        <div className="w-full my-4">
+          <Link
+            href="/booking"
+            className="animate-pulse w-full text-center block bg-highlight text-ivory hover:bg-copper hover:animate-none font-bold text-lg tracking-wider px-10 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105"
+          >
+            GET BOOKING
+          </Link>
+        </div>
       </section>
     </main>
   );

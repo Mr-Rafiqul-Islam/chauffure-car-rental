@@ -1,5 +1,6 @@
 import { getServices, getSingleService } from "@/server-action";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 export async function generateStaticParams() {
@@ -36,7 +37,7 @@ const ServiceDetailsPage = async ({ params }) => {
         <Image
           src={details.image}
           alt={details.name}
-          width={800}
+          width={600}
           height={500}
         />
 
@@ -44,6 +45,14 @@ const ServiceDetailsPage = async ({ params }) => {
           className="mt-5 prose prose-sm max-w-none article-content"
           dangerouslySetInnerHTML={serviceDescriptionMarkup}
         />
+        <div className="w-full my-4">
+          <Link
+            href="/booking"
+            className="animate-pulse w-full text-center block bg-highlight text-ivory hover:bg-copper hover:animate-none font-bold text-lg tracking-wider px-10 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105"
+          >
+            GET BOOKING
+          </Link>
+        </div>
       </section>
     </main>
   );
