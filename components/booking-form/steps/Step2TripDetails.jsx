@@ -5,6 +5,7 @@
 import { Label } from "@/components/ui/label";
 import GooglePlacesInput from "@/components/common/GooglePlacesInput";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 
 export default function Step2TripDetails({
   formData,
@@ -12,6 +13,9 @@ export default function Step2TripDetails({
   handleSelectChange,
   handleInputChange,
 }) {
+  const isAirportTransfer =
+    formData.serviceType &&
+    formData.serviceType.trim().toLowerCase() === "airport transfers";
   return (
     <div className="space-y-6">
       {/* Pickup Location */}
@@ -61,9 +65,50 @@ export default function Step2TripDetails({
                focus-visible:ring-2 focus-visible:ring-highlight"
         />
         <Label htmlFor="is_round_trip" className="text-black">
-         Do you Need Round Trip?
+          Do you Need Round Trip?
         </Label>
       </div>
+      {isAirportTransfer && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Flight Number */}
+          <div className="space-y-1">
+            <Label htmlFor="flight_number" className="text-black">
+              Flight Number <span className="text-copper">*</span>
+            </Label>
+            <Input
+              id="flight_number"
+              name="flight_number"
+              placeholder="e.g. QF409"
+              value={formData.flight_number || ""}
+              onChange={handleInputChange}
+              className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black"
+            />
+            {errors.flight_number && (
+              <p className="text-sm text-red-500">{errors.flight_number}</p>
+            )}
+          </div>
+
+          {/* Flight Arrival Time */}
+          <div className="space-y-1">
+            <Label htmlFor="flight_arrival_time" className="text-black">
+              Flight Arrival Time <span className="text-copper">*</span>
+            </Label>
+            <Input
+              id="flight_arrival_time"
+              name="flight_arrival_time"
+              type="time"
+              value={formData.flight_arrival_time || ""}
+              onChange={handleInputChange}
+              className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black "
+            />
+            {errors.flight_arrival_time && (
+              <p className="text-sm text-red-500">
+                {errors.flight_arrival_time}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

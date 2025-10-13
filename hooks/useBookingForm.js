@@ -20,6 +20,8 @@ export default function useBookingForm() {
     pickup_locationCoordinates: null,
     drop_location: "",
     drop_locationCoordinates: null,
+    flight_arrival_time: "",
+    flight_number: "",
     distance: null,
     estimatedPrice: null,
     baseFare: null,
@@ -88,6 +90,12 @@ export default function useBookingForm() {
         newErrors.pickup_location = "Pickup location is required.";
       if (!formData.drop_location)
         newErrors.drop_location = "Dropoff location is required.";
+      if (formData.serviceType.trim().toLowerCase() === "airport transfers") {
+        if (!formData.flight_arrival_time)
+          newErrors.flight_arrival_time = "Flight arrival time is required.";
+        if (!formData.flight_number)
+          newErrors.flight_number = "Flight number is required.";
+      }
     } else if (currentStep === 4) {
       if (!formData.name) newErrors.name = "Full name is required.";
       if (!formData.phone) newErrors.phone = "Phone number is required.";
@@ -158,15 +166,18 @@ export default function useBookingForm() {
 
     if (currentStep < 4) setCurrentStep((prev) => prev + 1);
     else {
-      setIsSubmitting(true); 
+      setIsSubmitting(true);
       submitBooking(formData)
         .then((response) => {
           const bookingId = response?.booking?.id;
           setIsSubmitting(false);
-          toast("Booking submitted successfully! ✅ \nYou will be redirected to the payment page right now.", {
-            position: "top-center",
-            description: "You will get a confirmation email.",
-          });
+          toast(
+            "Booking submitted successfully! ✅ \nYou will be redirected to the payment page right now.",
+            {
+              position: "top-center",
+              description: "You will get a confirmation email.",
+            }
+          );
           resetForm();
           if (bookingId) {
             setTimeout(() => {
@@ -205,6 +216,8 @@ export default function useBookingForm() {
       pickup_locationCoordinates: null,
       drop_location: "",
       drop_locationCoordinates: null,
+      flight_arrival_time: "",
+      flight_number: "",
       distance: null,
       estimatedPrice: null,
       baseFare: null,
