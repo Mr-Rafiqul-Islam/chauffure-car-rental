@@ -231,25 +231,21 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+  /* FONT FAMILY */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold tracking-[0.5px];
+  }
+  
+  body, p, span, a, li {
+    @apply font-sans font-normal;
+  }
 }
 
-/* FONT FAMILY */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
 
-body, p, span, a, li {
-  font-family: var(--font-body);
-  font-weight: 400;
-}

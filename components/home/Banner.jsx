@@ -27,7 +27,7 @@ export default function Banner({ servicesData, fleetData }) {
         <div className="bg-[rgba(0,0,0,0.51)] z-10 absolute top-0 left-0 w-full h-full" />
 
         {/* Text content */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 xl:translate-x-0 xl:left-[12.5%] transform -translate-y-1/2 z-40 w-full xl:max-w-[500px] 2xl:max-w-[700px] text-center xl:text-start">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 xl:translate-x-0 xl:left-[12.5%] transform -translate-y-1/2 z-40 w-full xl:max-w-[500px] 2xl:max-w-[710px] text-center xl:text-start">
           <TextRevealLetters />
           <TextType
             text={["Driven by Excellence", "Defined by Luxury"]}

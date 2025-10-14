@@ -21,8 +21,8 @@ export default function TextGenerateEffect({ words, className = "" }) {
   }, [isInView, words]);
 
   return (
-    <motion.span ref={ref} className={className}>
+    <motion.h2 ref={ref} className={className}>
       {displayText}
-    </motion.span>
+    </motion.h2>
   );
 }
