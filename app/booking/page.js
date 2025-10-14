@@ -10,6 +10,9 @@ export const metadata = {
 const page = async () => {
   const servicesData  = await getServices();
     const fleetData = await getFleets();
+    const filteredFleet = fleetData.filter(
+    (item) => item.name !== "Premium Luxury Sedan"
+  );
   return (
     <section className="relative w-full overflow-hidden pt-28">
       <Spotlight
@@ -21,7 +24,7 @@ const page = async () => {
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <Heading />
         <div className="flex justify-center pt-4 pb-10">
-          <BookingForm servicesData={servicesData} fleetData={fleetData} />
+          <BookingForm servicesData={servicesData} fleetData={filteredFleet} />
         </div>
       </div>
     </section>

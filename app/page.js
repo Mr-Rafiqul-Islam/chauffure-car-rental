@@ -15,10 +15,12 @@ export default async function Home() {
   const latestBlogs = blogs
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     .slice(0, 3);
-
+  const filteredFleet = fleets.filter(
+    (item) => item.name !== "Premium Luxury Sedan"
+  );
   return (
     <>
-      <Banner servicesData={services} fleetData={fleets} />
+      <Banner servicesData={services} fleetData={filteredFleet} />
       <ServiceSection servicesData={services} />
       <FeatureSteps />
       <FleetShowcase fleetData={fleets} />
