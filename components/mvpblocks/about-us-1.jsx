@@ -31,20 +31,15 @@ const defaultValues = [
     icon: "CarIcon",
   },
   {
-    title: "Many Pickup Locations",
-    description:
-      "With multiple locations across Oakland and beyond, picking up your rental is convenient and hassle-free.",
-    icon: "Pickup",
-  },
-  {
     title: "Transparent Fixed Pricing",
     description:
-      "Transparent pricing with upfront quotes — no hidden fees, no surge charges, and no unexpected surprises.",
+      "Transparent pricing with upfront quotes, no hidden fees, no surge charges, and no unexpected surprises, ensuring a stress-free travel experience.",
     icon: "Money",
   },
   {
     title: "24/7 Booking & Support",
-    description: "Round-the-clock assistance. Flight monitoring included. All Time Booking in Our Website",
+    description:
+      "Round-the-clock assistance. Flight monitoring included. All Time Booking available on Our Website. Unbeatable service for corporate events, weddings, and more.",
     icon: "Support",
   },
 ];
@@ -165,7 +160,7 @@ export default function AboutUs() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {aboutData.values?.map((value, index) => {
               const IconComponent = iconComponents[value.icon];
               return (
