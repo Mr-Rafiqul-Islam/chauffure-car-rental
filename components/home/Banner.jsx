@@ -11,15 +11,7 @@ import TextRevealLetters from "../mvpblocks/text-reveal-1";
 import BookingForm from "../booking-form/BookingForm";
 import TextType from "../TextType";
 
-export default function Banner({ servicesData, fleetData }) {
-  // ✅ Array of banner images
-  const bannerImages = [
-    "/assets/banner/0.jpg",
-    "/assets/banner/1.jpg",
-    "/assets/banner/2.jpg",
-    "/assets/banner/3.jpg",
-  ];
-
+export default function Banner({ servicesData, fleetData, bannerImages }) {
   return (
     <>
       <section className="w-full relative">
@@ -56,14 +48,14 @@ export default function Banner({ servicesData, fleetData }) {
           {bannerImages.map((src, index) => (
             <SwiperSlide key={index}>
               <div className="min-h-80 md:min-h-96 xl:min-h-screen w-full">
-              <Image
-                src={src}
-                alt={`Banner Image ${index + 1}`}
-                className="object-cover"
-                fill
-                priority
-              />
-                </div>
+                <Image
+                  src={src.image}
+                  alt={`Banner Image ${index + 1}`}
+                  className="object-cover"
+                  fill
+                  priority
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

@@ -104,3 +104,19 @@ export const getBlogDetails = async (id) => {
     return [];
   }
 };
+
+export const getSliders = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_SERVER_API_URL}/slider`, {
+      cache:"no-cache",
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch sliders");
+
+    const data = await res.json();
+    return data.slider;
+  } catch (error) {
+    console.error("Error fetching sliders:", error);
+    return [];
+  }
+};

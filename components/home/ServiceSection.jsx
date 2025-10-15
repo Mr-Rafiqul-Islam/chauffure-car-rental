@@ -60,7 +60,7 @@ const ServiceSection = ({ servicesData }) => {
                           {service.short_details}
                         </p>
                         <div className="inline-flex">
-                          <button className="bg-yellow-800 hover:bg-yellow-700 text-white font-bold py-1 px-4 w-auto rounded-full inline-flex items-center">
+                          <button className="bg-copper hover:bg-highlight duration-300 transition-all text-white font-bold py-1 px-4 w-auto rounded-full inline-flex items-center">
                             <span>Read More</span>
                             <svg
                               className="h-6 w-6 ml-2"
