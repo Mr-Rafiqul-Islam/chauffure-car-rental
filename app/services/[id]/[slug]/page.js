@@ -31,7 +31,7 @@ const ServiceDetailsPage = async ({ params }) => {
   return (
     <main>
       <section className="pt-28 justify-center flex flex-col items-center lg:px-20 md:px-10 px-5">
-        <h2 className="text-4xl lg:text-6xl text-center mb-10">
+        <h2 className="text-4xl lg:text-6xl text-center mb-10 text-highlight">
           {details.name}
         </h2>
         <Image

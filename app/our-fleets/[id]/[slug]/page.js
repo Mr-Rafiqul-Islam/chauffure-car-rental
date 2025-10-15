@@ -1,3 +1,5 @@
+
+import { FleetDetailsSection } from "@/components/fleet-details/FleetDetails";
 import { getFleetDetails, getFleets } from "@/server-action";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,29 +31,7 @@ const FleetDetails = async ({ params }) => {
   }
   return (
     <main className="pt-28">
-      <section className="justify-center flex flex-col items-center lg:px-20 md:px-10 px-5">
-        <h1 className="text-4xl lg:text-6xl text-center mb-10">
-          {details.name}
-        </h1>
-        <Image
-          src={details.image}
-          alt={details.name}
-          width={800}
-          height={500}
-        />
-        <div
-          className="mt-5 prose prose-sm max-w-none"
-          dangerouslySetInnerHTML={{ __html: details.details }}
-        />
-        <div className="w-full my-4">
-          <Link
-            href="/booking"
-            className="animate-pulse w-full text-center block bg-highlight text-ivory hover:bg-copper hover:animate-none font-bold text-lg tracking-wider px-10 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105"
-          >
-            BOOK YOUR CHAFFURE
-          </Link>
-        </div>
-      </section>
+      <FleetDetailsSection fleet={details}/>
     </main>
   );
 };

@@ -8,6 +8,7 @@
     margin-bottom: 1.5rem;
     font-size: 1.125rem;
     line-height: 1.8;
+    color: #FFFFF0;
   }
 
   .article-content h2 {
@@ -15,6 +16,7 @@
     font-weight: 700;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
+    color: white;
   }
 
   .article-content h3 {
@@ -22,6 +24,7 @@
     font-weight: 700;
     margin-top: 2rem;
     margin-bottom: 0.75rem;
+    color: white;
   }
 
   .article-content ul,
