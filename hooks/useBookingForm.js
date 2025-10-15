@@ -5,7 +5,7 @@ import { isPickupTimeValid, calculateDistanceKm } from "@/lib/booking-utils";
 import { toast } from "sonner";
 import { submitBooking } from "@/lib/submitBooking";
 
-export default function useBookingForm() {
+export default function useBookingForm({ fleetData = [] }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,6 +69,38 @@ export default function useBookingForm() {
     }));
     console.log(formData);
   };
+
+  // ADDED: useEffect to handle passenger reset on vehicle change
+  useEffect(() => {
+    if (!formData.vehiclePreference || !fleetData?.length) return;
+
+    const selectedFleet = fleetData.find(
+      (f) => f.name === formData.vehiclePreference
+    );
+    if (!selectedFleet) return;
+
+    const maxSeats = selectedFleet.total_seats;
+    const currentAdults = Number(formData.no_of_adults || 0);
+    const currentBaby = Number(formData.baby_seat || 0);
+    const currentBooster = Number(formData.booster_seat || 0);
+
+    // If total passengers exceed new vehicle's capacity, reset them
+    if (currentAdults + currentBaby + currentBooster > maxSeats) {
+      setFormData((prev) => ({
+        ...prev,
+        no_of_adults: "",
+        baby_seat: "",
+        booster_seat: "",
+      }));
+
+      // Notify the user why the fields were cleared
+      toast("Passenger count reset", {
+        description:
+          "The previous number of passengers exceeds the new vehicle's capacity.",
+        position: "top-center",
+      });
+    }
+  }, [formData.vehiclePreference, fleetData]);
 
   const validateStep = () => {
     const newErrors = {};

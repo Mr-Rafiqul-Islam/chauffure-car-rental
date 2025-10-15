@@ -31,7 +31,7 @@ export default function BookingForm({ servicesData, fleetData }) {
     handleSelectChange,
     handleNext,
     handlePrev,
-  } = useBookingForm();
+  } = useBookingForm({ fleetData });
   const progressPercentage = (currentStep / steps.length) * 100;
 
   const renderStep = () => {
