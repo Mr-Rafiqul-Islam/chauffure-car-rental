@@ -55,14 +55,15 @@ export default function Banner({ servicesData, fleetData }) {
         >
           {bannerImages.map((src, index) => (
             <SwiperSlide key={index}>
+              <div className="min-h-80 md:min-h-96 xl:min-h-screen w-full">
               <Image
                 src={src}
                 alt={`Banner Image ${index + 1}`}
-                className="w-full h-auto object-contain"
-                width={10000}
-                height={500}
+                className="object-cover"
+                fill
                 priority
               />
+                </div>
             </SwiperSlide>
           ))}
         </Swiper>

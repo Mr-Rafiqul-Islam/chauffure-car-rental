@@ -47,7 +47,7 @@ export function FleetDetailsSection({ fleet }) {
           <h1 className="text-4xl md:text-5xl font-bold text-highlight">
             {fleet.name}
           </h1>
-          <p className="mt-2 text-xl text-bsliver">{fleet.short_details}</p>
+          <p className="mt-2 text-xl text-bsilver">{fleet.short_details}</p>
           <div className="mt-6">
             <h3 className="font-semibold text-ivory/90 mb-3">
               Models Include:
@@ -56,7 +56,7 @@ export function FleetDetailsSection({ fleet }) {
               {fleet.model.split(",").map((modelName) => (
                 <span
                   key={modelName.trim()}
-                  className="bg-white/10 text-bsliver px-3 py-1 rounded-full text-sm border border-copper/30"
+                  className="bg-white/10 text-bsilver px-3 py-1 rounded-full text-sm border border-copper/30"
                 >
                   {modelName.trim()}
                 </span>
@@ -83,7 +83,7 @@ export function FleetDetailsSection({ fleet }) {
                 <p className="text-2xl font-bold text-ivory">
                   {fleet.total_seats}
                 </p>
-                <p className="text-sm text-bsliver">Passengers</p>
+                <p className="text-sm text-bsilver">Passengers</p>
               </CardContent>
             </Card>
             <Card className="bg-white/5 border-none">
@@ -94,7 +94,7 @@ export function FleetDetailsSection({ fleet }) {
                 <p className="text-2xl font-bold text-ivory">
                   {fleet.carry_bag}
                 </p>
-                <p className="text-sm text-bsliver">Carry-on Bags</p>
+                <p className="text-sm text-bsilver">Carry-on Bags</p>
               </CardContent>
             </Card>
             <Card className="bg-white/5 border-none">
@@ -105,7 +105,7 @@ export function FleetDetailsSection({ fleet }) {
                 <p className="text-2xl font-bold text-ivory">
                   {fleet.checking_bag}
                 </p>
-                <p className="text-sm text-bsliver">Checking Bags</p>
+                <p className="text-sm text-bsilver">Checking Bags</p>
               </CardContent>
             </Card>
           </div>
@@ -120,7 +120,7 @@ export function FleetDetailsSection({ fleet }) {
             <Table>
               <TableBody>
                 <TableRow className="border-copper/30">
-                  <TableCell className="font-medium text-bsliver">
+                  <TableCell className="font-medium text-bsilver">
                     Base Fare
                   </TableCell>
                   <TableCell className="text-right text-lg font-semibold text-ivory">
@@ -128,7 +128,7 @@ export function FleetDetailsSection({ fleet }) {
                   </TableCell>
                 </TableRow>
                 <TableRow className="border-copper/30">
-                  <TableCell className="font-medium text-bsliver">
+                  <TableCell className="font-medium text-bsilver">
                     Per Kilometer
                   </TableCell>
                   <TableCell className="text-right text-lg font-semibold text-ivory">
@@ -136,7 +136,7 @@ export function FleetDetailsSection({ fleet }) {
                   </TableCell>
                 </TableRow>
                 <TableRow className="border-b-0">
-                  <TableCell className="font-medium text-bsliver">
+                  <TableCell className="font-medium text-bsilver">
                     Per Hour Rate
                   </TableCell>
                   <TableCell className="text-right text-lg font-semibold text-ivory">
