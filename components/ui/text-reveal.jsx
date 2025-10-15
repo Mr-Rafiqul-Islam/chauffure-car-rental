@@ -15,7 +15,7 @@ export const TextReveal = ({
   return (
     <div>
       {segments.map((c, index) => (
-        <motion.span
+        <motion.h1
           key={`${c}-${index}`}
           initial={{
             opacity: 0,
@@ -34,7 +34,7 @@ export const TextReveal = ({
             className,
           )}>
           {c === " " ? "\u00A0" : c}
-        </motion.span>
+        </motion.h1>
       ))}
       <div className="sr-only">{children}</div>
     </div>

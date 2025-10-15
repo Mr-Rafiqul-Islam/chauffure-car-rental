@@ -156,9 +156,9 @@ const TextType = ({
       className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
       ...props
     },
-    <span className="inline" style={{ color: getCurrentTextColor() }}>
+    <h3 className="inline" style={{ color: getCurrentTextColor() }}>
       {displayedText}
-    </span>,
+    </h3>,
     showCursor && (
       <span
         ref={cursorRef}

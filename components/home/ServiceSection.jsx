@@ -45,9 +45,9 @@ const ServiceSection = ({ servicesData }) => {
 
                     {/* Front name */}
                     <div className="absolute inset-0 translate-y-[78%] px-8 text-center">
-                      <p className="font-dmserif text-xl font-bold text-white">
+                      <h4 className="font-dmserif text-xl font-bold text-white">
                         {service.name}
-                      </p>
+                      </h4>
                     </div>
 
                     {/* Back Face */}
