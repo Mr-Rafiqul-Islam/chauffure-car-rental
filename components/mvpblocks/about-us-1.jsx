@@ -151,7 +151,7 @@ export default function AboutUs() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="mb-12 text-center"
           >
-            <h2 className="from-foreground/80 via-foreground to-foreground/80 bg-gradient-to-r bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
+            <h2 className="from-foreground/80 via-foreground to-foreground/80 bg-gradient-to-r bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl md:text-6xl">
               Our Core Values
             </h2>
             <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">

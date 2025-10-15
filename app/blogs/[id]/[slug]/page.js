@@ -1,3 +1,4 @@
+import { BlogDetailsSection } from "@/components/blog-details/BlogDetailsSection";
 import { getBlogDetails, getBlogs } from "@/server-action";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -28,22 +29,7 @@ const BlogDetailsPage = async ({ params }) => {
 
   return (
     <main>
-      <section className="pt-28 justify-center flex flex-col items-center lg:px-20 md:px-10 px-5">
-        <h2 className="text-4xl lg:text-6xl text-center mb-10">
-          {blogDetails.title}
-        </h2>
-        <Image
-          src={blogDetails.image}
-          alt={blogDetails.title}
-          width={800}
-          height={500}
-        />
-
-        <div
-          className="mt-5 prose prose-sm max-w-none"
-          dangerouslySetInnerHTML={{ __html: blogDetails.details }}
-        />
-      </section>
+      <BlogDetailsSection blog={blogDetails} />
     </main>
   );
 };
