@@ -142,7 +142,7 @@ export default function ContactUs() {
             </Link>
             <div className="text-md text-slate-300">
               <p>Email to us at</p>
-              <p>mr.rafiqulthedev@gmail.com</p>
+              <p>info@luxurychauffeurcar.com.au</p>
             </div>
           </div>
 
@@ -152,7 +152,7 @@ export default function ContactUs() {
             </Link>
             <div className="text-md text-slate-300">
               <p>Call us at</p>
-              <p>XXXXX XXXXX</p>
+              <p>+61410211990</p>
             </div>
           </div>
 
@@ -162,7 +162,7 @@ export default function ContactUs() {
             </Link>
             <div className="text-md text-slate-300">
               <p>Location at</p>
-              <p>Techno Main Salt Lake, Sector-V, Kolkata-700091</p>
+              <p>Address: 20 Aintree dr, Wollert-3750</p>
             </div>
           </div>
 
