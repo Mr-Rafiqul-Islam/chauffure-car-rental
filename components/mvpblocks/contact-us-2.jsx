@@ -10,9 +10,10 @@ import {
   FaPhone,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import { Send } from "lucide-react"; // This is fine to keep
+import { Send } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { submitContact } from "@/lib/submitContact";
 
 export default function ContactUs() {
   const [state, setState] = useState({
@@ -26,25 +27,54 @@ export default function ContactUs() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
+    // clear a field-specific error when the user edits it
+    setState((prev) => ({
+      ...prev,
       [name]: value,
+      errors: {
+        ...prev.errors,
+        [name]: undefined,
+      },
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setState((prevState) => ({ ...prevState, submitting: true }));
+    // basic client-side validation (optional)
+    const errors = {};
+    if (!state.name.trim()) errors.name = "Name is required";
+    if (!state.email.trim()) errors.email = "Email is required";
+    if (!state.message.trim()) errors.message = "Message is required";
 
-    // Simulate submission (e.g., API call)
-    setTimeout(() => {
-      console.log("Form submitted:", {
-        name: state.name,
-        email: state.email,
-        message: state.message,
-      });
+    if (Object.keys(errors).length) {
+      setState((prev) => ({ ...prev, errors }));
+      return;
+    }
 
-      // Clear form after submit
+    setState((prev) => ({ ...prev, submitting: true, errors: {} }));
+
+    const data = {
+      name: state.name,
+      email: state.email,
+      message: state.message,
+    };
+
+    try {
+      const res = await submitContact(data);
+
+      // If your API returns validation errors in a specific format, handle them:
+      // e.g. { errors: { email: "invalid email" } }
+      if (res && res.errors && typeof res.errors === "object") {
+        setState((prev) => ({
+          ...prev,
+          submitting: false,
+          errors: res.errors,
+        }));
+        toast.error("Please correct the highlighted fields.");
+        return;
+      }
+
+      // success
       setState({
         name: "",
         email: "",
@@ -53,10 +83,14 @@ export default function ContactUs() {
         submitting: false,
         submitted: true,
       });
-
-      // Notify user
-      toast.success("Message sent successfully!");
-    }, 1000);
+      console.log(res);
+      
+      toast.success(res?.message || "Message sent successfully!");
+    } catch (error) {
+      console.error("Submit contact error:", error);
+      setState((prev) => ({ ...prev, submitting: false }));
+      toast.error(error?.message || "Failed to send message. Please try again.");
+    }
   };
 
   return (
@@ -90,6 +124,9 @@ export default function ContactUs() {
               className="bg-background flex h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm shadow-inner shadow-slate-800 outline-none hover:border-slate-600 hover:transition-all hover:outline-none focus:border-slate-500 focus:outline-none"
               placeholder="Enter your name"
             />
+            {state.errors?.name && (
+              <p className="mt-1 text-sm text-rose-400">{state.errors.name}</p>
+            )}
           </div>
 
           <div className="space-y-4 text-lg">
@@ -104,6 +141,9 @@ export default function ContactUs() {
               className="hover:transition-al bg-background placeholder:text-muted-foreground flex h-10 w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm shadow-inner shadow-slate-800 outline-none file:text-sm file:font-medium hover:border-slate-400 hover:outline-none focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               placeholder="Enter your email"
             />
+            {state.errors?.email && (
+              <p className="mt-1 text-sm text-rose-400">{state.errors.email}</p>
+            )}
           </div>
 
           <div className="space-y-4 text-lg">
@@ -118,6 +158,9 @@ export default function ContactUs() {
               placeholder="Enter your message"
               className="bg-background ring-offset-background placeholder:text-muted-foreground mb-5 flex min-h-[100px] w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white shadow-inner shadow-slate-800 outline-none hover:border-slate-400 hover:transition-all hover:outline-none focus:border-slate-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             />
+            {state.errors?.message && (
+              <p className="mt-1 text-sm text-rose-400">{state.errors.message}</p>
+            )}
           </div>
 
           <button
@@ -137,7 +180,7 @@ export default function ContactUs() {
           </h3>
 
           <div className="mb-12 flex gap-8">
-            <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out">
+            <Link href="#" className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-600 shadow-inner shadow-gray-800 hover:shadow-md hover:shadow-slate-500 hover:transition hover:duration-300 hover:ease-in-out flex-shrink-0">
               <FaEnvelope className="h-5 w-5 text-white" />
             </Link>
             <div className="text-md text-slate-300">
