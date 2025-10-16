@@ -94,7 +94,7 @@ export default function useBookingForm({ fleetData = [] }) {
       }));
 
       // Notify the user why the fields were cleared
-      toast("Passenger count reset", {
+      toast.info("Passenger count reset", {
         description:
           "The previous number of passengers exceeds the new vehicle's capacity.",
         position: "top-center",
