@@ -1,30 +1,13 @@
 // components/FleetDetails.jsx
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Separator } from "@/components/ui/separator";
 import { Users, Briefcase, Package } from "lucide-react";
 import Link from "next/link";
 
-// Helper function to safely parse and clean the HTML details
-const parseDetails = (htmlString) => {
-  if (typeof window === "undefined") {
-    return [
-      "Start or end your journey in comfort and style with our premium airport transfer service.",
-      "Our professional chauffeurs track your flight in real time to adjust for any delays or early arrivals.",
-    ];
-  }
-  const doc = new DOMParser().parseFromString(htmlString, "text/html");
-  return Array.from(doc.querySelectorAll("h1, p"))
-    .map((el) => el.textContent.trim())
-    .filter((text) => text.length > 10);
-};
-
 export function FleetDetailsSection({ fleet }) {
-  const detailsParagraphs = parseDetails(fleet.details);
-
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">

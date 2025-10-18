@@ -15,11 +15,10 @@ export const getServices = async () => {
   }
 };
 
-
-export const getSingleService = async (id) => {
+export const getSingleService = async (slug) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_SERVER_API_URL}/specific-services/${id}`,
+      `${process.env.NEXT_SERVER_API_URL}/specific-services/${slug}`,
       {
         next: { revalidate: 60 }, // ISR caching (optional)
       }
@@ -51,10 +50,10 @@ export const getFleets = async () => {
   }
 };
 
-export const getFleetDetails = async (id) => {
+export const getFleetDetails = async (slug) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_SERVER_API_URL}/specific-fleet/${id}`,
+      `${process.env.NEXT_SERVER_API_URL}/specific-fleet/${slug}`,
       {
         next: { revalidate: 60 },
       }
@@ -67,8 +66,8 @@ export const getFleetDetails = async (id) => {
   } catch (error) {
     console.error("Error fetching fleet:", error);
     return [];
-  };
-}
+  }
+};
 
 export const getBlogs = async () => {
   try {
@@ -86,10 +85,10 @@ export const getBlogs = async () => {
   }
 };
 
-export const getBlogDetails = async (id) => {
+export const getBlogDetails = async (slug) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_SERVER_API_URL}/specific-blog/${id}`,
+      `${process.env.NEXT_SERVER_API_URL}/specific-blog/${slug}`,
       {
         next: { revalidate: 60 },
       }
@@ -108,7 +107,7 @@ export const getBlogDetails = async (id) => {
 export const getSliders = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_SERVER_API_URL}/slider`, {
-      cache:"no-cache",
+      cache: "no-cache",
     });
 
     if (!res.ok) throw new Error("Failed to fetch sliders");

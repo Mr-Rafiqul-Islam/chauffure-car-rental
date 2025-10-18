@@ -1,16 +1,13 @@
 
 import { FleetDetailsSection } from "@/components/fleet-details/FleetDetails";
 import { getFleetDetails, getFleets } from "@/server-action";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
 export async function generateStaticParams() {
   const fleets = await getFleets();
   return fleets.map((fleet) => ({
-    id: fleet.id.toString(),
-    slug: fleet.name.replace(/\s+/g, "-").toLowerCase(),
+    slug: fleet.slug,
   }));
 }
 export async function generateMetadata({ params }) {
@@ -24,8 +21,8 @@ export async function generateMetadata({ params }) {
 }
 
 const FleetDetails = async ({ params }) => {
-  const { id } = params;
-  const details = await getFleetDetails(id);
+  const { slug } = params;
+  const details = await getFleetDetails(slug);
   if (!details) {
     notFound();
   }

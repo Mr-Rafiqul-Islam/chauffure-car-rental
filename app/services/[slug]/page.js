@@ -1,14 +1,11 @@
 import { ServiceDetailsSection } from "@/components/service-details/SeviceDetailsSection";
 import { getServices, getSingleService } from "@/server-action";
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 export async function generateStaticParams() {
   const services = await getServices();
   return services.map((service) => ({
-    id: service.id.toString(),
-    slug: service.name.replace(/\s+/g, "-").toLowerCase(),
+    slug: service.slug,
   }));
 }
 export async function generateMetadata({ params }) {
@@ -22,7 +19,7 @@ export async function generateMetadata({ params }) {
 }
 
 const ServiceDetailsPage = async ({ params }) => {
-  const details = await getSingleService(params.id);
+  const details = await getSingleService(params.slug);
 
   if (!details) {
     notFound();

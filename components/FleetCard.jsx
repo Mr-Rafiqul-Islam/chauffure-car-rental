@@ -5,11 +5,10 @@ import { Users, Briefcase, Star, ArrowRight, Luggage } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 const FleetCard = ({ vehicle }) => {
-  const slug = vehicle?.name.replace(/\s+/g, "-").toLowerCase();
   return (
     <Card className="group relative w-full h-full overflow-hidden rounded-xl bg-white border-gray-200/80 shadow-sm transition-all duration-300 hover:shadow-[0_0_20px_2px_#D4AF37] hover:-translate-y-1">
       <Link
-        href={`/our-fleets/${vehicle.id}/${slug}`}
+        href={`/our-fleets/${vehicle.slug}`}
         className="block cursor-pointer"
       >
         {vehicle.isPopular && (

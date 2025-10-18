@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 
 const ServiceSection = ({ servicesData }) => {
   if (!servicesData || servicesData.length === 0) {
-    notFound(); 
+    notFound();
   }
   return (
     <section className="lg:px-20 md:px-10 px-5 py-10">
@@ -20,10 +20,9 @@ const ServiceSection = ({ servicesData }) => {
 
           <div className="grid gap-5 pt-10 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
             {servicesData.map((service, index) => {
-              const slug = service.name.replace(/\s+/g, "-").toLowerCase();
               return (
                 <Link
-                  href={`services/${service.id}/${slug}`}
+                  href={`services/${service.slug}`}
                   key={index}
                   className="group flex justify-center [perspective:1000px]"
                 >

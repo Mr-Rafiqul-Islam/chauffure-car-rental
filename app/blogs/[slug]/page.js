@@ -1,14 +1,12 @@
 import { BlogDetailsSection } from "@/components/blog-details/BlogDetailsSection";
 import { getBlogDetails, getBlogs } from "@/server-action";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
 
 export async function generateStaticParams() {
   const blogs = await getBlogs();
   return blogs.map((blog) => ({
-    id: blog.id.toString(),
-    slug: blog.title.replace(/\s+/g, "-").toLowerCase(),
+    slug: blog.slug,
   }));
 }
 export async function generateMetadata({ params }) {
@@ -21,8 +19,8 @@ export async function generateMetadata({ params }) {
   };
 }
 const BlogDetailsPage = async ({ params }) => {
-  const { id } = params;
-  const blogDetails = await getBlogDetails(id);
+  const { slug } = params;
+  const blogDetails = await getBlogDetails(slug);
   if (!blogDetails) {
     notFound();
   }
