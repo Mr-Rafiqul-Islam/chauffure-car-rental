@@ -46,7 +46,7 @@ export default function Step3Review({ formData }) {
           <span className="font-medium text-brushedSilver">Distance:</span>
           <span className="text-copper font-semibold">
             {formData.is_duration_trip === "1"
-              ? "N/A (Hourly Hire)"
+              ? `${formData.duration || "N/A"} Hour`
               : `${formData.distance || "N/A"} Km${
                   formData.is_round_trip === "1" ? " (Distance Doubled for Return)" : ""
                 }`}

@@ -21,6 +21,7 @@ export default function useBookingForm({ fleetData = [] }) {
     drop_location: "",
     drop_locationCoordinates: null,
     flight_arrival_time: "",
+    flight_departure: "",
     flight_number: "",
     distance: null,
     estimatedPrice: null,
@@ -35,6 +36,7 @@ export default function useBookingForm({ fleetData = [] }) {
     notes: "",
     fleet_id: "",
     service_id: "",
+    duration: "",
   });
 
   const clearError = useCallback((field) => {
@@ -109,6 +111,8 @@ export default function useBookingForm({ fleetData = [] }) {
         newErrors.serviceType = "Service type is required.";
       if (!formData.vehiclePreference)
         newErrors.vehiclePreference = "Vehicle preference is required.";
+      if (formData.is_duration_trip === "1" && !formData.duration)
+        newErrors.duration = "Duration is required.";
       if (!formData.date) newErrors.date = "Date of service is required.";
       if (!formData.time) newErrors.time = "Pickup Time is required.";
       else if (!isPickupTimeValid(formData.date, formData.time))
@@ -170,9 +174,9 @@ export default function useBookingForm({ fleetData = [] }) {
 
       // HOURLY HIRE — fixed rate (no distance logic)
       if (formData.is_duration_trip === "1") {
-        estimated = Number(
-          formData.fleetInfo?.per_kilometer_fare_duration_wise || 0
-        );
+        estimated =
+          Number(formData.fleetInfo?.per_kilometer_fare_duration_wise || 0) *
+          formData.duration;
         baseFare = estimated;
       }
       // NORMAL TRIP — base fare + per km rate
@@ -187,7 +191,12 @@ export default function useBookingForm({ fleetData = [] }) {
 
         estimated = baseFare + totalDistance * perKm;
       }
-
+      if (formData.children) {
+        if (formData.baby_seat !== "0")
+          estimated += Number(formData.baby_seat || 0) * 5;
+        if (formData.booster_seat !== "0")
+          estimated += Number(formData.booster_seat || 0) * 5;
+      }
       setFormData((prev) => ({
         ...prev,
         distance: totalDistance,
@@ -249,6 +258,7 @@ export default function useBookingForm({ fleetData = [] }) {
       drop_location: "",
       drop_locationCoordinates: null,
       flight_arrival_time: "",
+      flight_departure: "",
       flight_number: "",
       distance: null,
       estimatedPrice: null,
@@ -261,6 +271,7 @@ export default function useBookingForm({ fleetData = [] }) {
       booster_seat: "",
       baby_seat: "",
       notes: "",
+      duration: "",
     });
     setErrors({});
     setCurrentStep(1);

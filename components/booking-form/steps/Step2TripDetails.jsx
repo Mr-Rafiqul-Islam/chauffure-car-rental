@@ -46,28 +46,30 @@ export default function Step2TripDetails({
         />
       </div>
 
-      <div className="flex items-center gap-3">
-        <Checkbox
-          id="is_round_trip"
-          name="is_round_trip"
-          checked={formData.is_round_trip === "1"}
-          onCheckedChange={(checked) =>
-            handleInputChange({
-              target: {
-                name: "is_round_trip",
-                value: checked ? "1" : "0",
-              },
-            })
-          }
-          className="h-5 w-5 border-copper text-highlight
+      {formData.is_duration_trip === "0" && (
+        <div className="flex items-center gap-3">
+          <Checkbox
+            id="is_round_trip"
+            name="is_round_trip"
+            checked={formData.is_round_trip === "1"}
+            onCheckedChange={(checked) =>
+              handleInputChange({
+                target: {
+                  name: "is_round_trip",
+                  value: checked ? "1" : "0",
+                },
+              })
+            }
+            className="h-5 w-5 border-copper text-highlight
                data-[state=checked]:bg-highlight
                data-[state=checked]:border-highlight
                focus-visible:ring-2 focus-visible:ring-highlight"
-        />
-        <Label htmlFor="is_round_trip" className="text-black">
-          Do you Need Round Trip?
-        </Label>
-      </div>
+          />
+          <Label htmlFor="is_round_trip" className="text-black">
+            Do you Need Round Trip?
+          </Label>
+        </div>
+      )}
       {isAirportTransfer && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Flight Number */}
@@ -104,6 +106,25 @@ export default function Step2TripDetails({
             {errors.flight_arrival_time && (
               <p className="text-sm text-red-500">
                 {errors.flight_arrival_time}
+              </p>
+            )}
+          </div>
+          {/* Flight Departure Time */}
+          <div className="space-y-1">
+            <Label htmlFor="flight_departure_time" className="text-black">
+              Flight Departure Time
+            </Label>
+            <Input
+              id="flight_departure_time"
+              name="flight_departure"
+              type="time"
+              value={formData.flight_departure || ""}
+              onChange={handleInputChange}
+              className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black "
+            />
+            {errors.flight_departure && (
+              <p className="text-sm text-red-500">
+                {errors.flight_departure}
               </p>
             )}
           </div>

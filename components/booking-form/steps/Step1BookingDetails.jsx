@@ -54,44 +54,24 @@ export default function Step1BookingDetails({
     { length: Math.max(0, availableForBooster) + 1 }, // +1 to include 0
     (_, i) => String(i)
   );
-
+  const hourOptions = Array.from({ length: 23 }, (_, i) => String(i + 2)).slice(
+    0,
+    23
+  );
   return (
     <div className="space-y-6">
       {/* Service & Vehicle */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="">
-          <SelectField
-            label="Type of Limo Service"
-            name="serviceType"
-            options={servicesData}
-            value={formData.serviceType}
-            onChange={handleSelectChange}
-            error={errors.serviceType}
-            placeholder="-- Select Service --"
-          />
-          <div className="mt-4 flex items-center gap-3">
-            <Checkbox
-              id="is_duration_trip"
-              name="is_duration_trip"
-              checked={formData.is_duration_trip === "1"}
-              onCheckedChange={(checked) =>
-                handleInputChange({
-                  target: {
-                    name: "is_duration_trip",
-                    value: checked ? "1" : "0",
-                  },
-                })
-              }
-              className="h-5 w-5 border-copper text-highlight
-               data-[state=checked]:bg-highlight
-               data-[state=checked]:border-highlight
-               focus-visible:ring-2 focus-visible:ring-highlight"
-            />
-            <Label htmlFor="is_duration_trip" className="text-black">
-              Get Hourly Rate
-            </Label>
-          </div>
-        </div>
+        <SelectField
+          label="Type of Limo Service"
+          name="serviceType"
+          options={servicesData}
+          value={formData.serviceType}
+          onChange={handleSelectChange}
+          error={errors.serviceType}
+          placeholder="-- Select Service --"
+        />
+
         <SelectField
           label="Vehicle Preference"
           name="vehiclePreference"
@@ -102,7 +82,41 @@ export default function Step1BookingDetails({
           placeholder="-- Select Vehicle --"
         />
       </div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex items-center gap-3">
+          <Checkbox
+            id="is_duration_trip"
+            name="is_duration_trip"
+            checked={formData.is_duration_trip === "1"}
+            onCheckedChange={(checked) =>
+              handleInputChange({
+                target: {
+                  name: "is_duration_trip",
+                  value: checked ? "1" : "0",
+                },
+              })
+            }
+            className="h-5 w-5 border-copper text-highlight
+               data-[state=checked]:bg-highlight
+               data-[state=checked]:border-highlight
+               focus-visible:ring-2 focus-visible:ring-highlight"
+          />
+          <Label htmlFor="is_duration_trip" className="text-black">
+            Get Hourly Rate
+          </Label>
+        </div>
+        {formData.is_duration_trip === "1" && (
+          <SelectField2
+            label="How Many Hours?"
+            name="duration"
+            options={hourOptions}
+            value={formData.duration}
+            onChange={handleSelectChange}
+            error={errors.duration}
+            placeholder="-- Select Duration --"
+          />
+        )}
+      </div>
       {/* Date & Time */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-1">
@@ -159,7 +173,9 @@ export default function Step1BookingDetails({
         />
 
         <div className="space-y-2">
-          <Label className="text-black">Need Children Seat?</Label>
+          <Label className="text-black">
+            Need Children Seat? (5$ per seat)
+          </Label>
           <RadioGroup
             name="children"
             value={formData.children ? "yes" : "no"}
