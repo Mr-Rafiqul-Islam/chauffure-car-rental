@@ -42,7 +42,7 @@ export default async function RootLayout({ children }) {
         className={`${playfair.variable} ${inter.variable} antialiased bg-[#1F1F1F] text-[#FFFFF0]`}
       >
         <AuthProvider>
-          <Toaster />
+          <Toaster className=""/>
           <Header servicesDropdownItems={formattedServicesList} />
           {children}
           <FooterGlow />
