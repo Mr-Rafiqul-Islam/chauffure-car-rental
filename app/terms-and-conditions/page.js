@@ -1,12 +1,12 @@
-import MaintenancePage from '@/components/common/MaintenancePage';
 import React from 'react'
+import { TermsAndConditionsPage } from './TermsAndConditionsPage';
 export const metadata = {
   title: "Terms & Conditions | Luxury Chaffure",
 };
 const page = () => {
   return (
     <div>
-        <MaintenancePage pageName="Terms & Conditions" />
+        <TermsAndConditionsPage/>
     </div>
   )
 }
