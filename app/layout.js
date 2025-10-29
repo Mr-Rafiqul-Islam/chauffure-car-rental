@@ -29,10 +29,9 @@ export default async function RootLayout({ children }) {
 
   // Format the data into the structure your Header component needs
   const formattedServicesList = services.map((service) => {
-    const slug = service.name.replace(/\s+/g, "-").toLowerCase();
     return {
       name: service.name,
-      href: `/services/${service.id}/${slug}`,
+      href: `/services/${service.slug}`,
     };
   });
 
@@ -42,7 +41,7 @@ export default async function RootLayout({ children }) {
         className={`${playfair.variable} ${inter.variable} antialiased bg-[#1F1F1F] text-[#FFFFF0]`}
       >
         <AuthProvider>
-          <Toaster className=""/>
+          <Toaster className="" />
           <Header servicesDropdownItems={formattedServicesList} />
           {children}
           <FooterGlow />

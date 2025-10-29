@@ -42,7 +42,7 @@ export default function FooterGlow() {
             <Image
               src="/logo_transparent.png"
               alt="logo"
-              width={100}
+              width={200}
               height={100}
             />
           </Link>

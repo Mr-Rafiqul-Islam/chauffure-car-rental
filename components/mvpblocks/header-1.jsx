@@ -69,7 +69,7 @@ export default function Header({ servicesDropdownItems }) {
       }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between lg:h-20">
+        <div className="flex h-16 items-center justify-between lg:h-28">
           <motion.div
             className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
@@ -80,15 +80,12 @@ export default function Header({ servicesDropdownItems }) {
               href="/"
               className="flex items-center space-x-2"
             >
-              <div className="w-[75px] lg:w-[150px]">
                 <Image
                   src={logo}
                   alt="Luxury Chauffeur Logo"
-                  width={150}
+                  width={180}
                   height={40}
-                  className="h-16 w-full object-contain"
                 />
-              </div>
             </Link>
           </motion.div>
 
