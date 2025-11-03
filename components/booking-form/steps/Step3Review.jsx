@@ -14,6 +14,11 @@ export default function Step3Review({ formData }) {
         <li>
           <strong>Service Type:</strong> {formData.serviceType || "N/A"}
         </li>
+        {formData.is_duration_trip === "1" && (
+          <li>
+            <strong>Duration:</strong> {formData.duration || "N/A"} Hour
+          </li>
+        )}
         <li>
           <strong>Vehicle:</strong> {formData.vehiclePreference || "N/A"}
         </li>
@@ -42,18 +47,7 @@ export default function Step3Review({ formData }) {
         </li>
         <hr className="my-2" />
 
-        <li className="flex justify-between">
-          <span className="font-medium text-brushedSilver">Distance:</span>
-          <span className="text-copper font-semibold">
-            {formData.is_duration_trip === "1"
-              ? `${formData.duration || "N/A"} Hour`
-              : `${formData.distance || "N/A"} Km${
-                  formData.is_round_trip === "1" ? " (Distance Doubled for Return)" : ""
-                }`}
-          </span>
-        </li>
-
-        <li className="flex justify-between">
+        {/* <li className="flex justify-between">
           <span className="font-medium text-brushedSilver">Fleet Price:</span>
           <span className="text-highlight font-semibold">
             {formData.is_duration_trip === "1"
@@ -62,23 +56,25 @@ export default function Step3Review({ formData }) {
                 } AUD (Per Hour)`
               : `${formData.baseFare || "N/A"} AUD`}
           </span>
-        </li>
-
-        <li className="flex justify-between border-t border-copper/20 pt-2 mt-2">
-          <span className="font-medium text-brushedSilver">
-            Total Estimated Price:
-          </span>
-          <span className="text-royalGold font-bold tracking-wide">
-            {formData.estimatedPrice
-              ? `${formData.estimatedPrice} AUD${
-                  formData.is_round_trip === "1" &&
-                  formData.is_duration_trip !== "1"
-                    ? " (Round Trip)"
-                    : ""
-                }`
-              : "N/A"}
-          </span>
-        </li>
+        </li> */}
+        {(formData.serviceType.trim().toLowerCase() === "airport transfers" ||
+          formData.is_duration_trip === "1") && (
+          <li className="flex justify-between border-t border-copper/20 pt-2 mt-2">
+            <span className="font-medium text-brushedSilver">
+              Total Estimated Price:
+            </span>
+            <span className="text-royalGold font-bold tracking-wide">
+              {formData.estimatedPrice
+                ? `${formData.estimatedPrice} AUD${
+                    formData.is_round_trip === "1" &&
+                    formData.is_duration_trip !== "1"
+                      ? " (Round Trip)"
+                      : ""
+                  }`
+                : "N/A"}
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );

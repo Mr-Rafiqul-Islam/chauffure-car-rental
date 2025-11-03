@@ -1,14 +1,16 @@
 // hooks/useBookingForm.js
 
 import { useState, useEffect, useCallback } from "react";
-import { isPickupTimeValid, calculateDistanceKm } from "@/lib/booking-utils";
+import { isPickupTimeValid } from "@/lib/booking-utils";
 import { toast } from "sonner";
 import { submitBooking } from "@/lib/submitBooking";
+import { getDrivingDistanceKm } from "@/lib/calculateDistanceKm";
 
 export default function useBookingForm({ fleetData = [] }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCalculatingDistance, setIsCalculatingDistance] = useState(false); 
   const [formData, setFormData] = useState({
     serviceType: "",
     vehiclePreference: "",
@@ -159,14 +161,31 @@ export default function useBookingForm({ fleetData = [] }) {
     }
   }, [formData.date, formData.time, currentStep, clearError]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (!validateStep()) return;
 
     if (currentStep === 2) {
-      const distance = calculateDistanceKm(
-        formData.pickup_locationCoordinates,
-        formData.drop_locationCoordinates
-      );
+      setIsCalculatingDistance(true); // show spinner
+
+      let distance;
+      try {
+        distance = await getDrivingDistanceKm(
+          formData.pickup_locationCoordinates,
+          formData.drop_locationCoordinates
+        );
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to calculate distance. Please try again.");
+        setIsCalculatingDistance(false);
+        return;
+      }
+
+      setIsCalculatingDistance(false);
+
+      if (!distance) {
+        toast.error("Unable to calculate distance. Please try again.");
+        return;
+      }
 
       let estimated = 0;
       let baseFare = 0;
@@ -282,6 +301,7 @@ export default function useBookingForm({ fleetData = [] }) {
     formData,
     errors,
     isSubmitting,
+    isCalculatingDistance,
     handleInputChange,
     handleSelectChange,
     handleNext,

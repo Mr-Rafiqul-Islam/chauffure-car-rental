@@ -26,12 +26,7 @@ const page = () => {
               Our Commitment to Your Privacy
             </h2>
             <p className="text-lg leading-relaxed text-ivory/90">
-              Luxury Chauffeur (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is deeply committed to
-              protecting your privacy. This policy outlines our practices
-              concerning the collection, use, and protection of your personal
-              information. We operate a luxury chauffeur and hire car service
-              where repeat business is built on trust, and safeguarding your
-              data is fundamental to that trust.
+              Luxury Chauffeur (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) is deeply committed to protecting your privacy. This policy outlines our practices concerning the collection, use, and protection of your personal information. We operate a luxury chauffeur service where repeat business is built on trust, and safeguarding your data is fundamental to that trust.
             </p>
           </section>
 

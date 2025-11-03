@@ -27,6 +27,7 @@ export default function BookingForm({ servicesData, fleetData }) {
     formData,
     errors,
     isSubmitting,
+    isCalculatingDistance,
     handleInputChange,
     handleSelectChange,
     handleNext,
@@ -106,14 +107,18 @@ export default function BookingForm({ servicesData, fleetData }) {
               )}
               <Button
                 onClick={handleNext}
-                disabled={isSubmitting}
-                className="bg-copper hover:bg-highlight hover:scale-105 text-white hover:text-black"
+                disabled={isSubmitting || isCalculatingDistance}
+                className="bg-copper hover:bg-highlight hover:scale-105 text-white hover:text-black flex items-center justify-center"
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
-                    {/* Optional spinner */}
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Submitting...
+                  </>
+                ) : isCalculatingDistance ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ⏱ Calculating...
                   </>
                 ) : currentStep === steps.length ? (
                   "Submit"

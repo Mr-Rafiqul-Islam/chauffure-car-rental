@@ -51,7 +51,7 @@ export function FleetDetailsSection({ fleet }) {
               href="/booking"
               className="animate-pulse w-full text-center block bg-highlight text-ivory hover:bg-copper hover:animate-none font-bold text-lg tracking-wider px-10 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105"
             >
-              BOOK YOUR CHAFFURE
+              BOOK YOUR CHAFFEUR
             </Link>
           </div>
           <Separator className="my-6 bg-copper" />

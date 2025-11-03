@@ -174,7 +174,7 @@ export default function Step1BookingDetails({
 
         <div className="space-y-2">
           <Label className="text-black">
-            Need Children Seat? (5$ per seat)
+            Need Children Seat?
           </Label>
           <RadioGroup
             name="children"

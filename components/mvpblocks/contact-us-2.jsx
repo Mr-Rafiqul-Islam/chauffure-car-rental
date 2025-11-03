@@ -195,7 +195,7 @@ export default function ContactUs() {
             </Link>
             <div className="text-md text-slate-300">
               <p>Call us at</p>
-              <a href="tel:+61469730976">+61469 730 976</a>
+              <a href="tel:+61469730976">+61 469 730 976</a>
             </div>
           </div>
 
