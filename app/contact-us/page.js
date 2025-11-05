@@ -1,5 +1,5 @@
 import ContactUs from "@/components/mvpblocks/contact-us-2";
-import PageHeader from "@/components/ui/lamp";
+import PageHeader from "@/components/common/PageHedar";
 import React from "react";
 export const metadata = {
   title: "Contact Us | Luxury Chaffure",
@@ -12,7 +12,7 @@ const page = () => {
         pageName="Contact Us"
         subheading="We're Here to Help — Get in Touch"
       />
-      <ContactUs/>
+      <ContactUs />
     </div>
   );
 };

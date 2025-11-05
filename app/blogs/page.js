@@ -1,5 +1,5 @@
+import PageHeader from "@/components/common/PageHedar";
 import BlogSection from "@/components/home/BlogSection";
-import PageHeader from "@/components/ui/lamp";
 import { getBlogs } from "@/server-action";
 import React from "react";
 export const metadata = {

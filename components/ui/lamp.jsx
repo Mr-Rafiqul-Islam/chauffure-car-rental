@@ -40,15 +40,14 @@ export const LampContainer = ({
   className,
 }) => {
   return (
-    // UPDATE 1: Added responsive top padding. Less padding on mobile.
-    <div className={cn("bg-slate-950 pt-16 md:pt-24", className)}>
+    // UPDATE 1: Added 'relative' to this outer container
+    <div className={cn("relative bg-slate-950 pt-16 md:pt-24", className)}>
       <div
         className="relative flex h-[66vh] flex-col items-center justify-center overflow-hidden bg-slate-950 w-full rounded-md z-0"
       >
         <div
           className="relative flex w-full flex-1 scale-y-100 items-center justify-center isolate z-0"
         >
-          {/* UPDATE 2: Made lamp effect widths responsive */}
           <motion.div
             initial={{ opacity: 0.5, width: "15rem" }}
             whileInView={{ opacity: 1, width: "30rem" }}
@@ -65,7 +64,6 @@ export const LampContainer = ({
             <div className="absolute w-[100%] left-0 bg-slate-950 h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
             <div className="absolute w-40 h-[100%] left-0 bg-slate-950 bottom-0 z-20 [mask-image:linear-gradient(to_right,white,transparent)]" />
           </motion.div>
-          {/* UPDATE 3: Made lamp effect widths responsive */}
           <motion.div
             initial={{ opacity: 0.5, width: "15rem" }}
             whileInView={{ opacity: 1, width: "30rem" }}
@@ -85,7 +83,6 @@ export const LampContainer = ({
 
           <div className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-slate-950 blur-2xl"></div>
           <div className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
-          {/* UPDATE 4: Made blur effect responsive */}
           <div className="absolute inset-auto z-50 h-36 w-full max-w-md -translate-y-1/2 rounded-full bg-cyan-500 opacity-50 blur-3xl"></div>
           
           <motion.div
@@ -98,7 +95,6 @@ export const LampContainer = ({
             }}
             className="absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full bg-cyan-400 blur-2xl"
           ></motion.div>
-          {/* UPDATE 5: Made lamp bar responsive */}
           <motion.div
             initial={{ width: "15rem" }}
             whileInView={{ width: "30rem" }}
@@ -113,13 +109,15 @@ export const LampContainer = ({
           <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-slate-950 "></div>
         </div>
         
-        {/* UPDATE 6: THE MOST IMPORTANT FIX - Responsive vertical translation for the text */}
         <div
           className="relative z-50 flex flex-col items-center px-5 -translate-y-36 sm:-translate-y-48 md:-translate-y-60"
         >
           {children}
         </div>
       </div>
+      
+      {/* UPDATE 2: Added this gradient overlay to transition to #1F1F1F */}
+      <div className="absolute bottom-0 left-0 z-[60] h-48 w-full bg-gradient-to-b from-transparent to-[#1F1F1F] pointer-events-none"></div>
     </div>
   );
 };
