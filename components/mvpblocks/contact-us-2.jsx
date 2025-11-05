@@ -205,7 +205,7 @@ export default function ContactUs() {
             </Link>
             <div className="text-md text-slate-300">
               <p>Location at</p>
-              <p>Address: 20 Aintree dr, Wollert-3750</p>
+              <p>Address: 20 Aintree Dr, Wollert-3750</p>
             </div>
           </div>
 
