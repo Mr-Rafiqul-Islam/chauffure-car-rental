@@ -206,6 +206,7 @@ export default function useBookingForm({ fleetData = [] }) {
         // For round trip: double only the distance
         if (formData.is_round_trip === "1") {
           totalDistance = distance * 2;
+          baseFare *= 2;
         }
 
         estimated = baseFare + totalDistance * perKm;

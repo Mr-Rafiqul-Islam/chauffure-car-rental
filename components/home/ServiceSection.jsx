@@ -50,7 +50,7 @@ const ServiceSection = ({ servicesData }) => {
                     </div>
 
                     {/* Back Face */}
-                    <div className="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-5 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                    <div className="absolute inset-0 h-full w-full rounded-xl bg-black px-5 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
                       <div className="flex min-h-full flex-col items-center justify-center">
                         <h2 className="text-xl font-bold mb-4">
                           {service.name}
