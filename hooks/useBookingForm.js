@@ -10,7 +10,7 @@ export default function useBookingForm({ fleetData = [] }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isCalculatingDistance, setIsCalculatingDistance] = useState(false); 
+  const [isCalculatingDistance, setIsCalculatingDistance] = useState(false);
   const [formData, setFormData] = useState({
     serviceType: "",
     vehiclePreference: "",
@@ -32,6 +32,12 @@ export default function useBookingForm({ fleetData = [] }) {
     email: "",
     phone: "",
     is_round_trip: "0",
+    round_trip_pickup: "",
+    round_trip_pickupCoordinates: null,
+    round_trip_dropoff: "",
+    round_trip_dropoffCoordinates: null,
+    round_trip_date: "",
+    round_trip_time: "",
     is_duration_trip: "0",
     booster_seat: "",
     baby_seat: "",
@@ -61,16 +67,32 @@ export default function useBookingForm({ fleetData = [] }) {
     const { info = null, coords = null } = options;
 
     clearError(name);
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-      ...(name === "serviceType" && { service_id: info.id }),
-      ...(name === "vehiclePreference" && {
-        fleet_id: info.id,
-        fleetInfo: info,
-      }),
-      ...(coords && { [`${name}Coordinates`]: coords }),
-    }));
+    setFormData((prev) => {
+      const updates = {
+        ...prev,
+        [name]: value,
+        ...(name === "serviceType" && { service_id: info?.id }),
+        ...(name === "vehiclePreference" && {
+          fleet_id: info?.id,
+          fleetInfo: info,
+        }),
+        ...(coords && { [`${name}Coordinates`]: coords }),
+      };
+
+      // When drop_location changes, use it as round_trip_pickup
+      if (name === "drop_location") {
+        updates.round_trip_pickup = value;
+        if (coords) updates.round_trip_pickupCoordinates = coords;
+      }
+
+      // When pickup_location changes, use it as round_trip_dropoff
+      if (name === "pickup_location") {
+        updates.round_trip_dropoff = value;
+        if (coords) updates.round_trip_dropoffCoordinates = coords;
+      }
+
+      return updates;
+    });
     console.log(formData);
   };
 
@@ -134,6 +156,12 @@ export default function useBookingForm({ fleetData = [] }) {
         if (!formData.flight_number)
           newErrors.flight_number = "Flight number is required.";
       }
+      if (formData.is_round_trip === "1") {
+        if (!formData.round_trip_date)
+          newErrors.round_trip_date = "Return date is required for round trip.";
+        if (!formData.round_trip_time)
+          newErrors.round_trip_time = "Return time is required for round trip.";
+      }
     } else if (currentStep === 4) {
       if (!formData.name) newErrors.name = "Full name is required.";
       if (!formData.phone) newErrors.phone = "Phone number is required.";
@@ -165,14 +193,41 @@ export default function useBookingForm({ fleetData = [] }) {
     if (!validateStep()) return;
 
     if (currentStep === 2) {
-      setIsCalculatingDistance(true); // show spinner
+      setIsCalculatingDistance(true);
 
-      let distance;
+      let distance = 0;
+      let returnDistance = 0;
+
       try {
+        // primary leg
         distance = await getDrivingDistanceKm(
           formData.pickup_locationCoordinates,
           formData.drop_locationCoordinates
         );
+
+        // if round trip, try to calculate the return leg using explicit round trip coords
+        if (formData.is_round_trip === "1" && formData.is_duration_trip === "0") {
+          const rtFrom =
+            formData.round_trip_pickupCoordinates ||
+            formData.drop_locationCoordinates;
+          const rtTo =
+            formData.round_trip_dropoffCoordinates ||
+            formData.pickup_locationCoordinates;
+
+          // only call if we have coords for return leg
+          if (formData.is_duration_trip === "0" && rtFrom && rtTo) {
+            try {
+              returnDistance = await getDrivingDistanceKm(rtFrom, rtTo);
+            } catch (err) {
+              // fallback: if return leg calculation fails, we'll fall back to doubling one-way distance
+              console.warn(
+                "Return distance calculation failed, falling back to doubling one-way distance",
+                err
+              );
+              returnDistance = 0;
+            }
+          }
+        }
       } catch (err) {
         console.error(err);
         toast.error("Failed to calculate distance. Please try again.");
@@ -187,9 +242,14 @@ export default function useBookingForm({ fleetData = [] }) {
         return;
       }
 
+      // if is_round_trip and we couldn't compute a separate returnDistance, assume returnDistance = distance
+      let totalDistance =
+        formData.is_round_trip === "1"
+          ? distance + (returnDistance || distance)
+          : distance;
+
       let estimated = 0;
       let baseFare = 0;
-      let totalDistance = distance;
 
       // HOURLY HIRE — fixed rate (no distance logic)
       if (formData.is_duration_trip === "1") {
@@ -200,23 +260,23 @@ export default function useBookingForm({ fleetData = [] }) {
       }
       // NORMAL TRIP — base fare + per km rate
       else {
-        baseFare = Number(formData.fleetInfo?.base_fare || 0);
+        const baseFareOneWay = Number(formData.fleetInfo?.base_fare || 0);
         const perKm = Number(formData.fleetInfo?.per_kilometer_fare || 0);
 
-        // For round trip: double only the distance
-        if (formData.is_round_trip === "1") {
-          totalDistance = distance * 2;
-          baseFare *= 2;
-        }
+        // If round trip, include base fare for return as well (use explicit doubling)
+        baseFare =
+          formData.is_round_trip === "1" ? baseFareOneWay * 2 : baseFareOneWay;
 
         estimated = baseFare + totalDistance * perKm;
       }
+
       if (formData.children) {
         if (formData.baby_seat !== "0")
           estimated += Number(formData.baby_seat || 0) * 5;
         if (formData.booster_seat !== "0")
           estimated += Number(formData.booster_seat || 0) * 5;
       }
+
       setFormData((prev) => ({
         ...prev,
         distance: totalDistance,
@@ -287,6 +347,12 @@ export default function useBookingForm({ fleetData = [] }) {
       email: "",
       phone: "",
       is_round_trip: "0",
+      round_trip_pickup: "",
+      round_trip_pickupCoordinates: null,
+      round_trip_dropoff: "",
+      round_trip_dropoffCoordinates: null,
+      round_trip_date: "",
+      round_trip_time: "",
       is_duration_trip: "0",
       booster_seat: "",
       baby_seat: "",

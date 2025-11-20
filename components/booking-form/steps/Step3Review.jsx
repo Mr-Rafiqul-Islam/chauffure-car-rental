@@ -46,7 +46,31 @@ export default function Step3Review({ formData }) {
           <strong>Dropoff Location:</strong> {formData.drop_location || "N/A"}
         </li>
         <hr className="my-2" />
-
+        {/* for return trip info */}
+        {formData.is_round_trip === "1" &&
+          formData.is_duration_trip === "0" && (
+            <>
+              <li>
+                <strong>Return Date:</strong>{" "}
+                {formData.round_trip_date || "N/A"}
+              </li>
+              <li>
+                <strong>Return Time:</strong>{" "}
+                {formData.round_trip_time
+                  ? formatTime(formData.round_trip_time)
+                  : "N/A"}
+              </li>
+              {/* pickup and dropoff location for return trip if changes */}
+              <li>
+                <strong>Return Pickup Location:</strong>{" "}
+                {formData.round_trip_pickup || "N/A"}
+              </li>
+              <li>
+                <strong>Return Dropoff Location:</strong>{" "}
+                {formData.round_trip_dropoff || "N/A"}
+              </li>
+            </>
+          )}
         {/* <li className="flex justify-between">
           <span className="font-medium text-brushedSilver">Fleet Price:</span>
           <span className="text-highlight font-semibold">
