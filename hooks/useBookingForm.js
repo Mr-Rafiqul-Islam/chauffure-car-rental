@@ -168,11 +168,15 @@ export default function useBookingForm({ fleetData = [] }) {
             newErrors.return_flight_number = "Flight number is required.";
         }
       }
-      if (formData.is_round_trip === "1") {
+      if (formData.is_round_trip === "1" && formData.is_duration_trip === "0") {
         if (!formData.round_trip_date)
           newErrors.round_trip_date = "Return date is required for round trip.";
         if (!formData.round_trip_time)
           newErrors.round_trip_time = "Return time is required for round trip.";
+        if( !formData.round_trip_pickup )
+          newErrors.round_trip_pickup = "Return pickup location is required for round trip.";
+        if( !formData.round_trip_dropoff )
+          newErrors.round_trip_dropoff = "Return dropoff location is required for round trip.";
       }
     } else if (currentStep === 4) {
       if (!formData.name) newErrors.name = "Full name is required.";

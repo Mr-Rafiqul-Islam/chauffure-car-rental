@@ -79,8 +79,6 @@ export default function BookingHistoryPage() {
   }
 
   // ✨ If authenticated and fetch is complete, render the content
-  // We no longer need the MaintenancePage, but you can keep it if you want
-  // and pass the `history` data to it. Here is an example of a real UI:
   return (
     <section className="pt-28 lg:px-20 md:px-10 px-5">
       <div className="container mx-auto py-10">
