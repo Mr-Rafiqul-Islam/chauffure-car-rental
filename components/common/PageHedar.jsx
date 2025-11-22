@@ -60,7 +60,7 @@ export default function PageHeader({
           className="
             font-serif text-4xl font-bold tracking-tight 
             text-white 
-            sm:text-5xl md:text-6xl lg:text-7xl
+            sm:text-5xl md:text-6xl mid:text-7xl
           "
         >
           {pageName}

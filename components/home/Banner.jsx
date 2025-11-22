@@ -10,7 +10,6 @@ import Image from "next/image";
 import TextRevealLetters from "../mvpblocks/text-reveal-1";
 import BookingForm from "../booking-form/BookingForm";
 import TextType from "../TextType";
-import { Spotlight } from "../ui/spotlight";
 
 export default function Banner({ servicesData, fleetData, bannerImages }) {
   return (
@@ -33,7 +32,7 @@ export default function Banner({ servicesData, fleetData, bannerImages }) {
         </div>
 
         {/* Booking form (Desktop only) */}
-        <div className="absolute hidden 2xl:block top-1/2 right-[12.5%] transform -translate-y-1/2 z-40">
+        <div className="absolute hidden mid:block top-1/2 right-[12.5%] transform -translate-y-1/2 z-40">
           <BookingForm servicesData={servicesData} fleetData={fleetData} />
         </div>
 
@@ -48,7 +47,7 @@ export default function Banner({ servicesData, fleetData, bannerImages }) {
         >
           {bannerImages.map((src, index) => (
             <SwiperSlide key={index}>
-              <div className="min-h-80 md:min-h-96 xl:min-h-screen w-full">
+              <div className="min-h-80 md:min-h-96 xl:min-h-[600px] mid:min-h-screen w-full">
                 <Image
                   src={src.image}
                   alt={`Banner Image ${index + 1}`}
@@ -61,7 +60,7 @@ export default function Banner({ servicesData, fleetData, bannerImages }) {
           ))}
         </Swiper>
       </section>
-      <section className="2xl:hidden relative w-full overflow-hidden">
+      <section className="mid:hidden relative w-full overflow-hidden">
         <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.2),transparent_60%)]" />
         <div className="bg-primary/5 absolute top-1/4 left-1/4 h-32 w-32 rounded-full blur-3xl" />
