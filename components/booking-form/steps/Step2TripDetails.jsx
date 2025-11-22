@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import GooglePlacesInput from "@/components/common/GooglePlacesInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { SelectField2 } from "@/components/common/SelectField2";
+import { is } from "zod/v4/locales";
 
 export default function Step2TripDetails({
   formData,
@@ -16,8 +18,24 @@ export default function Step2TripDetails({
   const isAirportTransfer =
     formData.serviceType &&
     formData.serviceType.trim().toLowerCase() === "airport transfers";
+
+  const transferData = ["Airport Pickup", "Airport Dropoff"];
   return (
     <div className="space-y-6">
+      {/* Transfer type */}
+      {isAirportTransfer && (
+        <div className="space-y-1">
+          <SelectField2
+            label="Transfer Type"
+            name="transferType"
+            options={transferData}
+            value={formData.transferType}
+            onChange={handleSelectChange}
+            error={errors.transferType}
+            placeholder="-- Select Transfer Type --"
+          />
+        </div>
+      )}
       {/* Pickup Location */}
       <div className="space-y-1">
         <Label htmlFor="pickup_location" className="text-black">
@@ -51,7 +69,9 @@ export default function Step2TripDetails({
           {/* Flight Number */}
           <div className="space-y-1">
             <Label htmlFor="flight_number" className="text-black">
-              Flight Number <span className="text-copper">*</span>
+              Flight Number{" "}
+              {formData.transferType.trim().toLowerCase() ===
+                "airport pickup" && <span className="text-copper">*</span>}
             </Label>
             <Input
               id="flight_number"
@@ -69,7 +89,9 @@ export default function Step2TripDetails({
           {/* Flight Arrival Time */}
           <div className="space-y-1">
             <Label htmlFor="flight_arrival_time" className="text-black">
-              Flight Arrival Time <span className="text-copper">*</span>
+              Flight Arrival Time{" "}
+              {formData.transferType.trim().toLowerCase() ===
+                "airport pickup" && <span className="text-copper">*</span>}
             </Label>
             <Input
               id="flight_arrival_time"
@@ -83,23 +105,6 @@ export default function Step2TripDetails({
               <p className="text-sm text-red-500">
                 {errors.flight_arrival_time}
               </p>
-            )}
-          </div>
-          {/* Flight Departure Time */}
-          <div className="space-y-1">
-            <Label htmlFor="flight_departure_time" className="text-black">
-              Flight Departure Time(optional)
-            </Label>
-            <Input
-              id="flight_departure_time"
-              name="flight_departure"
-              type="time"
-              value={formData.flight_departure || ""}
-              onChange={handleInputChange}
-              className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black "
-            />
-            {errors.flight_departure && (
-              <p className="text-sm text-red-500">{errors.flight_departure}</p>
             )}
           </div>
         </div>
@@ -129,7 +134,7 @@ export default function Step2TripDetails({
         </div>
       )}
 
-      {(formData.is_round_trip === "1" && formData.is_duration_trip === "0") && (
+      {formData.is_round_trip === "1" && formData.is_duration_trip === "0" && (
         <>
           <div className="space-y-1">
             <Label htmlFor="round_trip_pickup" className="text-black">
@@ -198,25 +203,53 @@ export default function Step2TripDetails({
                 </p>
               )}
             </div>
-              {/* {isAirportTransfer && (
-                <div className="space-y-1">
-              <Label htmlFor="flight_number" className="text-black">
-                Flight Number (optional)
-              </Label>
-              <Input
-                id="flight_number"
-                name="flight_number"
-                placeholder="e.g. QF409"
-                value={formData.flight_number || ""}
-                onChange={handleInputChange}
-                className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black"
-              />
-              {errors.flight_number && (
-                <p className="text-sm text-red-500">{errors.flight_number}</p>
-              )}
-            </div>
-              )} */}
           </div>
+          {isAirportTransfer &&
+            formData.transferType.trim().toLowerCase() ===
+              "airport dropoff" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-1">
+                  <Label htmlFor="return_flight_number" className="text-black">
+                    Flight Number <span className="text-copper">*</span>
+                  </Label>
+                  <Input
+                    id="return_flight_number"
+                    name="return_flight_number"
+                    placeholder="e.g. QF409"
+                    value={formData.return_flight_number || ""}
+                    onChange={handleInputChange}
+                    className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black"
+                  />
+                  {errors.return_flight_number && (
+                    <p className="text-sm text-red-500">
+                      {errors.return_flight_number}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="flight_arrival_time" className="text-black">
+                    Flight Arrival Time{" "}
+                    {formData.transferType.trim().toLowerCase() ===
+                      "airport dropoff" && (
+                      <span className="text-copper">*</span>
+                    )}
+                  </Label>
+                  <Input
+                    id="return_flight_arrival_time"
+                    name="return_flight_arrival_time"
+                    type="time"
+                    value={formData.return_flight_arrival_time || ""}
+                    onChange={handleInputChange}
+                    className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black "
+                  />
+                  {errors.return_flight_arrival_time && (
+                    <p className="text-sm text-red-500">
+                      {errors.return_flight_arrival_time}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
         </>
       )}
     </div>

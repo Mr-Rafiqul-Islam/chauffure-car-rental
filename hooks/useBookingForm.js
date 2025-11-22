@@ -23,8 +23,10 @@ export default function useBookingForm({ fleetData = [] }) {
     drop_location: "",
     drop_locationCoordinates: null,
     flight_arrival_time: "",
-    flight_departure: "",
+    transferType: "",
     flight_number: "",
+    return_flight_arrival_time: "",
+    return_flight_number: "",
     distance: null,
     estimatedPrice: null,
     baseFare: null,
@@ -151,10 +153,20 @@ export default function useBookingForm({ fleetData = [] }) {
       if (!formData.drop_location)
         newErrors.drop_location = "Dropoff location is required.";
       if (formData.serviceType.trim().toLowerCase() === "airport transfers") {
-        if (!formData.flight_arrival_time)
-          newErrors.flight_arrival_time = "Flight arrival time is required.";
-        if (!formData.flight_number)
-          newErrors.flight_number = "Flight number is required.";
+        if (!formData.transferType)
+          newErrors.transferType = "Transfer type is required.";
+        if (formData.transferType.trim().toLowerCase() === "airport pickup") {
+          if (!formData.flight_arrival_time)
+            newErrors.flight_arrival_time = "Flight arrival time is required.";
+          if (!formData.flight_number)
+            newErrors.flight_number = "Flight number is required.";
+        }
+        if (formData.transferType.trim().toLowerCase() === "airport dropoff" && formData.is_round_trip === "1") {
+          if (!formData.return_flight_arrival_time)
+            newErrors.return_flight_arrival_time = "Flight arrival time is required.";
+          if (!formData.return_flight_number)
+            newErrors.return_flight_number = "Flight number is required.";
+        }
       }
       if (formData.is_round_trip === "1") {
         if (!formData.round_trip_date)
@@ -206,7 +218,10 @@ export default function useBookingForm({ fleetData = [] }) {
         );
 
         // if round trip, try to calculate the return leg using explicit round trip coords
-        if (formData.is_round_trip === "1" && formData.is_duration_trip === "0") {
+        if (
+          formData.is_round_trip === "1" &&
+          formData.is_duration_trip === "0"
+        ) {
           const rtFrom =
             formData.round_trip_pickupCoordinates ||
             formData.drop_locationCoordinates;
@@ -338,8 +353,10 @@ export default function useBookingForm({ fleetData = [] }) {
       drop_location: "",
       drop_locationCoordinates: null,
       flight_arrival_time: "",
-      flight_departure: "",
       flight_number: "",
+      transferType: "",
+      return_flight_arrival_time: "",
+      return_flight_number: "",
       distance: null,
       estimatedPrice: null,
       baseFare: null,
