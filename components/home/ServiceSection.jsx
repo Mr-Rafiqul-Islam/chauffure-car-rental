@@ -11,7 +11,7 @@ const ServiceSection = ({ servicesData }) => {
   }
   return (
     <section className="lg:px-20 md:px-10 px-5 py-10">
-      <div className="mx-auto flex justify-center object-center px-4 py-16 sm:py-24 lg:max-w-7xl">
+      <div className="mx-auto flex justify-center object-center px-4 lg:max-w-7xl">
         <div className="flex flex-col justify-center items-center">
           <TextGenerateEffect
             words={"Our Services"}

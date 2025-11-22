@@ -10,6 +10,7 @@ import Image from "next/image";
 import TextRevealLetters from "../mvpblocks/text-reveal-1";
 import BookingForm from "../booking-form/BookingForm";
 import TextType from "../TextType";
+import { Spotlight } from "../ui/spotlight";
 
 export default function Banner({ servicesData, fleetData, bannerImages }) {
   return (
@@ -32,7 +33,7 @@ export default function Banner({ servicesData, fleetData, bannerImages }) {
         </div>
 
         {/* Booking form (Desktop only) */}
-        <div className="absolute hidden xl:block top-1/2 right-[12.5%] transform -translate-y-1/2 z-40">
+        <div className="absolute hidden 2xl:block top-1/2 right-[12.5%] transform -translate-y-1/2 z-40">
           <BookingForm servicesData={servicesData} fleetData={fleetData} />
         </div>
 
@@ -60,11 +61,17 @@ export default function Banner({ servicesData, fleetData, bannerImages }) {
           ))}
         </Swiper>
       </section>
-
-      {/* Booking form (Mobile) */}
-      <div className="xl:hidden flex justify-center py-10 px-4">
-        <BookingForm servicesData={servicesData} fleetData={fleetData} />
+      <section className="2xl:hidden relative w-full overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.2),transparent_60%)]" />
+        <div className="bg-primary/5 absolute top-1/4 left-1/4 h-32 w-32 rounded-full blur-3xl" />
+        <div className="bg-primary/10 absolute right-1/4 bottom-1/4 h-40 w-40 rounded-full blur-3xl" />
       </div>
+        {/* Booking form (Mobile) */}
+        <div className="flex justify-center py-10 px-4">
+          <BookingForm servicesData={servicesData} fleetData={fleetData} />
+        </div>
+      </section>
     </>
   );
 }
