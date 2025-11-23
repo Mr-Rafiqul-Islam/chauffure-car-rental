@@ -172,7 +172,7 @@ const BookingInfo = ({ booking }) => {
                 </div>
                 <div>
                   <strong>To: </strong>
-                  {booking.round_trip_dropup}
+                  {booking.round_trip_dropoff}
                 </div>
                 {booking.service?.name === "Airport Transfers" &&
                   booking.return_flight_number &&

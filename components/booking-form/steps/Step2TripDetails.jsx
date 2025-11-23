@@ -27,11 +27,11 @@ export default function Step2TripDetails({
         <div className="space-y-1">
           <SelectField2
             label="Transfer Type"
-            name="transferType"
+            name="transfer_type"
             options={transferData}
-            value={formData.transferType}
+            value={formData.transfer_type}
             onChange={handleSelectChange}
-            error={errors.transferType}
+            error={errors.transfer_type}
             placeholder="-- Select Transfer Type --"
           />
         </div>
@@ -70,7 +70,7 @@ export default function Step2TripDetails({
           <div className="space-y-1">
             <Label htmlFor="flight_number" className="text-black">
               Flight Number{" "}
-              {formData.transferType.trim().toLowerCase() ===
+              {formData.transfer_type.trim().toLowerCase() ===
                 "airport pickup" && <span className="text-copper">*</span>}
             </Label>
             <Input
@@ -90,7 +90,7 @@ export default function Step2TripDetails({
           <div className="space-y-1">
             <Label htmlFor="flight_arrival_time" className="text-black">
               Flight Arrival Time{" "}
-              {formData.transferType.trim().toLowerCase() ===
+              {formData.transfer_type.trim().toLowerCase() ===
                 "airport pickup" && <span className="text-copper">*</span>}
             </Label>
             <Input
@@ -205,7 +205,7 @@ export default function Step2TripDetails({
             </div>
           </div>
           {isAirportTransfer &&
-            formData.transferType.trim().toLowerCase() ===
+            formData.transfer_type.trim().toLowerCase() ===
               "airport dropoff" && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1">
@@ -229,7 +229,7 @@ export default function Step2TripDetails({
                 <div className="space-y-1">
                   <Label htmlFor="flight_arrival_time" className="text-black">
                     Flight Arrival Time{" "}
-                    {formData.transferType.trim().toLowerCase() ===
+                    {formData.transfer_type.trim().toLowerCase() ===
                       "airport dropoff" && (
                       <span className="text-copper">*</span>
                     )}

@@ -23,7 +23,7 @@ export default function useBookingForm({ fleetData = [] }) {
     drop_location: "",
     drop_locationCoordinates: null,
     flight_arrival_time: "",
-    transferType: "",
+    transfer_type: "",
     flight_number: "",
     return_flight_arrival_time: "",
     return_flight_number: "",
@@ -153,17 +153,21 @@ export default function useBookingForm({ fleetData = [] }) {
       if (!formData.drop_location)
         newErrors.drop_location = "Dropoff location is required.";
       if (formData.serviceType.trim().toLowerCase() === "airport transfers") {
-        if (!formData.transferType)
-          newErrors.transferType = "Transfer type is required.";
-        if (formData.transferType.trim().toLowerCase() === "airport pickup") {
+        if (!formData.transfer_type)
+          newErrors.transfer_type = "Transfer type is required.";
+        if (formData.transfer_type.trim().toLowerCase() === "airport pickup") {
           if (!formData.flight_arrival_time)
             newErrors.flight_arrival_time = "Flight arrival time is required.";
           if (!formData.flight_number)
             newErrors.flight_number = "Flight number is required.";
         }
-        if (formData.transferType.trim().toLowerCase() === "airport dropoff" && formData.is_round_trip === "1") {
+        if (
+          formData.transfer_type.trim().toLowerCase() === "airport dropoff" &&
+          formData.is_round_trip === "1"
+        ) {
           if (!formData.return_flight_arrival_time)
-            newErrors.return_flight_arrival_time = "Flight arrival time is required.";
+            newErrors.return_flight_arrival_time =
+              "Flight arrival time is required.";
           if (!formData.return_flight_number)
             newErrors.return_flight_number = "Flight number is required.";
         }
@@ -173,10 +177,12 @@ export default function useBookingForm({ fleetData = [] }) {
           newErrors.round_trip_date = "Return date is required for round trip.";
         if (!formData.round_trip_time)
           newErrors.round_trip_time = "Return time is required for round trip.";
-        if( !formData.round_trip_pickup )
-          newErrors.round_trip_pickup = "Return pickup location is required for round trip.";
-        if( !formData.round_trip_dropoff )
-          newErrors.round_trip_dropoff = "Return dropoff location is required for round trip.";
+        if (!formData.round_trip_pickup)
+          newErrors.round_trip_pickup =
+            "Return pickup location is required for round trip.";
+        if (!formData.round_trip_dropoff)
+          newErrors.round_trip_dropoff =
+            "Return dropoff location is required for round trip.";
       }
     } else if (currentStep === 4) {
       if (!formData.name) newErrors.name = "Full name is required.";
@@ -358,7 +364,7 @@ export default function useBookingForm({ fleetData = [] }) {
       drop_locationCoordinates: null,
       flight_arrival_time: "",
       flight_number: "",
-      transferType: "",
+      transfer_type: "",
       return_flight_arrival_time: "",
       return_flight_number: "",
       distance: null,
