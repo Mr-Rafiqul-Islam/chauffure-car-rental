@@ -1,3 +1,4 @@
+import WhatsAppBtn from "@/components/common/WhatsAppBtn";
 import "./globals.css";
 import FooterGlow from "@/components/mvpblocks/footer-glow";
 import Header from "@/components/mvpblocks/header-1";
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }) {
           <Toaster className="" />
           <Header servicesDropdownItems={formattedServicesList} />
           {children}
+          <WhatsAppBtn />
           <FooterGlow />
         </AuthProvider>
       </body>
