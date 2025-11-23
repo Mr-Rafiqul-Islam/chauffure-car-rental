@@ -64,51 +64,52 @@ export default function Step2TripDetails({
         />
       </div>
       {/* Airport Transfer Details */}
-      {isAirportTransfer && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Flight Number */}
-          <div className="space-y-1">
-            <Label htmlFor="flight_number" className="text-black">
-              Flight Number{" "}
-              {formData.transfer_type.trim().toLowerCase() ===
-                "airport pickup" && <span className="text-copper">*</span>}
-            </Label>
-            <Input
-              id="flight_number"
-              name="flight_number"
-              placeholder="e.g. QF409"
-              value={formData.flight_number || ""}
-              onChange={handleInputChange}
-              className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black"
-            />
-            {errors.flight_number && (
-              <p className="text-sm text-red-500">{errors.flight_number}</p>
-            )}
-          </div>
+      {(isAirportTransfer &&
+        formData.transfer_type.trim().toLowerCase() === "airport pickup") && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Flight Number */}
+            <div className="space-y-1">
+              <Label htmlFor="flight_number" className="text-black">
+                Flight Number{" "}
+                {formData.transfer_type.trim().toLowerCase() ===
+                  "airport pickup" && <span className="text-copper">*</span>}
+              </Label>
+              <Input
+                id="flight_number"
+                name="flight_number"
+                placeholder="e.g. QF409"
+                value={formData.flight_number || ""}
+                onChange={handleInputChange}
+                className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black"
+              />
+              {errors.flight_number && (
+                <p className="text-sm text-red-500">{errors.flight_number}</p>
+              )}
+            </div>
 
-          {/* Flight Arrival Time */}
-          <div className="space-y-1">
-            <Label htmlFor="flight_arrival_time" className="text-black">
-              Flight Arrival Time{" "}
-              {formData.transfer_type.trim().toLowerCase() ===
-                "airport pickup" && <span className="text-copper">*</span>}
-            </Label>
-            <Input
-              id="flight_arrival_time"
-              name="flight_arrival_time"
-              type="time"
-              value={formData.flight_arrival_time || ""}
-              onChange={handleInputChange}
-              className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black "
-            />
-            {errors.flight_arrival_time && (
-              <p className="text-sm text-red-500">
-                {errors.flight_arrival_time}
-              </p>
-            )}
+            {/* Flight Arrival Time */}
+            <div className="space-y-1">
+              <Label htmlFor="flight_arrival_time" className="text-black">
+                Flight Arrival Time{" "}
+                {formData.transfer_type.trim().toLowerCase() ===
+                  "airport pickup" && <span className="text-copper">*</span>}
+              </Label>
+              <Input
+                id="flight_arrival_time"
+                name="flight_arrival_time"
+                type="time"
+                value={formData.flight_arrival_time || ""}
+                onChange={handleInputChange}
+                className="w-full border px-4 py-2 rounded-md text-black border-gray-300 focus-visible:ring-1 focus-visible:ring-black "
+              />
+              {errors.flight_arrival_time && (
+                <p className="text-sm text-red-500">
+                  {errors.flight_arrival_time}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       {formData.is_duration_trip === "0" && (
         <div className="flex items-center gap-3">
           <Checkbox
