@@ -69,7 +69,7 @@ export default function Header({ servicesDropdownItems }) {
       }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between lg:h-28">
+        <div className="flex h-24 items-center justify-between lg:h-28">
           <motion.div
             className="flex items-center space-x-2"
             whileHover={{ scale: 1.05 }}
