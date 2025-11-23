@@ -1,18 +1,14 @@
 import React from "react";
-import BlogCard from "../common/BlogCard";
 import SectionTitle from "../common/SectionTitle";
 import AnimatedBtn1 from "../mvpblocks/animatedbtn";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import BlogGrid from "../common/BlogGrid"; // Import the new Grid
 
-
-export default function BlogSection({ from, blogData }) {
-  if (!blogData || blogData.length === 0) {
-    notFound(); 
-  }
+export default function BlogSection({ from, blogData, children }) {
   return (
-    <section className="bg-black text-zinc-300 py-16 sm:py-24">
+    <section id="blog-feed" className="bg-black text-zinc-300 py-16 sm:py-24">
       <div className="container mx-auto px-4">
+        {/* Common Title Section */}
         <div className="text-center max-w-2xl mx-auto mb-12">
           <SectionTitle title="From Our Blogs" />
           <p className="mt-6 text-lg leading-8 text-zinc-400">
@@ -21,18 +17,23 @@ export default function BlogSection({ from, blogData }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {blogData.map((post) => (
-            <BlogCard key={post.title} post={post} />
-          ))}
-        </div>
-        <div className="mt-10">
-          {!from && (
-            <Link href="/blogs" className="">
+        {/* CONTENT SWITCHER */}
+        {children ? (
+            // 1. Used by BLOGS PAGE (for Suspense/Pagination)
+            children
+        ) : (
+            // 2. Used by HOME PAGE (Static Data)
+            <BlogGrid data={blogData} />
+        )}
+
+        {/* Explore More Button (Only show if NOT on the main blogs page) */}
+        {from !== "blogs" && (
+          <div className="mt-10 text-center">
+            <Link href="/blogs">
               <AnimatedBtn1>Explore More</AnimatedBtn1>
             </Link>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
