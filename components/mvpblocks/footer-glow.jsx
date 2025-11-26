@@ -41,7 +41,7 @@ export default function FooterGlow() {
           <Link href="#" className="mb-4 flex items-center gap-2">
             <Image
               src="/logo_transparent.png"
-              alt="logo"
+              alt="Premium Chauffeur Car Service Melbourne"
               width={250}
               height={100}
             />

@@ -21,8 +21,18 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Premium Chauffeur Car Service",
-  description: "A Premium Chauffeur Car Service in Melbourne",
+  title: {
+    default: "Premium Chauffeur Car Service Melbourne",
+    template: "%s | Premium Chauffeur Car Service Melbourne", 
+  },
+  description: "A Premium Chauffeur Car Service in Melbourne offering airport transfers, corporate travel, and special occasions.",
+  icons: {
+    icon: "/favicon.ico", 
+  },
+  openGraph: {
+    title: "Premium Chauffeur Car Service",
+    description: "A Premium Chauffeur Car Service in Melbourne",
+  },
 };
 
 export default async function RootLayout({ children }) {

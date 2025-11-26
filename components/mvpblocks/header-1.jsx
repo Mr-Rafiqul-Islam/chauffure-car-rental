@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import AnimatedBtn1 from "./animatedbtn";
 import logo from "../../public/logo_transparent.png";
@@ -82,7 +82,7 @@ export default function Header({ servicesDropdownItems }) {
             >
                 <Image
                   src={logo}
-                  alt="Luxury Chauffeur Logo"
+                  alt="Premium Chauffeur Car Service"
                   width={180}
                   height={40}
                 />
