@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Luxury Chauffeur — Premium Chauffeur Service Website
 
-## Getting Started
+A modern, responsive website for **Luxury Chauffeur** — A Premium Chauffeur Booking Service based in Melbourne.  
+Built with **Next.js**, **Tailwind CSS**, and **ShadCN UI**, and backed by **MongoDB** for service & booking data.
 
-First, run the development server:
+---
 
+## 🚀 Live Preview ([Demo](https://luxurychauffeurcar.com.au/))
+
+![Luxury Chauffeur Car Service](/public/demo.png) 
+
+
+## 🚀 Features
+
+- SEO-friendly Next.js pages (services, fleets, bookings, blogs, contact, about)
+- Responsive, luxury-first UI using Tailwind CSS + ShadCN UI
+- Service detail pages, blog posts, and fleet listings
+- Airport transfers, hourly hire, event & conference, wedding packages
+- Server actions / API routes for fetching & managing services
+- Authentication-ready hooks (prepare for NextAuth or other auth)
+- Admin-ready structure for managing services & bookings
+- Clean, accessible components and consistent design tokens
+
+---
+
+## 🧱 Tech Stack
+
+- **Framework:** Next.js 14 (app router)
+- **Styling:** Tailwind CSS + custom theme
+- **UI:** ShadCN UI components
+- **Icons / Animations:** lucide-react, framer-motion 
+- **Utilities:** Zod + React Hook Form (for multi-step booking forms — optional)
+
+---
+
+## 🛠️ Setup & Local Development
+
+1. **Clone the repo**
 ```bash
+git clone https://github.com/Mr-Rafiqul-Islam/chauffure-car-rental.git
+cd chauffeur-car-rental
+
+# npm
+npm install
+
+# run the app
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+The project will start at:
+http://localhost:5173
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+--------------Made with ❤️ for my 1st Foriegn Client-----------------
