@@ -119,3 +119,51 @@ export const getSliders = async () => {
     return [];
   }
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    const res = await fetch(`/api/forgot-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!res.ok) {
+      // Try to extract the specific error message from the server, if one exists
+      const errorData = await res.json().catch(() => null); 
+      throw new Error(errorData?.message || "Failed to reset password");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error forgetting password:", error);
+    throw error;
+  }
+};
+
+export const resetPassword = async (email, token, password) => {
+  try {
+    const res = await fetch(`/api/reset-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, token, password }),
+    });
+
+    if (!res.ok) {
+      // Try to extract the specific error message from the server, if one exists
+      const errorData = await res.json().catch(() => null); 
+      throw new Error(errorData?.message || "Failed to reset password");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    throw error;
+  }
+};
