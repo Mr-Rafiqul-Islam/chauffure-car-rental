@@ -11,7 +11,18 @@ import TextRevealLetters from "../mvpblocks/text-reveal-1";
 import BookingForm from "../booking-form/BookingForm";
 import TextType from "../TextType";
 
+const STATIC_IMAGES = [
+  { image: "/assets/banner/main-banner.png" }, 
+  { image: "/assets/banner/banner1.jpg" },
+];
+
 export default function Banner({ servicesData, fleetData, bannerImages }) {
+  
+  // Use bannerImages if available, otherwise use fallback images
+  const slidesToDisplay = (bannerImages && bannerImages.length > 0) 
+    ? bannerImages 
+    : STATIC_IMAGES;
+
   return (
     <>
       <section className="w-full relative">
@@ -45,7 +56,8 @@ export default function Banner({ servicesData, fleetData, bannerImages }) {
           effect="fade"
           className="custom-swiper"
         >
-          {bannerImages.map((src, index) => (
+          {/* 3. Map over slidesToDisplay instead of bannerImages */}
+          {slidesToDisplay.map((src, index) => (
             <SwiperSlide key={index}>
               <div className="min-h-80 md:min-h-96 xl:min-h-[600px] mid:min-h-screen w-full">
                 <Image
@@ -53,19 +65,20 @@ export default function Banner({ servicesData, fleetData, bannerImages }) {
                   alt={`Banner Image ${index + 1}`}
                   className="object-cover"
                   fill
-                  priority
+                  priority={index === 0} // Only prioritize the first image
                 />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </section>
+      
       <section className="mid:hidden relative w-full overflow-hidden">
         <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.2),transparent_60%)]" />
-        <div className="bg-primary/5 absolute top-1/4 left-1/4 h-32 w-32 rounded-full blur-3xl" />
-        <div className="bg-primary/10 absolute right-1/4 bottom-1/4 h-40 w-40 rounded-full blur-3xl" />
-      </div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--primary)/0.2),transparent_60%)]" />
+          <div className="bg-primary/5 absolute top-1/4 left-1/4 h-32 w-32 rounded-full blur-3xl" />
+          <div className="bg-primary/10 absolute right-1/4 bottom-1/4 h-40 w-40 rounded-full blur-3xl" />
+        </div>
         {/* Booking form (Mobile) */}
         <div className="flex justify-center py-10 px-4">
           <BookingForm servicesData={servicesData} fleetData={fleetData} />
