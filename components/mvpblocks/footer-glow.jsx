@@ -3,18 +3,46 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // ⬅️ ADDED useEffect
+import { useSearchParams, useRouter } from "next/navigation"; // ⬅️ ADDED useSearchParams and useRouter
 import SigninModal from "../common/SigninModal";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function FooterGlow() {
   const [isSigninOpen, setIsSigninOpen] = useState(false);
   const { logout, isAuthenticated } = useAuth();
+
+  // --- New Logic for Query Parameters ---
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  // State to prevent the modal from popping up again if the user closes it manually
+  const [initialOpenHandled, setInitialOpenHandled] = useState(false);
+
+  useEffect(() => {
+    // 1. Get the parameter value from the URL
+    const showLoginParam = searchParams.get('showLogin');
+    
+    // 2. Check if the parameter is 'true' and we haven't handled this action yet
+    if (showLoginParam === 'true' && !initialOpenHandled) {
+      // Open the Signin Modal
+      setIsSigninOpen(true);
+      setInitialOpenHandled(true); // Mark as handled
+
+      // 3. OPTIONAL: Clean up the URL
+      // This removes '?showLogin=true' from the browser address bar 
+      // without reloading the page, improving the user experience.
+      // After this, refreshing the page won't reopen the modal automatically.
+      router.replace('/', { scroll: false }); 
+    }
+  }, [searchParams, initialOpenHandled, router]);
+  // ------------------------------------
+
   return (
     <footer className="relative z-10 mt-8 w-full overflow-hidden pt-16 pb-8">
       <style jsx global>{`
         .glass {
-          display: flex
+          display: flex;
           backdrop-filter: blur(2px) !important;
           background: radial-gradient(circle, #ffffff1a 0%, #1e00001a 60%, #2a0e0e 100%) !important;
           border: 1px solid #ffffff0d !important;
@@ -23,7 +51,7 @@ export default function FooterGlow() {
           align-items: center !important;
         }
         .glass:where(.dark, .dark *) {
-          display: flex
+          display: flex;
           backdrop-filter: blur(2px) !important;
           background: radial-gradient(circle, #ffffff1a 0%, #1e00001a 60%, #2a0e0e 100%) !important;
           border: 1px solid #ffffff0d !important;
