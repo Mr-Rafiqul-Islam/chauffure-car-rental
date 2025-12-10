@@ -327,10 +327,7 @@ export default function useBookingForm({ fleetData = [] }) {
           resetForm();
           if (bookingId) {
             setTimeout(() => {
-              window.open(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/payment/${bookingId}`,
-                "_blank"
-              );
+              window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/payment/${bookingId}`;
             }, 1000);
           }
         })

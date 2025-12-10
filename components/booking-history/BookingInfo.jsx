@@ -224,10 +224,7 @@ const BookingInfo = ({ booking }) => {
           <button
             onClick={() => {
               // Handle payment logic here, e.g., redirect to payment page
-              window.open(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/payment/${booking.id}`,
-                "_blank"
-              );
+              window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/payment/${booking.id}`;
             }}
             className="bg-copper text-white font-bold py-2 px-6 rounded-lg hover:bg-[#D4AF37] hover:scale-105 transition-all duration-300"
           >
