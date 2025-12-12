@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# System folders (not useful for search)
+Disallow: /cgi-bin/
+
+# Block common tracking / ad parameters to avoid duplicate URLs
+Disallow: /*?utm_
+Disallow: /*&utm_
+Disallow: /*?fbclid=
+Disallow: /*&fbclid=
+Disallow: /*?gclid=
+Disallow: /*&gclid=
+
+Sitemap: https://luxurychauffeurcar.com.au/sitemap.xml
